@@ -41,7 +41,25 @@
     --transition:.30s ease;
 
 }
+/* =====================================================
+   MODE SOMBRE
+===================================================== */
 
+body.dark-mode{
+
+    --background:#0f172a;
+    --white:#1e293b;
+
+    --text:#f8fafc;
+    --text-light:#cbd5e1;
+
+    --border:#334155;
+
+    --shadow-sm:0 2px 8px rgba(0,0,0,.35);
+    --shadow:0 10px 25px rgba(0,0,0,.45);
+    --shadow-lg:0 20px 45px rgba(0,0,0,.60);
+
+}
 /* ========================= */
 
 *{
@@ -1577,7 +1595,45 @@ button::after,
 }
 
 button:hover::after,
-.btn:hover::after{
+./* =====================================================
+   BOUTON MODE SOMBRE
+===================================================== */
+
+#theme-toggle{
+
+    position:fixed;
+
+    top:20px;
+    right:20px;
+
+    width:52px;
+    height:52px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--blue);
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    box-shadow:var(--shadow);
+
+    transition:.3s;
+
+    z-index:9999;
+
+}
+
+#theme-toggle:hover{
+
+    transform:scale(1.08);
+
+}btn:hover::after{
 
     left:150%;
 

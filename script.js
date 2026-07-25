@@ -912,3 +912,31 @@ document.getElementById("author").textContent =
 `— ${randomQuote.author}`;
 
 console.log("Module 9 chargé");
+/* =====================================================
+   MODULE 10
+   Mode sombre
+===================================================== */
+
+const themeBtn = document.getElementById("theme-toggle");
+
+if(localStorage.getItem("theme")==="dark"){
+
+    document.body.classList.add("dark-mode");
+
+    themeBtn.textContent="☀️";
+
+}
+
+themeBtn.addEventListener("click",()=>{
+
+    document.body.classList.toggle("dark-mode");
+
+    const dark=document.body.classList.contains("dark-mode");
+
+    themeBtn.textContent=dark ? "☀️" : "🌙";
+
+    localStorage.setItem("theme",dark ? "dark":"light");
+
+});
+
+console.log("Module 10 chargé");
