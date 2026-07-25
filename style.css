@@ -1,0 +1,1446 @@
+/* =====================================================
+   CHESS.DEV V4
+   MODULE 1
+   VARIABLES + RESET
+===================================================== */
+
+:root{
+
+    /* Couleurs */
+
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --blue-light:#dbeafe;
+
+    --gold:#d4af37;
+    --green:#22c55e;
+    --orange:#f59e0b;
+    --red:#ef4444;
+
+    --background:#f5f7fb;
+    --white:#ffffff;
+
+    --text:#1f2937;
+    --text-light:#6b7280;
+
+    --border:#e5e7eb;
+
+    /* Ombres */
+
+    --shadow-sm:0 2px 8px rgba(0,0,0,.08);
+    --shadow:0 10px 25px rgba(0,0,0,.12);
+    --shadow-lg:0 20px 45px rgba(0,0,0,.18);
+
+    /* Arrondis */
+
+    --radius:16px;
+    --radius-lg:24px;
+
+    /* Animations */
+
+    --transition:.30s ease;
+
+}
+
+/* ========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    font-family:
+    "Segoe UI",
+    Arial,
+    Helvetica,
+    sans-serif;
+
+    background:var(--background);
+
+    color:var(--text);
+
+    line-height:1.7;
+
+    font-size:17px;
+
+}
+
+img{
+
+    display:block;
+
+    max-width:100%;
+
+}
+
+button{
+
+    font-family:inherit;
+
+    cursor:pointer;
+
+    border:none;
+
+}
+
+a{
+
+    color:inherit;
+
+    text-decoration:none;
+
+}
+
+ul{
+
+    padding-left:25px;
+
+}
+
+table{
+
+    border-collapse:collapse;
+
+}/* =====================================================
+   MODULE 2
+   CONTAINER
+===================================================== */
+
+.container{
+
+    width:min(1200px,92%);
+
+    margin:auto;
+
+}
+
+/* =====================================================
+   TITRES
+===================================================== */
+
+h1{
+
+    font-size:3.2rem;
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+    font-weight:800;
+
+}
+
+.chess{
+
+    color:var(--blue);
+
+}
+
+.dev{
+
+    color:var(--gold);
+
+}
+
+h2{
+
+    font-size:2.2rem;
+
+    margin-bottom:25px;
+
+    color:var(--blue-dark);
+
+}
+
+h3{
+
+    font-size:1.5rem;
+
+    margin:20px 0;
+
+}
+
+h4{
+
+    font-size:1.2rem;
+
+    margin:15px 0;
+
+}
+
+p{
+
+    margin-bottom:18px;
+
+}/* =====================================================
+   MODULE 3
+   HEADER
+===================================================== */
+
+#accueil{
+
+    text-align:center;
+
+    padding:70px 20px 50px;
+
+    cursor:pointer;
+
+}
+
+#accueil::after{
+
+    content:"";
+
+    display:block;
+
+    width:120px;
+
+    height:5px;
+
+    background:linear-gradient(
+        90deg,
+        var(--gold),
+        var(--blue)
+    );
+
+    margin:25px auto 0;
+
+    border-radius:20px;
+
+}/* =====================================================
+   MODULE 4
+   SOMMAIRE
+===================================================== */
+
+.sommaire{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    margin:50px 0;
+
+    box-shadow:var(--shadow);
+
+}
+
+.sommaire h2{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+.sommaire ul{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(180px,1fr));
+
+    gap:18px;
+
+    list-style:none;
+
+    padding:0;
+
+}
+
+.sommaire li{
+
+    text-align:center;
+
+}
+
+.sommaire a{
+
+    display:block;
+
+    background:var(--blue);
+
+    color:white;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    transition:var(--transition);
+
+    font-weight:600;
+
+}
+
+.sommaire a:hover{
+
+    transform:translateY(-4px);
+
+    background:var(--blue-dark);
+
+}/* =====================================================
+   MODULE 5
+   SECTIONS
+===================================================== */
+
+section{
+
+    margin:80px 0;
+
+}
+
+section h2{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+.intro-histoire,
+.intro-nations{
+
+    max-width:900px;
+
+    margin:0 auto 40px;
+
+    text-align:center;
+
+    color:var(--text-light);
+
+    font-size:1.05rem;
+
+}
+
+hr{
+
+    border:none;
+
+    height:1px;
+
+    background:var(--border);
+
+    margin:45px 0;
+
+}
+
+strong{
+
+    color:var(--blue-dark);
+
+}/* =====================================================
+   MODULE 6
+   STATISTIQUES
+===================================================== */
+
+.stats-section{
+
+    margin:70px 0;
+
+}
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
+
+    gap:25px;
+
+}
+
+.stat-card{
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    box-shadow:var(--shadow);
+
+    transition:.35s;
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+.stat-icon{
+
+    font-size:3rem;
+
+    margin-bottom:20px;
+
+}
+
+.counter{
+
+    font-size:2.8rem;
+
+    color:var(--blue);
+
+    font-weight:800;
+
+    margin-bottom:12px;
+
+}
+
+.stat-card p{
+
+    margin:0;
+
+    color:var(--text-light);
+
+}/* =====================================================
+   MODULE 7
+   TIMELINE
+===================================================== */
+
+.timeline{
+
+    position:relative;
+
+    max-width:950px;
+
+    margin:auto;
+
+    padding:20px 0;
+
+}
+
+.timeline::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+
+    top:0;
+
+    bottom:0;
+
+    width:4px;
+
+    background:var(--blue);
+
+    transform:translateX(-50%);
+
+    border-radius:10px;
+
+}
+
+.timeline-item{
+
+    position:relative;
+
+    width:50%;
+
+    padding:20px 40px;
+
+}
+
+.timeline-item:nth-child(odd){
+
+    left:0;
+
+    text-align:right;
+
+}
+
+.timeline-item:nth-child(even){
+
+    left:50%;
+
+}
+
+.timeline-date{
+
+    display:inline-block;
+
+    background:var(--gold);
+
+    color:white;
+
+    padding:8px 18px;
+
+    border-radius:50px;
+
+    font-weight:700;
+
+    margin-bottom:15px;
+
+}
+
+.timeline-content{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:18px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.timeline-content h3{
+
+    margin-top:0;
+
+}
+
+.timeline-item::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:40px;
+
+    width:18px;
+
+    height:18px;
+
+    background:var(--blue);
+
+    border:4px solid white;
+
+    border-radius:50%;
+
+    box-shadow:0 0 0 4px var(--blue-light);
+
+}
+
+.timeline-item:nth-child(odd)::after{
+
+    right:-9px;
+
+}
+
+.timeline-item:nth-child(even)::after{
+
+    left:-9px;
+
+}/* =====================================================
+   MODULE 8
+   GRANDES NATIONS
+===================================================== */
+
+.nations-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(300px,1fr));
+
+    gap:30px;
+
+}
+
+.nation-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow);
+
+    transition:.35s;
+
+}
+
+.nation-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+.nation-card img{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+}
+
+.nation-body{
+
+    padding:25px;
+
+}
+
+.niveau{
+
+    display:inline-block;
+
+    padding:7px 14px;
+
+    border-radius:40px;
+
+    color:white;
+
+    font-size:.9rem;
+
+    font-weight:700;
+
+    margin:15px 0;
+
+}
+
+.rouge{
+
+    background:#dc2626;
+
+}
+
+.orange{
+
+    background:#f59e0b;
+
+}
+
+.jaune{
+
+    background:#eab308;
+
+    color:#222;
+
+}
+
+.vert{
+
+    background:#22c55e;
+
+}
+
+.nation-body p{
+
+    margin:12px 0;
+
+}/* =====================================================
+   MODULE 9
+   TABLEAUX
+===================================================== */
+
+table{
+
+    width:100%;
+
+    margin:40px 0;
+
+    background:white;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow);
+
+}
+
+th{
+
+    background:var(--blue);
+
+    color:white;
+
+    padding:18px;
+
+    font-size:1rem;
+
+}
+
+td{
+
+    padding:16px;
+
+    text-align:center;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+tr:last-child td{
+
+    border-bottom:none;
+
+}
+
+tr:nth-child(even){
+
+    background:#f8fafc;
+
+}
+
+tr:hover{
+
+    background:var(--blue-light);
+
+}/* =====================================================
+   MODULE 10
+   OUVERTURES
+===================================================== */
+
+.galerie-ouvertures{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(300px,1fr));
+
+    gap:30px;
+
+    margin-top:40px;
+
+}
+
+.carte-ouverture{
+
+    background:white;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow);
+
+    transition:.35s;
+
+}
+
+.carte-ouverture:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+.carte-ouverture img{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+}
+
+.carte-ouverture h3{
+
+    text-align:center;
+
+    margin:20px 0 10px;
+
+}
+
+.carte-ouverture p{
+
+    padding:0 20px;
+
+}
+
+.carte-ouverture button{
+
+    width:calc(100% - 40px);
+
+    margin:20px;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    background:var(--blue);
+
+    color:white;
+
+    font-weight:700;
+
+    transition:.3s;
+
+}
+
+.carte-ouverture button:hover{
+
+    background:var(--blue-dark);
+
+}
+
+.details{
+
+    display:none;
+
+    padding:20px;
+
+    background:#f8fafc;
+
+    border-top:1px solid var(--border);
+
+}/* =====================================================
+   MODULE 11
+   CHAMPIONS
+===================================================== */
+
+.champions-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(300px,1fr));
+
+    gap:35px;
+
+}
+
+.champion-card{
+
+    background:white;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    text-align:center;
+
+    box-shadow:var(--shadow);
+
+    transition:.35s;
+
+}
+
+.champion-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+.champion-card img{
+
+    width:100%;
+
+    height:320px;
+
+    object-fit:cover;
+
+}
+
+.champion-card h3{
+
+    margin-top:20px;
+
+}
+
+.badge{
+
+    display:inline-block;
+
+    margin:12px 0;
+
+    padding:8px 18px;
+
+    background:var(--gold);
+
+    color:white;
+
+    border-radius:40px;
+
+    font-size:.9rem;
+
+    font-weight:700;
+
+}
+
+.champion-card button{
+
+    margin:20px;
+
+    padding:14px 22px;
+
+    border-radius:12px;
+
+    background:var(--blue);
+
+    color:white;
+
+    font-weight:700;
+
+    transition:.3s;
+
+}
+
+.champion-card button:hover{
+
+    background:var(--blue-dark);
+
+}/* =====================================================
+   MODULE 12
+   MODALES
+===================================================== */
+
+.modal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.65);
+
+    z-index:9999;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:30px;
+
+}
+
+.modal-content{
+
+    background:white;
+
+    width:min(700px,100%);
+
+    max-height:90vh;
+
+    overflow-y:auto;
+
+    border-radius:24px;
+
+    padding:35px;
+
+    position:relative;
+
+    animation:apparition .35s;
+
+}
+
+.modal-content img{
+
+    width:100%;
+
+    max-height:350px;
+
+    object-fit:cover;
+
+    border-radius:16px;
+
+    margin:25px 0;
+
+}
+
+.close{
+
+    position:absolute;
+
+    top:20px;
+
+    right:25px;
+
+    font-size:2rem;
+
+    cursor:pointer;
+
+    color:#666;
+
+    transition:.3s;
+
+}
+
+.close:hover{
+
+    color:var(--red);
+
+}
+
+@keyframes apparition{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}/* =====================================================
+   MODULE 13
+   FOOTER + BARRE + RESPONSIVE
+===================================================== */
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+    margin-top:100px;
+
+    padding:50px 20px;
+
+    text-align:center;
+
+    background:#1f2937;
+
+    color:white;
+
+    border-radius:25px 25px 0 0;
+
+}
+
+footer h2{
+
+    color:white;
+
+    margin-bottom:20px;
+
+}
+
+footer p{
+
+    margin:0;
+
+    opacity:.9;
+
+}
+
+/* =========================
+   BARRE DE PROGRESSION
+========================= */
+
+#progress-container{
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:6px;
+
+    background:#dbeafe;
+
+    z-index:99999;
+
+}
+
+#progress-bar{
+
+    width:0;
+
+    height:100%;
+
+    background:linear-gradient(
+        90deg,
+        var(--gold),
+        var(--blue)
+    );
+
+    transition:.15s;
+
+}
+
+/* =========================
+   IMAGES
+========================= */
+
+img{
+
+    max-width:100%;
+
+    height:auto;
+
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1000px){
+
+.timeline::before{
+
+left:30px;
+
+}
+
+.timeline-item{
+
+width:100%;
+
+padding-left:80px;
+
+padding-right:20px;
+
+left:0 !important;
+
+text-align:left;
+
+}
+
+.timeline-item::after{
+
+left:21px !important;
+
+right:auto;
+
+}
+
+}
+
+@media(max-width:768px){
+
+h1{
+
+font-size:2.4rem;
+
+}
+
+h2{
+
+font-size:1.8rem;
+
+}
+
+.stats-grid,
+.nations-grid,
+.galerie-ouvertures,
+.champions-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.modal-content{
+
+padding:25px;
+
+}
+
+.container{
+
+width:95%;
+
+}
+
+}
+
+@media(max-width:480px){
+
+body{
+
+font-size:16px;
+
+}
+
+.counter{
+
+font-size:2.2rem;
+
+}
+
+.timeline-content{
+
+padding:18px;
+
+}
+
+}/* =====================================================
+   MODULE 14
+   ANIMATIONS PREMIUM
+===================================================== */
+
+/* =========================
+   Apparition
+========================= */
+
+.fade-up{
+
+    opacity:0;
+
+    transform:translateY(50px);
+
+    transition:
+    opacity .8s ease,
+    transform .8s ease;
+
+}
+
+.fade-up.visible{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+/* =========================
+   Zoom
+========================= */
+
+.zoom{
+
+    transition:.35s;
+
+}
+
+.zoom:hover{
+
+    transform:scale(1.03);
+
+}
+
+/* =========================
+   Boutons
+========================= */
+
+button{
+
+    transition:
+    background .3s,
+    transform .3s;
+
+}
+
+button:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/* =========================
+   Cartes
+========================= */
+
+.stat-card,
+.nation-card,
+.champion-card,
+.carte-ouverture{
+
+    transition:
+    transform .35s,
+    box-shadow .35s;
+
+}
+
+/* =========================
+   Scroll fluide
+========================= */
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+/* =========================
+   Sélection texte
+========================= */
+
+::selection{
+
+    background:var(--blue);
+
+    color:white;
+
+}
+
+/* =========================
+   Scrollbar
+========================= */
+
+::-webkit-scrollbar{
+
+    width:12px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#edf2f7;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--blue);
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:var(--blue-dark);
+
+}
+
+/* =========================
+   Animation Hero
+========================= */
+
+#accueil{
+
+    animation:heroAppear 1s ease;
+
+}
+
+@keyframes heroAppear{
+
+0%{
+
+opacity:0;
+
+transform:translateY(-30px);
+
+}
+
+100%{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+/* =========================
+   Pulse statistiques
+========================= */
+
+.counter{
+
+    animation:counterGlow 2s infinite alternate;
+
+}
+
+@keyframes counterGlow{
+
+from{
+
+text-shadow:none;
+
+}
+
+to{
+
+text-shadow:0 0 18px rgba(37,99,235,.35);
+
+}
+
+}
+.modal{
+
+display:none;
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,.7);
+
+justify-content:center;
+align-items:center;
+
+z-index:9999;
+
+}
+
+.modal-content{
+
+background:white;
+
+padding:30px;
+
+border-radius:15px;
+
+max-width:600px;
+
+width:90%;
+
+position:relative;
+
+}
+
+.close{
+
+position:absolute;
+
+right:20px;
+top:10px;
+
+font-size:30px;
+
+cursor:pointer;
+
+}
+/* =====================================================
+   BARRE DE PROGRESSION
+===================================================== */
+
+#progress-container{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:5px;
+    background:transparent;
+    z-index:9999;
+}
+
+#progress-bar{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,#2563eb,#22c55e);
+    transition:width .1s linear;
+}
+.expo{
+    font-size:0.45em;
+    vertical-align:super;
+    font-weight:700;
+}

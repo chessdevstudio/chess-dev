@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="fr">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess.dev Studio</title>
+
+
+    <link rel="stylesheet" href="style.css">
+</head>
+  <body>
+    <div id="progress-container">
+    <div id="progress-bar"></div>
+</div>
+    <div class="container">
+      <h1 id="accueil">
+        <span class="chess">Chess</span><span class="dev">.dev</span> Studio
+      </h1>
+
+<!-- ==========================================
+     STATISTIQUES MONDIALES
+========================================== -->
+
+<section class="stats-section">
+
+    <h2>Les échecs en quelques chiffres</h2>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-icon">♟️</div>
+            <h3 class="counter" data-counter="600">0</h3>
+            <p>Millions de joueurs</p>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🏆</div>
+            <h3 class="counter" data-counter="2050">0</h3>
+            <p>Grands Maîtres</p>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🌍</div>
+            <h3 class="counter" data-counter="190">0</h3>
+            <p>Pays membres de la FIDE</p>
+        </div>
+
+<div class="stat-card">
+    <div class="stat-icon">🧠</div>
+    <h3 class="counter">
+        10<span class="expo">120</span>
+    </h3>
+    <p>Positions possibles</p>
+</div>
+    </div>
+
+</section>
+      <div class="sommaire">
+        <h2>📚 Sommaire</h2>
+        <ul>
+          <li><a href="#origines">Origines</a></li>
+          <li><a href="#regles">Règles</a></li>
+          <li><a href="#champions">Champions</a></li>
+          <li><a href="#bienfaits">Bienfaits</a></li>
+          <li><a href="#ia">IA</a></li>
+        </ul>
+      </div>
+      <h2>Un jeu de stratégie millénaire</h2>
+
+
+      <h3>Les échecs : un jeu de stratégie universel</h3>
+      <p>
+        Les échecs sont l'un des jeux de stratégie les plus anciens et les plus populaires au monde.
+        Ils opposent deux joueurs sur un échiquier composé de <strong>64 cases</strong> alternant les couleurs
+        noire et blanche, disposées en un carré de <strong>8 rangées et 8 colonnes</strong>. Chaque joueur
+        commence la partie avec <strong>16 pièces</strong> : un roi, une reine, deux tours, deux fous, deux cavaliers
+        et huit pions, soit un total de <strong>32 pièces</strong> sur l'échiquier.
+      </p>
+      <p>
+        L'objectif principal est de mettre le <strong>roi adverse en échec et mat</strong>. On parle d'« échec »
+        lorsque le roi est directement menacé par une pièce ennemie. Il y a « échec et mat » lorsque le roi est
+        attaqué et qu'aucun coup légal ne permet de le protéger, de capturer la pièce menaçante ou de s'échapper.
+        La partie est alors terminée et le joueur qui a réalisé l'échec et mat remporte la victoire.
+      </p>
+
+<section id="histoire">
+
+    <h2>📜 La grande histoire des échecs</h2>
+
+    <p class="intro-histoire">
+        Depuis plus de quinze siècles, les échecs traversent les civilisations, évoluent avec les peuples et accompagnent les plus grands génies de l'histoire. Voici les grandes étapes qui ont façonné le jeu que nous connaissons aujourd'hui.
+    </p>
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+            <div class="timeline-date">VIᵉ siècle</div>
+
+            <div class="timeline-content">
+                <h3>🇮🇳 Le Chaturanga</h3>
+
+                <p>
+                    En Inde apparaît le Chaturanga, considéré comme l'ancêtre direct des échecs modernes.
+                    Les quatre corps de l'armée y sont représentés : infanterie, cavalerie, éléphants et chars.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">VIIᵉ siècle</div>
+
+            <div class="timeline-content">
+                <h3>🇮🇷 Le Chatrang</h3>
+
+                <p>
+                    Le jeu arrive en Perse où il devient le Chatrang. Les règles évoluent progressivement
+                    avant de se diffuser dans tout le Moyen-Orient.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">IXᵉ siècle</div>
+
+            <div class="timeline-content">
+                <h3>☪️ Le Shatranj</h3>
+
+                <p>
+                    Les savants arabes développent le Shatranj, écrivent les premiers ouvrages stratégiques
+                    et popularisent les échecs dans une grande partie du monde.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1475</div>
+
+            <div class="timeline-content">
+                <h3>👑 Les règles modernes</h3>
+
+                <p>
+                    La Dame devient la pièce la plus puissante, les parties deviennent plus rapides
+                    et les échecs prennent leur forme actuelle.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1886</div>
+
+            <div class="timeline-content">
+                <h3>🏆 Premier Champion du Monde</h3>
+
+                <p>
+                    Wilhelm Steinitz devient officiellement le premier Champion du Monde de l'histoire
+                    des échecs.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1972</div>
+
+            <div class="timeline-content">
+                <h3>🇺🇸 Fischer contre Spassky</h3>
+
+                <p>
+                    Le « Match du siècle » oppose Bobby Fischer à Boris Spassky pendant la Guerre froide
+                    et passionne des centaines de millions de personnes.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1997</div>
+
+            <div class="timeline-content">
+                <h3>🤖 Deep Blue</h3>
+
+                <p>
+                    Pour la première fois, un ordinateur bat le Champion du Monde Garry Kasparov lors
+                    d'un match officiel.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">2013</div>
+
+            <div class="timeline-content">
+                <h3>♟️ Magnus Carlsen</h3>
+
+                <p>
+                    Magnus Carlsen devient Champion du Monde et domine les échecs pendant une décennie.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">2024</div>
+
+            <div class="timeline-content">
+                <h3>🌟 Gukesh</h3>
+
+                <p>
+                    À seulement 18 ans, Gukesh devient le plus jeune Champion du Monde de l'histoire.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+<section id="nations">
+
+    <h2>🌍 Les grandes nations des échecs</h2>
+
+    <p class="intro-nations">
+        Depuis plusieurs siècles, certaines nations dominent les compétitions internationales et forment les plus grands champions. Découvrez les pays qui ont marqué l'histoire des échecs.
+    </p>
+
+    <div class="nations-grid">
+
+        <div class="nation-card">
+            <img src="images/russie.jpg" alt="Russie">
+            <div class="nation-body">
+                <h3>🇷🇺 Russie</h3>
+
+                <span class="niveau rouge">Légende mondiale</span>
+
+                <p><strong>Grands Maîtres :</strong> 250+</p>
+                <p><strong>Champions célèbres :</strong> Kasparov, Karpov, Alekhine, Botvinnik.</p>
+            </div>
+        </div>
+
+        <div class="nation-card">
+            <img src="images/inde.png" alt="Inde">
+            <div class="nation-body">
+                <h3>🇮🇳 Inde</h3>
+
+                <span class="niveau orange">Très forte nation</span>
+
+                <p><strong>Grands Maîtres :</strong> 85+</p>
+                <p><strong>Champions célèbres :</strong> Anand, Gukesh, Praggnanandhaa.</p>
+            </div>
+        </div>
+
+        <div class="nation-card">
+            <img src="images/usa.png" alt="USA">
+            <div class="nation-body">
+                <h3>🇺🇸 États-Unis</h3>
+
+                <span class="niveau orange">Très forte nation</span>
+
+                <p><strong>Grands Maîtres :</strong> 100+</p>
+                <p><strong>Champions célèbres :</strong> Fischer, Nakamura, Caruana.</p>
+            </div>
+        </div>
+
+        <div class="nation-card">
+            <img src="images/chine.png" alt="Chine">
+            <div class="nation-body">
+                <h3>🇨🇳 Chine</h3>
+
+                <span class="niveau jaune">Nation historique</span>
+
+                <p><strong>Grands Maîtres :</strong> 50+</p>
+                <p><strong>Champions célèbres :</strong> Ding Liren, Hou Yifan, Wei Yi.</p>
+            </div>
+        </div>
+
+        <div class="nation-card">
+            <img src="images/france.png" alt="France">
+            <div class="nation-body">
+                <h3>🇫🇷 France</h3>
+
+                <span class="niveau vert">Nation émergente</span>
+
+                <p><strong>Grands Maîtres :</strong> 40+</p>
+                <p><strong>Champions célèbres :</strong> Firouzja, Vachier-Lagrave.</p>
+            </div>
+        </div>
+
+        <div class="nation-card">
+            <img src="images/norvege.png" alt="Norvège">
+            <div class="nation-body">
+                <h3>🇳🇴 Norvège</h3>
+
+                <span class="niveau vert">Nation émergente</span>
+
+                <p><strong>Grands Maîtres :</strong> 20+</p>
+                <p><strong>Champion :</strong> Magnus Carlsen.</p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+      <h3 id="origines">♟️📜 Les origines des échecs</h3>
+      <p>
+        Les échecs trouvent leur origine en <strong>Inde</strong>, il y a environ <strong>1 500 ans</strong>,
+        où un jeu appelé <strong>Chaturanga</strong> était pratiqué. Ce jeu représentait les différentes unités de
+        l'armée : l'infanterie, la cavalerie, les éléphants et les chars. Au fil des siècles, il s'est répandu
+        en Perse, où il a pris le nom de <strong>Shatranj</strong>, avant d'être introduit dans le monde arabe puis
+        en Europe au Moyen Âge.
+      </p>
+      <p>
+        À partir du XVe siècle, les règles modernes se mettent progressivement en place. La reine devient la pièce la
+        plus puissante, les déplacements sont modifiés et les parties deviennent plus dynamiques. Depuis lors, les
+        échecs connaissent un succès mondial et sont aujourd'hui pratiqués par des millions de personnes de tous âges.
+      </p>
+
+
+      <h3 id="regles">Les règles du jeu</h3>
+      <p>
+        Une partie d'échecs commence toujours avec les <strong>Blancs</strong>, qui jouent le premier coup. Les joueurs
+        jouent ensuite à tour de rôle jusqu'à la fin de la partie.
+      </p>
+      <p>
+        Chaque pièce possède un déplacement particulier :
+      </p>
+      <ul>
+        <li><strong>Le roi</strong> se déplace d'une seule case dans toutes les directions.</li>
+        <li><strong>La reine</strong> est la pièce la plus puissante : elle peut se déplacer d'autant de cases qu'elle le souhaite, horizontalement, verticalement ou en diagonale.</li>
+        <li><strong>La tour</strong> se déplace uniquement horizontalement ou verticalement sur autant de cases que possible.</li>
+        <li><strong>Le fou</strong> se déplace en diagonale sans limitation de distance.</li>
+        <li><strong>Le cavalier</strong> effectue un déplacement en forme de « L » : deux cases dans une direction puis une case perpendiculairement. C'est la seule pièce capable de sauter par-dessus les autres.</li>
+        <li><strong>Le pion</strong> avance d'une case vers l'avant, ou de deux cases lors de son premier déplacement s'il le souhaite. En revanche, il capture les pièces adverses en diagonale. Lorsqu'un pion atteint la dernière rangée de l'échiquier, il peut être promu en reine, tour, fou ou cavalier.</li>
+      </ul>
+      <p>
+        Certaines règles particulières rendent le jeu encore plus intéressant :
+      </p>
+      <ul>
+        <li><strong>Le roque</strong> permet de déplacer simultanément le roi et une tour afin de mieux protéger le roi.</li>
+        <li><strong>La prise en passant</strong> est une capture spéciale entre deux pions dans une situation précise.</li>
+        <li><strong>La promotion du pion</strong> offre un avantage considérable en transformant un pion en une pièce plus puissante.</li>
+      </ul>
+
+
+      <h3>Comment se termine une partie ?</h3>
+      <p>
+        Une partie d'échecs peut se terminer de plusieurs façons :
+      </p>
+      <ul>
+        <li>par un <strong>échec et mat</strong>, lorsque le roi ne peut plus échapper à une attaque ;</li>
+        <li>par <strong>l'abandon</strong> d'un joueur ;</li>
+        <li>par un <strong>match nul</strong>, lorsque aucun joueur ne peut gagner ou lorsque les deux joueurs l'acceptent ;</li>
+        <li>par <strong>pat</strong>, lorsque le joueur qui doit jouer ne possède aucun coup légal alors que son roi n'est pas en échec ;</li>
+        <li>par un <strong>manque de matériel</strong>, lorsqu'aucun des deux joueurs ne possède suffisamment de pièces pour réaliser un échec et mat.</li>
+      </ul>
+
+
+      <h3>🏆 Les compétitions d'échecs</h3>
+      <p>
+        Les échecs sont organisés à tous les niveaux : dans les écoles, les clubs, les compétitions nationales et les tournois internationaux.
+      </p>
+      <p>
+        La compétition la plus prestigieuse est le <strong>Championnat du monde d'échecs</strong>, organisé par la Fédération Internationale des Échecs (FIDE). Les joueurs les plus forts obtiennent le prestigieux titre de <strong>Grand Maître International (GMI)</strong>, qui représente le plus haut niveau dans ce sport.
+      </p>
+      <p>
+        Le classement des joueurs est établi grâce au <strong>classement Elo</strong>, un système qui mesure la force de chaque joueur en fonction de ses résultats contre d'autres adversaires.
+      </p>
+
+
+      <h3>💰 Valeur des pièces</h3>
+      <table>
+        <tr>
+          <th>Pièce</th>
+          <th>Valeur</th>
+          <th>Déplacement</th>
+        </tr>
+        <tr>
+          <td>👑 Roi</td>
+          <td>∞</td>
+          <td>1 case</td>
+        </tr>
+        <tr>
+          <td>👸 Dame</td>
+          <td>9</td>
+          <td>Toutes directions</td>
+        </tr>
+        <tr>
+          <td>🏰 Tour</td>
+          <td>5</td>
+          <td>Horizontal/Vertical</td>
+        </tr>
+        <tr>
+          <td>⛪ Fou</td>
+          <td>3</td>
+          <td>Diagonale</td>
+        </tr>
+        <tr>
+          <td>🐴 Cavalier</td>
+          <td>3</td>
+          <td>En L</td>
+        </tr>
+        <tr>
+          <td>♟️ Pion</td>
+          <td>1</td>
+          <td>Avant</td>
+        </tr>
+      </table>
+
+
+      <h3>Les principales ouvertures</h3>
+      <p>
+        Les ouvertures constituent les premiers coups d'une partie d'échecs. Elles permettent de développer rapidement les pièces, de contrôler le centre de l'échiquier et de préparer les attaques du milieu de partie. Certaines ouvertures sont très agressives, tandis que d'autres privilégient la solidité et la stratégie à long terme.
+      </p>
+
+
+      <div class="galerie-ouvertures">
+        <div class="carte-ouverture">
+          <img src="images/italienne.png" alt="Ouverture Italienne">
+          <h3>♙ Italienne</h3>
+          <p><strong>📈</strong> ⭐⭐⭐⭐⭐</p>
+          <p><strong>⚔️</strong> Offensif</p>
+          <button onclick="ouvrir('italienne-details')">En savoir plus</button>
+          <div id="italienne-details" class="details">
+            <p>L'ouverture Italienne apparaît après <strong>1.e4 e5 2.Cf3 Cc6 3.Fc4</strong>. Elle est l'une des plus anciennes ouvertures connues et développe rapidement les pièces avec une pression sur le pion f7.</p>
+          </div>
+        </div>
+
+
+        <div class="carte-ouverture">
+          <img src="images/sicilienne.png" alt="Défense Sicilienne">
+          <h3>♞ Sicilienne</h3>
+          <p><strong>📈</strong> ⭐⭐⭐⭐⭐</p>
+          <p><strong>⚔️</strong> Dynamique</p>
+          <button onclick="ouvrir('sicilienne-details')">En savoir plus</button>
+          <div id="sicilienne-details" class="details">
+            <p>La Défense Sicilienne débute par <strong>1.e4 c5</strong>. C'est la réponse la plus populaire à 1.e4 au plus haut niveau, menant à des positions très complexes et tactiques.</p>
+          </div>
+        </div>
+
+
+        <div class="carte-ouverture">
+          <img src="images/française.png" alt="Défense Française">
+          <h3>♟ Française</h3>
+          <p><strong>📈</strong> ⭐⭐⭐⭐</p>
+          <p><strong>⚔️</strong> Solide</p>
+          <button onclick="ouvrir('francaise-details')">En savoir plus</button>
+          <div id="francaise-details" class="details">
+            <p>La Défense Française commence par <strong>1.e4 e6</strong>. Elle donne naissance à des positions solides où la stratégie et la compréhension des structures de pions jouent un rôle essentiel.</p>
+          </div>
+        </div>
+
+
+        <div class="carte-ouverture">
+          <img src="images/caro-kann.png" alt="Défense Caro-Kann">
+          <h3>♜ Caro-Kann</h3>
+          <p><strong>📈</strong> ⭐⭐⭐⭐</p>
+          <p><strong>⚔️</strong> Stratégique</p>
+          <button onclick="ouvrir('caro-kann-details')">En savoir plus</button>
+          <div id="caro-kann-details" class="details">
+            <p>La Défense Caro-Kann apparaît après <strong>1.e4 c6</strong>. Elle est réputée pour sa grande solidité et sa résistance avec peu de faiblesses.</p>
+          </div>
+        </div>
+
+
+        <div class="carte-ouverture">
+          <img src="images/espagnole.png" alt="Ouverture Espagnole">
+          <h3>♝ Espagnole</h3>
+          <p><strong>📈</strong> ⭐⭐⭐⭐⭐</p>
+          <p><strong>⚔️</strong> Riche</p>
+          <button onclick="ouvrir('espagnole-details')">En savoir plus</button>
+          <div id="espagnole-details" class="details">
+            <p>L'ouverture Espagnole (Ruy López) débute par <strong>1.e4 e5 2.Cf3 Cc6 3.Fb5</strong>. Elle est considérée comme l'une des plus riches stratégiquement.</p>
+          </div>
+        </div>
+
+
+        <div class="carte-ouverture">
+          <img src="images/anglaise.png" alt="Ouverture Anglaise">
+          <h3>♘ Anglaise</h3>
+          <p><strong>📈</strong> ⭐⭐⭐⭐</p>
+          <p><strong>⚔️</strong> Flexible</p>
+          <button onclick="ouvrir('anglaise-details')">En savoir plus</button>
+          <div id="anglaise-details" class="details">
+            <p>L'ouverture Anglaise commence par <strong>1.c4</strong>. Elle permet de transposer vers de nombreuses autres ouvertures avec une grande variété de plans.</p>
+          </div>
+        </div>
+      </div>
+
+
+      <h4>♙ L'ouverture Italienne</h4>
+      <p>
+        L'ouverture Italienne apparaît après les coups <strong>1.e4 e5 2.Cf3 Cc6 3.Fc4</strong>. Elle est l'une des plus anciennes ouvertures connues. Son objectif est de développer rapidement les pièces tout en mettant une pression immédiate sur le pion f7, considéré comme le point faible du camp noir. Cette ouverture conduit souvent à des parties ouvertes et tactiques, idéales pour les débutants comme pour les grands maîtres.
+      </p>
+
+
+      <hr>
+      <div class="ouverture-info">
+        <p><strong>📈 Popularité :</strong> ⭐⭐⭐⭐⭐ (Très populaire)</p>
+        <p><strong>⭐ Difficulté :</strong> ⭐⭐☆☆☆ (Facile)</p>
+        <p><strong>⚔️ Style :</strong> Offensif, développement rapide et jeu tactique.</p>
+        <p><strong>👑 Joueurs célèbres :</strong> Paul Morphy, Bobby Fischer, Magnus Carlsen.</p>
+      </div>
+
+
+      <h4>♞ La Défense Sicilienne</h4>
+      <p>
+        La Défense Sicilienne débute par les coups <strong>1.e4 c5</strong>. C'est la réponse la plus populaire à 1.e4 au plus haut niveau. Les Noirs acceptent de ne pas occuper immédiatement le centre afin de contre-attaquer plus tard. Cette ouverture mène souvent à des positions très complexes, riches en combinaisons tactiques. De nombreux champions du monde, comme Garry Kasparov ou Magnus Carlsen, l'ont utilisée avec succès.
+      </p>
+
+
+      <hr>
+      <div class="ouverture-info">
+        <p><strong>📈 Popularité :</strong> ⭐⭐⭐⭐⭐ (L'une des défenses les plus jouées)</p>
+        <p><strong>⭐ Difficulté :</strong> ⭐⭐⭐⭐⭐ (Très difficile)</p>
+        <p><strong>⚔️ Style :</strong> Très offensif, contre-attaque et jeu dynamique.</p>
+        <p><strong>👑 Joueurs célèbres :</strong> Garry Kasparov, Magnus Carlsen, Bobby Fischer, Hikaru Nakamura.</p>
+      </div>
+
+
+      <h4>♟ La Défense Française</h4>
+      <p>
+        La Défense Française commence par <strong>1.e4 e6</strong>. Les Noirs préparent la poussée ...d5 afin de contester le centre blanc. Cette ouverture donne souvent naissance à des positions solides où la stratégie, la patience et la compréhension des structures de pions jouent un rôle essentiel. Elle est appréciée des joueurs recherchant une défense fiable.
+      </p>
+
+
+      <hr>
+      <div class="ouverture-info">
+        <p><strong>📈 Popularité :</strong> ⭐⭐⭐⭐☆</p>
+        <p><strong>⭐ Difficulté :</strong> ⭐⭐⭐☆☆</p>
+        <p><strong>⚔️ Style :</strong> Défensif et positionnel.</p>
+        <p><strong>👑 Joueurs célèbres :</strong> Viktor Korchnoï, Ulf Andersson, Alireza Firouzja.</p>
+      </div>
+
+
+      <h4>♜ La Défense Caro-Kann</h4>
+      <p>
+        La Défense Caro-Kann apparaît après <strong>1.e4 c6</strong>. Elle est réputée pour sa grande solidité et sa résistance. Les Noirs obtiennent généralement une position équilibrée avec peu de faiblesses. Cette ouverture est souvent choisie par les joueurs qui aiment les parties calmes et techniques où chaque erreur peut avoir de lourdes conséquences.
+      </p>
+
+
+      <hr>
+      <div class="ouverture-info">
+        <p><strong>📈 Popularité :</strong> ⭐⭐⭐⭐☆</p>
+        <p><strong>⭐ Difficulté :</strong> ⭐⭐☆☆☆</p>
+        <p><strong>⚔️ Style :</strong> Solide, défensif et stratégique.</p>
+        <p><strong>👑 Joueurs célèbres :</strong> Anatoli Karpov, Viswanathan Anand, Fabiano Caruana.</p>
+      </div>
+
+
+      <h4>♕ Le Gambit Dame</h4>
+      <p>
+        Le Gambit Dame commence par <strong>1.d4 d5 2.c4</strong>. Les Blancs proposent temporairement un pion afin de prendre le contrôle du centre. Contrairement à ce que son nom pourrait laisser penser, ce pion est rarement sacrifié définitivement. Cette ouverture est célèbre pour ses positions stratégiques profondes et a été popularisée auprès du grand public grâce à la série <em>Le Jeu de la Dame</em>.
+      </p>
+
+
+      <hr>
+      <div class="ouverture-info">
+        <p><strong>📈 Popularité :</strong> ⭐⭐⭐⭐⭐</p>
+        <p><strong>⭐ Difficulté :</strong> ⭐⭐⭐⭐☆</p>
+        <p><strong>⚔️ Style :</strong> Positionnel, contrôle du centre.</p>
+        <p><strong>👑 Joueurs célèbres :</strong> José Raúl Capablanca, Anatoli Karpov, Magnus Carlsen.</p>
+      </div>
+
+
+      <h4>♝ L'ouverture Espagnole</h4>
+      <p>
+        Également appelée <strong>Ruy López</strong>, cette ouverture débute par <strong>1.e4 e5 2.Cf3 Cc6 3.Fb5</strong>. Le fou attaque indirectement le cavalier qui protège le pion central e5. L'ouverture Espagnole est considérée comme l'une des plus riches stratégiquement. Elle est jouée depuis plus de quatre siècles et reste très présente dans les championnats du monde.
+      </p>
+
+
+      <hr>
+      <div class="ouverture-info">
+        <p><strong>📈 Popularité :</strong> ⭐⭐⭐⭐⭐</p>
+        <p><strong>⭐ Difficulté :</strong> ⭐⭐⭐⭐☆</p>
+        <p><strong>⚔️ Style :</strong> Positionnel avec possibilités tactiques.</p>
+        <p><strong>👑 Joueurs célèbres :</strong> Magnus Carlsen, Vladimir Kramnik, Bobby Fischer.</p>
+      </div>
+
+
+      <h4>♘ L'ouverture Anglaise</h4>
+      <p>
+        L'ouverture Anglaise commence par <strong>1.c4</strong>. Les Blancs contrôlent le centre sans y placer immédiatement un pion. Cette approche flexible permet de transposer vers de nombreuses autres ouvertures et offre une grande variété de plans stratégiques. Elle est particulièrement appréciée des joueurs positionnels.
+      </p>
+
+
+      <hr>
+      <div class="ouverture-info">
+        <p><strong>📈 Popularité :</strong> ⭐⭐⭐⭐☆</p>
+        <p><strong>⭐ Difficulté :</strong> ⭐⭐⭐☆☆</p>
+        <p><strong>⚔️ Style :</strong> Flexible et stratégique.</p>
+        <p><strong>👑 Joueurs célèbres :</strong> Mikhaïl Botvinnik, Levon Aronian, Magnus Carlsen.</p>
+      </div>
+
+
+      <h4>♛ La Défense Nimzo-Indienne</h4>
+      <p>
+        La Défense Nimzo-Indienne survient après <strong>1.d4 Cf6 2.c4 e6 3.Cc3 Fb4</strong>. Les Noirs développent rapidement leurs pièces et exercent une pression sur le cavalier blanc. Cette ouverture est réputée pour son équilibre entre tactique et stratégie. De nombreux grands maîtres la considèrent comme l'une des défenses les plus solides contre 1.d4.
+      </p>
+
+
+      <hr>
+      <div class="ouverture-info">
+        <p><strong>📈 Popularité :</strong> ⭐⭐⭐⭐☆</p>
+        <p><strong>⭐ Difficulté :</strong> ⭐⭐⭐⭐⭐</p>
+        <p><strong>⚔️ Style :</strong> Positionnel et très riche stratégiquement.</p>
+        <p><strong>👑 Joueurs célèbres :</strong> Tigran Petrossian, Vladimir Kramnik, Viswanathan Anand.</p>
+      </div>
+
+
+      <h4>♚ Quelle ouverture choisir ?</h4>
+      <p>
+        Il n'existe pas de meilleure ouverture universelle. Le choix dépend du style de jeu de chaque joueur. Les amateurs d'attaque préfèrent souvent la Défense Sicilienne ou l'Italienne, tandis que ceux qui recherchent des positions solides choisissent la Caro-Kann ou la Défense Française. Les grands maîtres maîtrisent généralement plusieurs ouvertures afin de s'adapter à leurs adversaires et de varier leurs plans de jeu.
+      </p>
+
+
+      <h3 id="champions">Les plus grands champions</h3>
+
+
+<section id="hall-of-fame">
+    <h2>🏆 Hall of Fame des Champions du Monde</h2>
+
+
+    <div class="champions-grid">
+
+
+        <div class="champion-card">
+            <img src="images/carlsen.jpg" alt="Magnus Carlsen">
+            <h3>Magnus Carlsen</h3>
+            <p>🇳🇴 Norvège</p>
+            <span class="badge">Champion du monde</span>
+            <p><strong>Elo :</strong> 2882</p>
+            <button onclick="ouvrirModal('modal-carlsen')">
+                Voir la fiche
+            </button>
+        </div>
+
+
+        <div class="champion-card">
+            <img src="images/kasparov.jpg" alt="Garry Kasparov">
+            <h3>Garry Kasparov</h3>
+            <p>🇷🇺 Russie</p>
+            <span class="badge">Champion du monde</span>
+            <p><strong>Elo :</strong> 2851</p>
+            <button onclick="ouvrirModal('modal-kasparov')">
+                Voir la fiche
+            </button>
+        </div>
+
+
+        <div class="champion-card">
+            <img src="images/fischer.jpg" alt="Bobby Fischer">
+            <h3>Bobby Fischer</h3>
+            <p>🇺🇸 États-Unis</p>
+            <span class="badge">Champion du monde</span>
+            <p><strong>Elo :</strong> 2785</p>
+            <button onclick="ouvrirModal('modal-fischer')">
+                Voir la fiche
+            </button>
+        </div>
+
+
+    </div>
+</section>
+
+
+<ul>
+    <li><strong>Garry Kasparov</strong> a dominé les échecs mondiaux pendant près de vingt ans grâce à son style offensif et à sa préparation exceptionnelle.</li>
+    <li><strong>Bobby Fischer</strong> a marqué l'histoire en remportant le championnat du monde en 1972 contre Boris Spassky.</li>
+    <li><strong>Anatoli Karpov</strong> est célèbre pour son jeu très précis et sa maîtrise stratégique.</li>
+    <li><strong>Magnus Carlsen</strong>, champion du monde de 2013 à 2023, est considéré comme l'un des meilleurs joueurs de tous les temps.</li>
+    <li><strong>Gukesh Dommaraju</strong>, devenu champion du monde en 2024 à seulement 18 ans, représente la nouvelle génération de grands maîtres.</li>
+</ul>
+
+
+<h3 id="bienfaits">Les bienfaits des échecs</h3>
+
+
+<p>
+Les échecs ne sont pas seulement un jeu : ils constituent également un excellent outil de développement intellectuel.
+</p>
+
+
+<p>Ils permettent notamment de développer :</p>
+
+
+<ul>
+    <li>la concentration ;</li>
+    <li>la mémoire ;</li>
+    <li>la logique ;</li>
+    <li>la réflexion ;</li>
+    <li>la patience ;</li>
+    <li>la créativité ;</li>
+    <li>la capacité à résoudre des problèmes ;</li>
+    <li>l'anticipation des actions de l'adversaire ;</li>
+    <li>la prise de décision sous pression.</li>
+</ul>
+
+
+<p>
+Plusieurs études montrent que la pratique régulière des échecs peut améliorer les capacités de raisonnement, la confiance en soi et la persévérance.
+</p>
+
+
+<h3 id="ia">Les échecs à l'ère du numérique</h3>
+
+
+<p>
+Grâce à Internet, les échecs connaissent un véritable renouveau...
+</p>
+
+
+<p>
+L'intelligence artificielle a également transformé ce jeu...
+</p>
+
+
+<h3>Conclusion</h3>
+
+
+<p>
+Depuis plus de quinze siècles, les échecs fascinent des millions de personnes...
+</p>
+
+
+<h3>💬 Une anecdote célèbre : Kasparov contre Deep Blue</h3>
+
+
+<p>
+  En mai 1997, le monde entier retint son souffle. D'un côté se trouvait
+  <strong>Garry Kasparov</strong>, champion du monde depuis plus de dix ans et
+  considéré comme le plus grand joueur de la planète. De l'autre, il n'y avait
+  pas un adversaire humain, mais une immense machine conçue par IBM :
+  <strong>Deep Blue</strong>. Pour la première fois de l'histoire,
+  l'intelligence humaine allait être confrontée à la puissance de calcul d'un
+  ordinateur dans un match officiel. La question fascinait tout le monde :
+  <strong>une machine pouvait-elle vraiment battre le meilleur cerveau des échecs ?</strong>
+</p>
+
+
+<p>
+  Pendant six parties, la tension fut incroyable. Kasparov savait que son
+  adversaire n'éprouvait ni peur, ni fatigue, ni doute. Deep Blue était capable
+  d'analyser plus de <strong>200 millions de positions par seconde</strong>,
+  une vitesse inimaginable pour un être humain. Pourtant, le champion russe
+  possédait ce qu'aucune machine n'avait alors : l'intuition, la créativité et
+  des décennies d'expérience au plus haut niveau.
+</p>
+
+
+<p>
+  Au fil du match, chaque coup devenait un véritable duel psychologique.
+  Certaines décisions de Deep Blue étaient si étonnantes que Kasparov pensa même
+  que des grands maîtres intervenaient secrètement pour aider l'ordinateur.
+  Lors de la deuxième partie, la machine joua un coup si subtil qu'il bouleversa
+  complètement le champion du monde. Convaincu que l'ordinateur cachait quelque
+  chose qu'il ne comprenait pas, Kasparov perdit peu à peu sa confiance. Ce
+  n'était plus seulement une bataille sur l'échiquier : c'était aussi un combat
+  contre le doute.
+</p>
+
+
+<p>
+  Le <strong>11 mai 1997</strong>, après six parties extrêmement disputées,
+  Deep Blue remporta finalement le match sur le score de
+  <strong>3½ à 2½</strong>. Pour la première fois de l'histoire, un ordinateur
+  avait battu le champion du monde en titre dans un match officiel. Cet
+  événement fit la une des journaux du monde entier et marqua un tournant
+  historique, non seulement pour les échecs, mais aussi pour l'informatique et
+  l'intelligence artificielle.
+</p>
+
+
+<p>
+  Aujourd'hui encore, ce duel reste l'un des plus célèbres de tous les temps.
+  Il symbolise la rencontre entre deux formes d'intelligence : celle de l'être
+  humain, capable d'imagination et de créativité, et celle de la machine,
+  capable de calculer des millions de possibilités en une fraction de seconde.
+  Plus de vingt-cinq ans après, le match
+  <strong>Kasparov contre Deep Blue</strong> continue de fasciner les passionnés
+  d'échecs et les amateurs de technologie, rappelant qu'un simple jeu de
+  <strong>64 cases</strong> peut parfois raconter l'une des plus grandes
+  histoires de l'humanité.
+</p>
+
+
+<footer>
+   <h2>©️ Crédits</h2>
+  <p>
+        Chess.dev Studio © 2026
+        <br>
+        Créé par Chess.dev
+    </p>
+</footer>
+
+
+</div>
+
+
+<!-- ===================== MODALES ===================== -->
+
+
+<div id="modal-carlsen" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="fermerModal('modal-carlsen')">&times;</span>
+        <h2>Magnus Carlsen</h2>
+        <img src="images/carlsen.jpg" alt="Magnus Carlsen">
+        <p><strong>Naissance :</strong> 1990</p>
+        <p><strong>Champion du monde :</strong> 2013-2023</p>
+        <p><strong>Elo record :</strong> 2882</p>
+        <p><strong>Style :</strong> Joueur universel, exceptionnel en finales et dans les positions techniques.</p>
+        <p><strong>Ouvertures favorites :</strong> Espagnole, Anglaise, Sicilienne.</p>
+        <p><strong>Fait marquant :</strong> Plus haut Elo de l'histoire.</p>
+    </div>
+</div>
+
+
+<div id="modal-kasparov" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="fermerModal('modal-kasparov')">&times;</span>
+        <h2>Garry Kasparov</h2>
+        <img src="images/kasparov.jpg" alt="Garry Kasparov">
+        <p><strong>Naissance :</strong> 1963</p>
+        <p><strong>Champion du monde :</strong> 1985-2000</p>
+        <p><strong>Elo record :</strong> 2851</p>
+        <p><strong>Style :</strong> Joueur offensif et créatif.</p>
+        <p><strong>Ouvertures favorites :</strong> Sicilienne, Italienne, Anglaise.</p>
+        <p><strong>Fait marquant :</strong> Match historique contre Deep Blue.</p>
+    </div>
+</div>
+
+
+<div id="modal-fischer" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="fermerModal('modal-fischer')">&times;</span>
+        <h2>Bobby Fischer</h2>
+        <img src="images/fischer.jpg" alt="Bobby Fischer">
+        <p><strong>Naissance :</strong> 1943</p>
+        <p><strong>Champion du monde :</strong> 1972-1975</p>
+        <p><strong>Elo record :</strong> 2785</p>
+        <p><strong>Style :</strong> Joueur complet et tacticien exceptionnel.</p>
+        <p><strong>Ouvertures favorites :</strong> Scandinave, Italienne.</p>
+        <p><strong>Fait marquant :</strong> Victoire historique contre Boris Spassky.</p>
+    </div>
+</div>
+
+
+<script src="script.js"></script>
+
+
+</body>
+</html>
+
