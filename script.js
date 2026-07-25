@@ -864,3 +864,51 @@ document.querySelectorAll(".fade-section").forEach(section => {
 });
 
 console.log("Module 8 chargé");
+/* =====================================================
+   MODULE 9
+   Citation du jour
+===================================================== */
+
+const quotes = [
+
+{
+text:"Les échecs sont le gymnase de l'esprit.",
+author:"Blaise Pascal"
+},
+
+{
+text:"Les échecs sont la lutte contre l'erreur.",
+author:"Johannes Zukertort"
+},
+
+{
+text:"La vie est comme une partie d'échecs.",
+author:"Miguel de Cervantes"
+},
+
+{
+text:"Aux échecs, comme dans la vie, le danger vient souvent de sa propre imprudence.",
+author:"Savielly Tartakower"
+},
+
+{
+text:"Les pions sont l'âme des échecs.",
+author:"François-André Danican Philidor"
+},
+
+{
+text:"Les combinaisons gagnantes viennent à l'esprit d'un joueur observateur.",
+author:"Siegbert Tarrasch"
+}
+
+];
+
+const randomQuote = quotes[Math.floor(Math.random()*quotes.length)];
+
+document.getElementById("quote").textContent =
+`"${randomQuote.text}"`;
+
+document.getElementById("author").textContent =
+`— ${randomQuote.author}`;
+
+console.log("Module 9 chargé");
