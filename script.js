@@ -974,3 +974,39 @@ searchInput.addEventListener("input", function(){
 });
 
 console.log("Module 11 chargé");
+/* =====================================================
+   MODULE 12
+   READING STATISTICS
+===================================================== */
+
+const words =
+document.body.innerText.trim().split(/\s+/).length;
+
+document.getElementById("word-count").textContent =
+words.toLocaleString();
+
+const minutes =
+Math.max(1,Math.ceil(words/200));
+
+document.getElementById("reading-time").textContent =
+minutes+" min";
+
+const progress =
+document.getElementById("reading-progress");
+
+window.addEventListener("scroll",()=>{
+
+    const scroll =
+window.scrollY;
+
+    const height =
+document.documentElement.scrollHeight-
+window.innerHeight;
+
+    const percent =
+Math.round(scroll/height*100);
+
+    progress.textContent =
+Math.min(percent,100)+"%";
+
+});

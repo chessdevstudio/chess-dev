@@ -1681,3 +1681,73 @@ button:hover::after,
     box-shadow:0 0 0 4px rgba(37,99,235,.15);
 
 }
+/* =====================================================
+   MODULE 12
+   READING STATISTICS
+===================================================== */
+
+#reading-stats{
+
+    display:flex;
+    justify-content:center;
+    gap:20px;
+
+    flex-wrap:wrap;
+
+    margin:40px 0;
+
+}
+
+.reading-card{
+
+    background:var(--white);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:18px 26px;
+
+    text-align:center;
+
+    min-width:180px;
+
+    box-shadow:var(--shadow-sm);
+
+    transition:var(--transition);
+
+}
+
+.reading-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:var(--shadow);
+
+}
+
+.reading-card span{
+
+    display:block;
+
+    font-size:28px;
+
+    margin-bottom:8px;
+
+}
+
+.reading-card strong{
+
+    display:block;
+
+    font-size:1.3rem;
+
+    color:var(--blue);
+
+}
+
+.reading-card small{
+
+    color:var(--text-light);
+
+}
