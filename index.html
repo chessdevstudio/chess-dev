@@ -13,25 +13,7 @@
         placeholder="🔍 Search the website..."
         autocomplete="off">
 </div>
-<div id="reading-stats">
 
-    <div class="reading-card">
-        <span>⏱</span>
-        <strong id="reading-time">0 min</strong>
-        <small>Estimated reading time</small>
-    </div>
-
-    <div class="reading-card">
-        <span>📊</span>
-        <strong id="reading-progress">0%</strong>
-        <small>Reading progress</small>
-    </div>
-
-    <div class="reading-card">
-        <span>📝</span>
-        <strong id="word-count">0</strong>
-        <small>Words</small>
-    </div>
 
 </div>
 <head>
@@ -76,14 +58,46 @@
     <!-- Favicon (à ajouter plus tard) -->
     <!-- <link rel="icon" href="images/favicon.png" type="image/png"> -->
 </head>
-  <div id="visit-timer">
+ <!-- =====================================================
+     MODULE 15
+     QUICK INFO PANEL
+===================================================== -->
 
-    ⏱ <span id="visit-time">00:00</span>
+<aside id="info-panel">
 
-</div>
-<body>
-  <button id="theme-toggle" title="Changer de thème">
-    🌙
+    <h3>♞ Quick Info</h3>
+
+    <div class="panel-section">
+
+        <p>📖 <strong id="reading-time">0 min</strong></p>
+
+        <p>📊 <strong id="reading-progress">0%</strong></p>
+
+        <p>📝 <strong id="word-count">0</strong> words</p>
+
+    </div>
+
+    <hr>
+
+    <div class="panel-section">
+
+        <p>⏱ <strong id="visit-time">00:00</strong></p>
+
+    </div>
+
+    <hr>
+
+    <div class="panel-section">
+
+        <button id="theme-toggle">
+
+            🌙 Dark Mode
+
+        </button>
+
+    </div>
+
+</aside>
 </button>  
     <div id="progress-container">
     <div id="progress-bar"></div>
