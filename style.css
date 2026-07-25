@@ -1516,3 +1516,69 @@ cursor:pointer;
     }
 
 }
+/* =====================================================
+   BOUTONS PREMIUM
+===================================================== */
+
+button,
+.btn{
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+
+    cursor:pointer;
+
+}
+
+button:hover,
+.btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 12px 30px rgba(37,99,235,.25);
+
+}
+
+button:active,
+.btn:active{
+
+    transform:translateY(0) scale(.98);
+
+}
+
+button::after,
+.btn::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-120%;
+
+    width:60%;
+    height:100%;
+
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,.45),
+        transparent
+    );
+
+    transition:left .6s ease;
+
+}
+
+button:hover::after,
+.btn:hover::after{
+
+    left:150%;
+
+}
