@@ -1444,3 +1444,19 @@ cursor:pointer;
     vertical-align:super;
     font-weight:700;
 }
+/* =====================================================
+   APPARITION DES SECTIONS
+===================================================== */
+
+.fade-section{
+    opacity:0;
+    transform:translateY(40px);
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.fade-section.visible{
+    opacity:1;
+    transform:translateY(0);
+}

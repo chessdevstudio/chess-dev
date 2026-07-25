@@ -836,3 +836,31 @@ document.addEventListener(
 /* =====================================================
    FIN MODULE 7
 ===================================================== */
+/* =====================================================
+   MODULE 8
+   Apparition progressive des sections
+===================================================== */
+
+const observer = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+        if(entry.isIntersecting){
+
+            entry.target.classList.add("visible");
+
+        }
+
+    });
+
+},{
+    threshold:0.15
+});
+
+document.querySelectorAll(".fade-section").forEach(section => {
+
+    observer.observe(section);
+
+});
+
+console.log("Module 8 chargé");
