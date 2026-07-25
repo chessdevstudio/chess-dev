@@ -940,3 +940,37 @@ themeBtn.addEventListener("click",()=>{
 });
 
 console.log("Module 10 chargé");
+/* =====================================================
+   MODULE 11
+   RECHERCHE INSTANTANÉE
+===================================================== */
+
+const searchInput = document.getElementById("searchInput");
+
+const searchableItems = document.querySelectorAll(".search-item");
+
+searchInput.addEventListener("input", function(){
+
+    const value = this.value.toLowerCase().trim();
+
+    searchableItems.forEach(item=>{
+
+        const text = item.textContent.toLowerCase();
+
+        if(text.includes(value)){
+
+            item.style.display="";
+
+        }
+
+        else{
+
+            item.style.display="none";
+
+        }
+
+    });
+
+});
+
+console.log("Module 11 chargé");

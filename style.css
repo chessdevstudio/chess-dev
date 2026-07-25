@@ -1638,3 +1638,46 @@ button:hover::after,
     left:150%;
 
 }
+/* =====================================================
+   MODULE 11
+   RECHERCHE INSTANTANÉE
+===================================================== */
+
+.search-container{
+
+    max-width:600px;
+    margin:30px auto;
+
+}
+
+#searchInput{
+
+    width:100%;
+
+    padding:16px 20px;
+
+    border:2px solid var(--border);
+
+    border-radius:999px;
+
+    background:var(--white);
+
+    color:var(--text);
+
+    font-size:1rem;
+
+    transition:var(--transition);
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+#searchInput:focus{
+
+    outline:none;
+
+    border-color:var(--blue);
+
+    box-shadow:0 0 0 4px rgba(37,99,235,.15);
+
+}
