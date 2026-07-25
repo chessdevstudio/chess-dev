@@ -1751,3 +1751,44 @@ button:hover::after,
     color:var(--text-light);
 
 }
+/* =====================================================
+   MODULE 13
+   VISIT TIMER
+===================================================== */
+
+#visit-timer{
+
+    position:fixed;
+
+    bottom:20px;
+    right:20px;
+
+    background:var(--white);
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+    border-radius:999px;
+
+    padding:12px 18px;
+
+    font-size:.95rem;
+
+    font-weight:600;
+
+    box-shadow:var(--shadow);
+
+    z-index:9999;
+
+    transition:var(--transition);
+
+}
+
+#visit-timer:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:var(--shadow-lg);
+
+}

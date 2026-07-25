@@ -1010,3 +1010,25 @@ Math.round(scroll/height*100);
 Math.min(percent,100)+"%";
 
 });
+/* =====================================================
+   MODULE 13
+   VISIT TIMER
+===================================================== */
+
+let seconds = 0;
+
+const timer = document.getElementById("visit-time");
+
+setInterval(() => {
+
+    seconds++;
+
+    const min = String(Math.floor(seconds / 60)).padStart(2,"0");
+
+    const sec = String(seconds % 60).padStart(2,"0");
+
+    timer.textContent = `${min}:${sec}`;
+
+},1000);
+
+console.log("Module 13 chargé");
