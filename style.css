@@ -511,7 +511,9 @@ strong{
 
 .timeline-content{
 
-    background:white;
+    background:var(--white);
+
+    color:var(--text);
 
     padding:25px;
 
@@ -519,11 +521,21 @@ strong{
 
     box-shadow:var(--shadow);
 
+    transition:var(--transition);
+
 }
 
 .timeline-content h3{
 
     margin-top:0;
+
+    color:var(--text);
+
+}
+
+.timeline-content p{
+
+    color:var(--text);
 
 }
 
@@ -541,7 +553,7 @@ strong{
 
     background:var(--blue);
 
-    border:4px solid white;
+    border:4px solid var(--white);
 
     border-radius:50%;
 
@@ -559,7 +571,8 @@ strong{
 
     left:-9px;
 
-}/* =====================================================
+}
+/* =====================================================
    MODULE 8
    GRANDES NATIONS
 ===================================================== */
@@ -1194,12 +1207,6 @@ font-size:16px;
 .counter{
 
 font-size:2.2rem;
-
-}
-
-.timeline-content{
-
-padding:18px;
 
 }
 
