@@ -1801,46 +1801,62 @@ button:hover::after,
 }/* =====================================================
    MODULE 15
    QUICK INFO PANEL
-===================================================== */
+========================================== */
 
 #info-panel{
 
-    position:fixed;
+    position:sticky;
+    top:25px;
 
-    top:120px;
-    right:25px;
+    align-self:flex-start;
 
-    width:240px;
+    width:280px;
 
-    background:var(--white);
+    margin-left:40px;
 
-    border:1px solid var(--border);
+    background:#fff;
 
-    border-radius:var(--radius);
+    border-radius:22px;
 
-    padding:22px;
+    padding:28px;
 
-    box-shadow:var(--shadow);
+    box-shadow:0 12px 35px rgba(0,0,0,.10);
 
-    z-index:9999;
+    border:1px solid #ececec;
+
+    transition:.3s;
 
 }
+
+/* Titre */
 
 #info-panel h3{
 
     text-align:center;
 
-    margin-bottom:18px;
-
     color:var(--blue);
 
+    font-size:2rem;
+
+    margin-bottom:25px;
+
 }
+
+/* Sections */
 
 .panel-section{
 
-    margin:18px 0;
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    margin:22px 0;
 
 }
+
+/* Ligne */
 
 .panel-section p{
 
@@ -1848,37 +1864,45 @@ button:hover::after,
 
     justify-content:space-between;
 
-    margin:10px 0;
+    align-items:center;
 
-    color:var(--text);
+    font-size:1.05rem;
 
 }
+
+/* Séparateur */
 
 #info-panel hr{
 
     border:none;
 
-    border-top:1px solid var(--border);
+    border-top:1px solid #ececec;
+
+    margin:22px 0;
 
 }
+
+/* Bouton */
 
 #theme-toggle{
 
     width:100%;
 
-    padding:12px;
+    padding:14px;
 
     border:none;
 
-    border-radius:10px;
+    border-radius:12px;
 
     background:var(--blue);
 
     color:white;
 
+    font-size:1rem;
+
     cursor:pointer;
 
-    transition:var(--transition);
+    transition:.25s;
 
 }
 
@@ -1886,6 +1910,20 @@ button:hover::after,
 
     transform:translateY(-2px);
 
-    background:var(--blue-dark);
+}
+
+/* Responsive */
+
+@media(max-width:1100px){
+
+    #info-panel{
+
+        position:relative;
+
+        width:100%;
+
+        margin:40px 0 0 0;
+
+    }
 
 }
