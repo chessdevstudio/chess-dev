@@ -1,6 +1,7 @@
 /* =====================================================
-   CHESS.DEV STUDIO
-   MODULE 1 — CONFIGURATION & OUTILS
+   CHESS.DEV STUDIO V6
+   MODULE 0
+   CONFIGURATION GLOBALE
 ===================================================== */
 
 "use strict";
@@ -9,36 +10,15 @@
    CONFIGURATION
 ===================================================== */
 
-const ChessDev = {
+const CONFIG = {
 
-    version: "5.0",
+    version: "6.0",
 
-    nom: "Chess.dev Studio",
+    siteName: "Chess.dev Studio",
 
-    debug: true,
+    debug: false,
 
-    responsive: {
-        mobile: 768,
-        tablette: 1200
-    }
-
-};
-
-/* =====================================================
-   ETAT GLOBAL
-===================================================== */
-
-const App = {
-
-    largeur: window.innerWidth,
-
-    hauteur: window.innerHeight,
-
-    scrollY: window.scrollY,
-
-    theme: "light",
-
-    initialise: false
+    lectureMotsMinute: 200
 
 };
 
@@ -46,449 +26,27 @@ const App = {
    RACCOURCIS DOM
 ===================================================== */
 
-function $(id) {
+const $ = (id) => document.getElementById(id);
 
-    return document.getElementById(id);
+const $$ = (selector) => document.querySelector(selector);
 
-}
-
-function qs(selecteur) {
-
-    return document.querySelector(selecteur);
-
-}
-
-function qsa(selecteur) {
-
-    return document.querySelectorAll(selecteur);
-
-}
+const $$$ = (selector) => document.querySelectorAll(selector);
 
 /* =====================================================
    UTILITAIRES
 ===================================================== */
 
-function throttle(callback, delai) {
+/* -------- Nombre -------- */
 
-    let attente = false;
+function formatNombre(nombre){
 
-    return function () {
-
-        if (attente) return;
-
-        attente = true;
-
-        callback.apply(this, arguments);
-
-        setTimeout(function () {
-
-            attente = false;
-
-        }, delai);
-
-    };
+    return Number(nombre).toLocaleString("fr-FR");
 
 }
 
-function debounce(callback, delai) {
+/* -------- Aléatoire -------- */
 
-    let timer;
-
-    return function () {
-
-        clearTimeout(timer);
-
-        timer = setTimeout(() => {
-
-            callback.apply(this, arguments);
-
-        }, delai);
-
-    };
-
-}
-
-function nombre(valeur) {
-
-    return Number(valeur).toLocaleString("fr-FR");
-
-}
-
-/* =====================================================
-   MISE A JOUR DES DIMENSIONS
-===================================================== */
-
-function mettreAJourDimensions() {
-
-    App.largeur = window.innerWidth;
-
-    App.hauteur = window.innerHeight;
-
-    App.scrollY = window.scrollY;
-
-}
-
-/* =====================================================
-   INITIALISATION
-===================================================== */
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    mettreAJourDimensions();
-
-    window.addEventListener(
-        "resize",
-        throttle(mettreAJourDimensions, 100)
-    );
-
-    window.addEventListener(
-        "scroll",
-        throttle(mettreAJourDimensions, 20)
-    );
-
-    App.initialise = true;
-
-    console.log("✅ Module 1 chargé");
-
-});
-
-/* =====================================================
-   FIN MODULE 1
-===================================================== */
-/* =====================================================
-   MODULE 2 — NAVIGATION
-===================================================== */
-
-const Navigation = {
-
-    header: null,
-
-    liens: [],
-
-    menu: null
-
-};
-
-/* =====================================================
-   INITIALISATION
-===================================================== */
-
-function initialiserNavigation() {
-
-    Navigation.header = document.querySelector("header");
-
-    Navigation.liens = document.querySelectorAll("nav a");
-
-    Navigation.menu = document.querySelector(".menu-toggle");
-
-    gererHeader();
-
-}
-
-/* =====================================================
-   HEADER AU SCROLL
-===================================================== */
-
-function gererHeader() {
-
-    if (!Navigation.header) return;
-
-    if (window.scrollY > 40) {
-
-        Navigation.header.classList.add("header-scroll");
-
-    } else {
-
-        Navigation.header.classList.remove("header-scroll");
-
-    }
-
-}
-
-/* =====================================================
-   LIEN ACTIF
-===================================================== */
-
-function activerLien(id) {
-
-    Navigation.liens.forEach(function (lien) {
-
-        lien.classList.remove("active");
-
-        if (lien.getAttribute("href") === "#" + id) {
-
-            lien.classList.add("active");
-
-        }
-
-    });
-
-}
-
-/* =====================================================
-   SCROLL DOUX
-===================================================== */
-
-function initialiserScrollDoux() {
-
-    Navigation.liens.forEach(function (lien) {
-
-        lien.addEventListener("click", function (event) {
-
-            const cible = document.querySelector(
-
-                lien.getAttribute("href")
-
-            );
-
-            if (!cible) return;
-
-            event.preventDefault();
-
-            cible.scrollIntoView({
-
-                behavior: "smooth",
-
-                block: "start"
-
-            });
-
-        });
-
-    });
-
-}
-
-/* =====================================================
-   OBSERVER DES SECTIONS
-===================================================== */
-
-function observerSections() {
-
-    const sections = document.querySelectorAll("section[id]");
-
-    if (!sections.length) return;
-
-    const observer = new IntersectionObserver(
-
-        function (entries) {
-
-            entries.forEach(function (entry) {
-
-                if (entry.isIntersecting) {
-
-                    activerLien(entry.target.id);
-
-                }
-
-            });
-
-        },
-
-        {
-
-            threshold: 0.35
-
-        }
-
-    );
-
-    sections.forEach(function (section) {
-
-        observer.observe(section);
-
-    });
-
-}
-
-/* =====================================================
-   INITIALISATION
-===================================================== */
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    initialiserNavigation();
-
-    initialiserScrollDoux();
-
-    observerSections();
-
-    window.addEventListener(
-
-        "scroll",
-
-        throttle(gererHeader, 20)
-
-    );
-
-    console.log("✅ Module 2 chargé");
-
-});
-
-/* =====================================================
-   FIN MODULE 2
-===================================================== */
-
-/* =====================================================
-   MODULE 3 — BARRE DE PROGRESSION
-===================================================== */
-
-function initialiserBarreProgression() {
-
-    console.log("Module 3 chargé");
-
-    const barre = document.getElementById("progress-bar");
-
-    if (!barre) {
-
-        console.log("progress-bar introuvable");
-
-        return;
-
-    }
-
-    console.log("progress-bar trouvée");
-
-    function mettreAJourProgression() {
-
-        const hauteurDocument =
-            document.documentElement.scrollHeight - window.innerHeight;
-
-        if (hauteurDocument <= 0) {
-            barre.style.width = "0%";
-            return;
-        }
-
-        const progression =
-            (window.scrollY / hauteurDocument) * 100;
-
-        barre.style.width = progression + "%";
-    }
-
-    mettreAJourProgression();
-
-    window.addEventListener("scroll", mettreAJourProgression);
-
-    window.addEventListener("resize", mettreAJourProgression);
-
-}
-
-document.addEventListener(
-    "DOMContentLoaded",
-    initialiserBarreProgression
-);
-
-/* =====================================================
-   FIN MODULE 3
-===================================================== */
-
-/* =====================================================
-   MODULE 4 — UTILITAIRES
-===================================================== */
-
-/* =====================================================
-   SÉLECTEURS
-===================================================== */
-
-function $(id) {
-
-    return document.getElementById(id);
-
-}
-
-function qs(selecteur) {
-
-    return document.querySelector(selecteur);
-
-}
-
-function qsa(selecteur) {
-
-    return document.querySelectorAll(selecteur);
-
-}
-
-/* =====================================================
-   ATTENDRE
-===================================================== */
-
-function attendre(ms) {
-
-    return new Promise(function(resolve){
-
-        setTimeout(resolve, ms);
-
-    });
-
-}
-
-/* =====================================================
-   THROTTLE
-===================================================== */
-
-function throttle(callback, delai) {
-
-    let attente = false;
-
-    return function(){
-
-        if(attente) return;
-
-        attente = true;
-
-        callback.apply(this, arguments);
-
-        setTimeout(function(){
-
-            attente = false;
-
-        }, delai);
-
-    };
-
-}
-
-/* =====================================================
-   DEBOUNCE
-===================================================== */
-
-function debounce(callback, delai) {
-
-    let timer;
-
-    return function(){
-
-        clearTimeout(timer);
-
-        const contexte = this;
-
-        const args = arguments;
-
-        timer = setTimeout(function(){
-
-            callback.apply(contexte, args);
-
-        }, delai);
-
-    };
-
-}
-
-/* =====================================================
-   FORMAT NOMBRE
-===================================================== */
-
-function nombre(valeur){
-
-    return Number(valeur).toLocaleString("fr-FR");
-
-}
-
-/* =====================================================
-   ALÉATOIRE
-===================================================== */
-
-function aleatoire(min,max){
+function random(min,max){
 
     return Math.floor(
 
@@ -498,37 +56,777 @@ function aleatoire(min,max){
 
 }
 
+/* -------- Debounce -------- */
+
+function debounce(callback,delay){
+
+    let timer;
+
+    return function(){
+
+        clearTimeout(timer);
+
+        timer = setTimeout(
+
+            () => callback.apply(this,arguments),
+
+            delay
+
+        );
+
+    };
+
+}
+
+/* -------- Throttle -------- */
+
+function throttle(callback,delay){
+
+    let waiting=false;
+
+    return function(){
+
+        if(waiting) return;
+
+        waiting=true;
+
+        callback.apply(this,arguments);
+
+        setTimeout(
+
+            ()=> waiting=false,
+
+            delay
+
+        );
+
+    };
+
+}
+
 /* =====================================================
-   VÉRIFICATION
+   VARIABLES GLOBALES
 ===================================================== */
 
-document.addEventListener(
+const App={
 
-    "DOMContentLoaded",
+    body:document.body,
 
-    function(){
+    html:document.documentElement,
 
-        console.log("✅ Module 4 chargé");
+    progressBar:$("progress-bar"),
+
+    searchInput:$("searchInput"),
+
+    themeButton:$("theme-toggle"),
+
+    readingTime:$("reading-time"),
+
+    readingProgress:$("reading-progress"),
+
+    wordCount:$("word-count"),
+
+    visitTime:$("visit-time")
+
+};
+
+/* =====================================================
+   DEBUG
+===================================================== */
+
+function log(message){
+
+    if(CONFIG.debug){
+
+        console.log(message);
+
+    }
+
+}
+
+log("✅ Module 0 chargé");
+/* =====================================================
+   MODULE 1
+   CITATION DU JOUR
+===================================================== */
+
+const citations = [
+
+    {
+        texte : "Les échecs sont la gymnastique de l'esprit.",
+        auteur : "Blaise Pascal"
+    },
+
+    {
+        texte : "Aux échecs, comme dans la vie, le meilleur coup est toujours celui que l'on trouve soi-même.",
+        auteur : "Savielly Tartakower"
+    },
+
+    {
+        texte : "Les pions sont l'âme des échecs.",
+        auteur : "François-André Philidor"
+    },
+
+    {
+        texte : "Les échecs exigent une concentration absolue.",
+        auteur : "Magnus Carlsen"
+    },
+
+    {
+        texte : "Le roi est une pièce forte... uniquement en finale.",
+        auteur : "José Raúl Capablanca"
+    },
+
+    {
+        texte : "Le tacticien sait quoi faire lorsqu'il y a quelque chose à faire. Le stratège sait quoi faire lorsqu'il n'y a rien à faire.",
+        auteur : "Savielly Tartakower"
+    },
+
+    {
+        texte : "Les combinaisons naissent d'une position supérieure.",
+        auteur : "Garry Kasparov"
+    },
+
+    {
+        texte : "Chaque partie d'échecs est une aventure.",
+        auteur : "David Bronstein"
+    },
+
+    {
+        texte : "Même le plus long voyage commence par un premier coup.",
+        auteur : "Proverbe adapté aux échecs"
+    },
+
+    {
+        texte : "Aux échecs, les erreurs sont toujours là, attendant d'être découvertes.",
+        auteur : "Garry Kasparov"
+    }
+
+];
+
+/* =====================================================
+   AFFICHAGE
+===================================================== */
+
+function afficherCitation(){
+
+    const citation = $("quote");
+    const auteur   = $("author");
+
+    if(!citation || !auteur) return;
+
+    const index = random(0, citations.length - 1);
+
+    citation.textContent = `"${citations[index].texte}"`;
+
+    auteur.textContent = "— " + citations[index].auteur;
+
+}
+
+log("✅ Module 1 chargé");
+/* =====================================================
+   MODULE 2
+   MODE SOMBRE
+===================================================== */
+
+const THEME_KEY = "chessdev-theme";
+
+/* =====================================================
+   CHARGEMENT DU THÈME
+===================================================== */
+
+function chargerTheme(){
+
+    const theme = localStorage.getItem(THEME_KEY);
+
+    if(theme === "dark"){
+
+        App.body.classList.add("dark-mode");
+
+        if(App.themeButton){
+
+            App.themeButton.textContent = "☀️ Mode clair";
+
+        }
+
+    }else{
+
+        App.body.classList.remove("dark-mode");
+
+        if(App.themeButton){
+
+            App.themeButton.textContent = "🌙 Mode sombre";
+
+        }
+
+    }
+
+}
+
+/* =====================================================
+   CHANGEMENT DE THÈME
+===================================================== */
+
+function changerTheme(){
+
+    App.body.classList.toggle("dark-mode");
+
+    const sombre = App.body.classList.contains("dark-mode");
+
+    localStorage.setItem(
+
+        THEME_KEY,
+
+        sombre ? "dark" : "light"
+
+    );
+
+    if(App.themeButton){
+
+        App.themeButton.textContent =
+
+            sombre
+                ? "☀️ Mode clair"
+                : "🌙 Mode sombre";
+
+    }
+
+}
+
+/* =====================================================
+   INITIALISATION
+===================================================== */
+
+function initialiserTheme(){
+
+    chargerTheme();
+
+    if(App.themeButton){
+
+        App.themeButton.addEventListener(
+
+            "click",
+
+            changerTheme
+
+        );
+
+    }
+
+}
+
+log("✅ Module 2 chargé");
+/* =====================================================
+   MODULE 3
+   BARRE DE PROGRESSION
+===================================================== */
+
+/* =====================================================
+   CALCUL DE LA PROGRESSION
+===================================================== */
+
+function mettreAJourProgression(){
+
+    if(!App.progressBar) return;
+
+    const hauteurPage =
+
+        document.documentElement.scrollHeight -
+        window.innerHeight;
+
+    if(hauteurPage <= 0){
+
+        App.progressBar.style.width = "0%";
+
+        return;
+
+    }
+
+    const progression =
+
+        (window.scrollY / hauteurPage) * 100;
+
+    App.progressBar.style.width =
+
+        Math.min(progression,100) + "%";
+
+}
+
+/* =====================================================
+   INITIALISATION
+===================================================== */
+
+function initialiserBarreProgression(){
+
+    mettreAJourProgression();
+
+    window.addEventListener(
+
+        "scroll",
+
+        throttle(
+
+            mettreAJourProgression,
+
+            15
+
+        )
+
+    );
+
+    window.addEventListener(
+
+        "resize",
+
+        mettreAJourProgression
+
+    );
+
+}
+
+log("✅ Module 3 chargé");
+/* =====================================================
+   MODULE 4
+   RECHERCHE INSTANTANÉE
+===================================================== */
+
+/* =====================================================
+   NORMALISATION DU TEXTE
+===================================================== */
+
+function normaliserTexte(texte){
+
+    return texte
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g,"");
+
+}
+
+/* =====================================================
+   RECHERCHE
+===================================================== */
+
+function rechercherContenu(){
+
+    if(!App.searchInput) return;
+
+    const recherche = normaliserTexte(
+
+        App.searchInput.value.trim()
+
+    );
+
+    const sections = $$$(".search-item");
+
+    sections.forEach(section=>{
+
+        const contenu = normaliserTexte(
+
+            section.textContent
+
+        );
+
+        if(
+
+            recherche === "" ||
+
+            contenu.includes(recherche)
+
+        ){
+
+            section.style.display="block";
+
+        }
+
+        else{
+
+            section.style.display="none";
+
+        }
+
+    });
+
+}
+
+/* =====================================================
+   INITIALISATION
+===================================================== */
+
+function initialiserRecherche(){
+
+    if(!App.searchInput) return;
+
+    App.searchInput.addEventListener(
+
+        "input",
+
+        debounce(
+
+            rechercherContenu,
+
+            200
+
+        )
+
+    );
+
+}
+
+log("✅ Module 4 chargé");
+/* =====================================================
+   MODULE 5
+   ANIMATIONS D'APPARITION
+===================================================== */
+
+/* =====================================================
+   OBSERVER
+===================================================== */
+
+const observerAnimations = new IntersectionObserver(
+
+    (entries)=>{
+
+        entries.forEach(entry=>{
+
+            if(entry.isIntersecting){
+
+                entry.target.classList.add("visible");
+
+            }
+
+        });
+
+    },
+
+    {
+
+        threshold:0.15,
+
+        rootMargin:"0px 0px -50px 0px"
 
     }
 
 );
 
 /* =====================================================
-   FIN MODULE 4
-===================================================== */
-/* =====================================================
-   MODULE 5 — MODALES
+   INITIALISATION
 ===================================================== */
 
-const Modales = {
+function initialiserAnimations(){
 
-    ouverte: null
+    const elements = document.querySelectorAll(
 
-};
+        ".fade-section, .fade-up"
+
+    );
+
+    elements.forEach(element=>{
+
+        observerAnimations.observe(element);
+
+    });
+
+}
+
+log("✅ Module 5 chargé");
+/* =====================================================
+   MODULE 6
+   COMPTEURS ANIMÉS
+===================================================== */
 
 /* =====================================================
-   OUVRIR
+   ANIMATION D'UN COMPTEUR
+===================================================== */
+
+function animerCompteur(compteur){
+
+    const objectif = Number(
+
+        compteur.dataset.counter
+
+    );
+
+    if(!objectif) return;
+
+    let valeur = 0;
+
+    const duree = 1800;
+
+    const pas = Math.max(
+
+        1,
+
+        Math.ceil(
+
+            objectif / (duree / 16)
+
+        )
+
+    );
+
+    function animation(){
+
+        valeur += pas;
+
+        if(valeur >= objectif){
+
+            compteur.textContent =
+
+                formatNombre(objectif);
+
+            return;
+
+        }
+
+        compteur.textContent =
+
+            formatNombre(valeur);
+
+        requestAnimationFrame(animation);
+
+    }
+
+    animation();
+
+}
+
+/* =====================================================
+   OBSERVER
+===================================================== */
+
+const observerCompteurs = new IntersectionObserver(
+
+    (entries)=>{
+
+        entries.forEach(entry=>{
+
+            if(entry.isIntersecting){
+
+                animerCompteur(entry.target);
+
+                observerCompteurs.unobserve(
+
+                    entry.target
+
+                );
+
+            }
+
+        });
+
+    },
+
+    {
+
+        threshold:0.4
+
+    }
+
+);
+
+/* =====================================================
+   INITIALISATION
+===================================================== */
+
+function initialiserCompteurs(){
+
+    $$$(".counter").forEach(compteur=>{
+
+        observerCompteurs.observe(compteur);
+
+    });
+
+}
+
+log("✅ Module 6 chargé");
+/* =====================================================
+   MODULE 7
+   STATISTIQUES DE LECTURE
+===================================================== */
+
+/* =====================================================
+   CALCUL DES STATISTIQUES
+===================================================== */
+
+function calculerStatistiquesLecture(){
+
+    const texte = document.body.innerText;
+
+    const mots = texte
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean).length;
+
+    const temps = Math.max(
+
+        1,
+
+        Math.ceil(
+
+            mots / CONFIG.lectureMotsMinute
+
+        )
+
+    );
+
+    if(App.wordCount){
+
+        App.wordCount.textContent =
+
+            formatNombre(mots);
+
+    }
+
+    if(App.readingTime){
+
+        App.readingTime.textContent =
+
+            temps + " min";
+
+    }
+
+}
+
+/* =====================================================
+   PROGRESSION DE LECTURE
+===================================================== */
+
+function mettreAJourLecture(){
+
+    if(!App.readingProgress) return;
+
+    const hauteur =
+
+        document.documentElement.scrollHeight -
+        window.innerHeight;
+
+    if(hauteur <= 0){
+
+        App.readingProgress.textContent = "100%";
+
+        return;
+
+    }
+
+    const progression = Math.min(
+
+        100,
+
+        Math.round(
+
+            window.scrollY / hauteur * 100
+
+        )
+
+    );
+
+    App.readingProgress.textContent =
+
+        progression + "%";
+
+}
+
+/* =====================================================
+   INITIALISATION
+===================================================== */
+
+function initialiserLecture(){
+
+    calculerStatistiquesLecture();
+
+    mettreAJourLecture();
+
+    window.addEventListener(
+
+        "scroll",
+
+        throttle(
+
+            mettreAJourLecture,
+
+            20
+
+        )
+
+    );
+
+    window.addEventListener(
+
+        "resize",
+
+        mettreAJourLecture
+
+    );
+
+}
+
+log("✅ Module 7 chargé");
+/* =====================================================
+   MODULE 8
+   TEMPS DE VISITE
+===================================================== */
+
+let debutVisite = Date.now();
+
+/* =====================================================
+   MISE À JOUR DU CHRONOMÈTRE
+===================================================== */
+
+function mettreAJourTempsVisite(){
+
+    if(!App.visitTime) return;
+
+    const secondes = Math.floor(
+
+        (Date.now() - debutVisite) / 1000
+
+    );
+
+    const minutes = Math.floor(
+
+        secondes / 60
+
+    );
+
+    const reste = secondes % 60;
+
+    App.visitTime.textContent =
+
+        String(minutes).padStart(2,"0") +
+
+        ":" +
+
+        String(reste).padStart(2,"0");
+
+}
+
+/* =====================================================
+   INITIALISATION
+===================================================== */
+
+function initialiserTempsVisite(){
+
+    mettreAJourTempsVisite();
+
+    setInterval(
+
+        mettreAJourTempsVisite,
+
+        1000
+
+    );
+
+}
+
+log("✅ Module 8 chargé");
+/* =====================================================
+   MODULE 9
+   GESTION DES MODALES
+===================================================== */
+
+/* =====================================================
+   OUVRIR UNE MODALE
 ===================================================== */
 
 function ouvrirModal(id){
@@ -539,14 +837,12 @@ function ouvrirModal(id){
 
     modal.style.display = "flex";
 
-    document.body.classList.add("modal-open");
-
-    Modales.ouverte = modal;
+    document.body.style.overflow = "hidden";
 
 }
 
 /* =====================================================
-   FERMER
+   FERMER UNE MODALE
 ===================================================== */
 
 function fermerModal(id){
@@ -557,478 +853,130 @@ function fermerModal(id){
 
     modal.style.display = "none";
 
-    document.body.classList.remove("modal-open");
-
-    Modales.ouverte = null;
+    document.body.style.overflow = "";
 
 }
 
 /* =====================================================
-   CLIC À L'EXTÉRIEUR
+   FERMETURE AU CLIC EXTÉRIEUR
 ===================================================== */
 
-window.addEventListener("click",function(event){
+function fermerSiExterieur(event){
 
-    if(
+    if(event.target.classList.contains("modal")){
 
-        Modales.ouverte &&
+        event.target.style.display = "none";
 
-        event.target===Modales.ouverte
-
-    ){
-
-        fermerModal(Modales.ouverte.id);
+        document.body.style.overflow = "";
 
     }
 
-});
-
-/* =====================================================
-   TOUCHE ÉCHAP
-===================================================== */
-
-document.addEventListener("keydown",function(event){
-
-    if(
-
-        event.key==="Escape" &&
-
-        Modales.ouverte
-
-    ){
-
-        fermerModal(Modales.ouverte.id);
-
-    }
-
-});
+}
 
 /* =====================================================
    INITIALISATION
 ===================================================== */
 
-document.addEventListener(
+function initialiserModales(){
 
-    "DOMContentLoaded",
+    $$$(".modal").forEach(modal=>{
 
-    function(){
+        modal.addEventListener(
 
-        console.log("✅ Module 5 chargé");
+            "click",
 
-    }
+            fermerSiExterieur
 
-);
+        );
 
-/* =====================================================
-   FIN MODULE 5
-===================================================== */
-/* =====================================================
-   MODULE 6 — ANIMATIONS
-===================================================== */
+    });
 
-const Animations = {
+    document.addEventListener(
 
-    observer: null
+        "keydown",
 
-};
+        event=>{
 
-/* =====================================================
-   INITIALISATION
-===================================================== */
+            if(event.key!=="Escape") return;
 
-function initialiserAnimations() {
+            $$$(".modal").forEach(modal=>{
 
-    if (!("IntersectionObserver" in window)) {
+                modal.style.display="none";
 
-        return;
+            });
 
-    }
-
-    Animations.observer = new IntersectionObserver(
-
-        afficherAnimations,
-
-        {
-
-            threshold: 0.15,
-
-            rootMargin: "0px 0px -80px 0px"
+            document.body.style.overflow="";
 
         }
 
     );
 
-    const elements = document.querySelectorAll(
-
-        ".stat-card, .timeline-item, .nation-card, .champion-card, .carte-ouverture"
-
-    );
-
-    elements.forEach(function (element) {
-
-        element.classList.add("animation-ready");
-
-        Animations.observer.observe(element);
-
-    });
-
 }
 
-/* =====================================================
-   OBSERVER
-===================================================== */
-
-function afficherAnimations(entries) {
-
-    entries.forEach(function (entry) {
-
-        if (!entry.isIntersecting) return;
-
-        entry.target.classList.add("animation-visible");
-
-        Animations.observer.unobserve(entry.target);
-
-    });
-
-}
-
-/* =====================================================
-   REJOUER UNE ANIMATION
-===================================================== */
-
-function rejouerAnimation(element) {
-
-    if (!element) return;
-
-    element.classList.remove("animation-visible");
-
-    void element.offsetWidth;
-
-    element.classList.add("animation-visible");
-
-}
-
-/* =====================================================
-   INITIALISATION
-===================================================== */
-
-document.addEventListener(
-
-    "DOMContentLoaded",
-
-    function () {
-
-        initialiserAnimations();
-
-        console.log("✅ Module 6 chargé");
-
-    }
-
-);
-
-/* =====================================================
-   FIN MODULE 6
-===================================================== */
-/* =====================================================
-   MODULE 7 — COMPTEURS
-===================================================== */
-
-function initialiserCompteurs() {
-
-    const compteurs = document.querySelectorAll(".counter[data-counter]");
-
-    if (!compteurs.length) {
-
-        console.log("ℹ️ Aucun compteur trouvé.");
-
-        return;
-
-    }
-
-    const observer = new IntersectionObserver(function(entries){
-
-        entries.forEach(function(entry){
-
-            if(!entry.isIntersecting) return;
-
-            animerCompteur(entry.target);
-
-            observer.unobserve(entry.target);
-
-        });
-
-    },{
-
-        threshold:0.4
-
-    });
-
-    compteurs.forEach(function(compteur){
-
-        observer.observe(compteur);
-
-    });
-
-}
-
-function animerCompteur(compteur){
-
-    const cible = Number(compteur.dataset.counter);
-
-    let valeur = 0;
-
-    const duree = 1800;
-
-    const debut = performance.now();
-
-    function animation(temps){
-
-        const progression = Math.min(
-
-            (temps-debut)/duree,
-
-            1
-
-        );
-
-        valeur = Math.floor(
-
-            cible*progression
-
-        );
-
-        compteur.textContent =
-
-            nombre(valeur);
-
-        if(progression<1){
-
-            requestAnimationFrame(animation);
-
-        }else{
-
-            compteur.textContent =
-
-                nombre(cible);
-
-        }
-
-    }
-
-    requestAnimationFrame(animation);
-
-}
-
-document.addEventListener(
-
-    "DOMContentLoaded",
-
-    function(){
-
-        initialiserCompteurs();
-
-        console.log("✅ Module 7 chargé");
-
-    }
-
-);
-
-/* =====================================================
-   FIN MODULE 7
-===================================================== */
-/* =====================================================
-   MODULE 8
-   Apparition progressive des sections
-===================================================== */
-
-const observer = new IntersectionObserver((entries) => {
-
-    entries.forEach(entry => {
-
-        if(entry.isIntersecting){
-
-            entry.target.classList.add("visible");
-
-        }
-
-    });
-
-},{
-    threshold:0.15
-});
-
-document.querySelectorAll(".fade-section").forEach(section => {
-
-    observer.observe(section);
-
-});
-
-console.log("Module 8 chargé");
-/* =====================================================
-   MODULE 9
-   Citation du jour
-===================================================== */
-
-const quotes = [
-
-{
-text:"Les échecs sont le gymnase de l'esprit.",
-author:"Blaise Pascal"
-},
-
-{
-text:"Les échecs sont la lutte contre l'erreur.",
-author:"Johannes Zukertort"
-},
-
-{
-text:"La vie est comme une partie d'échecs.",
-author:"Miguel de Cervantes"
-},
-
-{
-text:"Aux échecs, comme dans la vie, le danger vient souvent de sa propre imprudence.",
-author:"Savielly Tartakower"
-},
-
-{
-text:"Les pions sont l'âme des échecs.",
-author:"François-André Danican Philidor"
-},
-
-{
-text:"Les combinaisons gagnantes viennent à l'esprit d'un joueur observateur.",
-author:"Siegbert Tarrasch"
-}
-
-];
-
-const randomQuote = quotes[Math.floor(Math.random()*quotes.length)];
-
-document.getElementById("quote").textContent =
-`"${randomQuote.text}"`;
-
-document.getElementById("author").textContent =
-`— ${randomQuote.author}`;
-
-console.log("Module 9 chargé");
+log("✅ Module 9 chargé");
 /* =====================================================
    MODULE 10
-   Mode sombre
+   INITIALISATION GÉNÉRALE
 ===================================================== */
 
-const themeBtn = document.getElementById("theme-toggle");
+document.addEventListener("DOMContentLoaded",()=>{
 
-if(localStorage.getItem("theme")==="dark"){
+    log("🚀 Initialisation de Chess.dev Studio V6");
 
-    document.body.classList.add("dark-mode");
+    /* =========================
+       Citation du jour
+    ========================= */
 
-    themeBtn.textContent="☀️";
+    afficherCitation();
 
-}
+    /* =========================
+       Mode sombre
+    ========================= */
 
-themeBtn.addEventListener("click",()=>{
+    initialiserTheme();
 
-    document.body.classList.toggle("dark-mode");
+    /* =========================
+       Barre de progression
+    ========================= */
 
-    const dark=document.body.classList.contains("dark-mode");
+    initialiserBarreProgression();
 
-    themeBtn.textContent=dark ? "☀️" : "🌙";
+    /* =========================
+       Recherche
+    ========================= */
 
-    localStorage.setItem("theme",dark ? "dark":"light");
+    initialiserRecherche();
+
+    /* =========================
+       Animations
+    ========================= */
+
+    initialiserAnimations();
+
+    /* =========================
+       Compteurs
+    ========================= */
+
+    initialiserCompteurs();
+
+    /* =========================
+       Statistiques de lecture
+    ========================= */
+
+    initialiserLecture();
+
+    /* =========================
+       Temps de visite
+    ========================= */
+
+    initialiserTempsVisite();
+
+    /* =========================
+       Modales
+    ========================= */
+
+    initialiserModales();
+
+    log("✅ Chess.dev Studio prêt.");
 
 });
-
-console.log("Module 10 chargé");
-/* =====================================================
-   MODULE 11
-   RECHERCHE INSTANTANÉE
-===================================================== */
-
-const searchInput = document.getElementById("searchInput");
-
-const searchableItems = document.querySelectorAll(".search-item");
-
-searchInput.addEventListener("input", function(){
-
-    const value = this.value.toLowerCase().trim();
-
-    searchableItems.forEach(item=>{
-
-        const text = item.textContent.toLowerCase();
-
-        if(text.includes(value)){
-
-            item.style.display="";
-
-        }
-
-        else{
-
-            item.style.display="none";
-
-        }
-
-    });
-
-});
-
-console.log("Module 11 chargé");
-/* =====================================================
-   MODULE 12
-   READING STATISTICS
-===================================================== */
-
-const words =
-document.body.innerText.trim().split(/\s+/).length;
-
-document.getElementById("word-count").textContent =
-words.toLocaleString();
-
-const minutes =
-Math.max(1,Math.ceil(words/200));
-
-document.getElementById("reading-time").textContent =
-minutes+" min";
-
-const progress =
-document.getElementById("reading-progress");
-
-window.addEventListener("scroll",()=>{
-
-    const scroll =
-window.scrollY;
-
-    const height =
-document.documentElement.scrollHeight-
-window.innerHeight;
-
-    const percent =
-Math.round(scroll/height*100);
-
-    progress.textContent =
-Math.min(percent,100)+"%";
-
-});
-/* =====================================================
-   MODULE 13
-   VISIT TIMER
-===================================================== */
-
-let seconds = 0;
-
-const timer = document.getElementById("visit-time");
-
-setInterval(() => {
-
-    seconds++;
-
-    const min = String(Math.floor(seconds / 60)).padStart(2,"0");
-
-    const sec = String(seconds % 60).padStart(2,"0");
-
-    timer.textContent = `${min}:${sec}`;
-
-},1000);
-
-console.log("Module 13 chargé");
