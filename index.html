@@ -1,36 +1,29 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 
 <head>
 
     <!-- =====================================================
          MODULE 0
-         CONFIGURATION DE LA PAGE
+         MÉTADONNÉES & CONFIGURATION GLOBALE
     ====================================================== -->
 
     <!-- Encodage -->
-
     <meta charset="UTF-8">
 
     <!-- Responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <!-- =====================================================
-         SEO
-    ====================================================== -->
-
+    <!-- SEO -->
     <title>Chess.dev Studio | L'univers des échecs</title>
 
     <meta
         name="description"
-        content="Découvrez l'histoire des échecs, les plus grands champions, les ouvertures célèbres, les règles du jeu, les statistiques et l'univers fascinant des échecs sur Chess.dev Studio.">
+        content="Découvrez l'histoire des échecs, les champions du monde, les ouvertures célèbres, les statistiques et la culture échiquéenne sur Chess.dev Studio.">
 
     <meta
         name="keywords"
-        content="échecs, chess, chess.dev, Magnus Carlsen, Garry Kasparov, Bobby Fischer, ouvertures, stratégie, FIDE, histoire des échecs">
+        content="échecs, chess, chess.dev, chess.dev studio, stratégie, ouvertures, histoire des échecs, Magnus Carlsen, Garry Kasparov, Bobby Fischer">
 
     <meta
         name="author"
@@ -54,7 +47,7 @@
 
     <meta
         property="og:description"
-        content="Explorez l'univers des échecs : histoire, champions, stratégies, ouvertures et intelligence artificielle.">
+        content="Explorez l'univers des échecs : histoire, champions, statistiques, ouvertures et culture échiquéenne.">
 
     <meta
         property="og:type"
@@ -116,81 +109,108 @@
 </head>
 
 <body>
-  <!-- =====================================================
-     MODULE 1
-     INTERFACE UTILISATEUR
-===================================================== -->
+    <!-- =====================================================
+         MODULE 1
+         INTERFACE UTILISATEUR
+    ====================================================== -->
 
-<!-- Barre de progression -->
+    <!-- Barre de progression de lecture -->
 
-<div id="progress-container">
-    <div id="progress-bar"></div>
-</div>
+    <div id="progress-container">
+        <div id="progress-bar"></div>
+    </div>
 
-<!-- Barre de recherche -->
+    <!-- Barre de recherche -->
 
-<div class="search-container">
-    <input
-        type="text"
-        id="searchInput"
-        placeholder="🔍 Rechercher sur Chess.dev Studio..."
-        autocomplete="off">
-</div>
+    <div class="search-container">
 
-<!-- Quick Info Panel -->
-
-<aside id="info-panel">
-
-    <h3>♞ Quick Info</h3>
-
-    <div class="panel-section">
-
-        <p>📖 Temps de lecture : <strong id="reading-time">0 min</strong></p>
-
-        <p>📊 Progression : <strong id="reading-progress">0%</strong></p>
-
-        <p>📝 Nombre de mots : <strong id="word-count">0</strong></p>
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Search the website..."
+            autocomplete="off">
 
     </div>
 
-    <hr>
+    <!-- Quick Info Panel -->
 
-    <div class="panel-section">
+    <aside id="info-panel">
 
-        <p>⏱ Temps passé : <strong id="visit-time">00:00</strong></p>
+        <h3>♞ Quick Info</h3>
 
-    </div>
+        <!-- Lecture -->
 
-    <hr>
+        <div class="panel-section">
 
-    <div class="panel-section">
+            <p>
+                📖
+                <strong id="reading-time">0 min</strong>
+            </p>
 
-        <button id="theme-toggle">
-            🌙 Mode sombre
-        </button>
+            <p>
+                📊
+                <strong id="reading-progress">0%</strong>
+            </p>
 
-    </div>
+            <p>
+                📝
+                <strong id="word-count">0</strong> words
+            </p>
 
-</aside>
+        </div>
 
-<!-- =====================================================
-     MODULE 2
-     EN-TÊTE DU SITE
-===================================================== -->
+        <hr>
 
-<div class="container">
+        <!-- Temps passé -->
 
-    <!-- Citation du jour -->
+        <div class="panel-section">
 
-    <div id="quote-box">
+            <p>
+                ⏱
+                <strong id="visit-time">00:00</strong>
+            </p>
 
-        <p id="quote"></p>
+        </div>
 
-        <span id="author"></span>
+        <hr>
 
-    </div>
+        <!-- Changement de thème -->
 
-    <header>
+        <div class="panel-section">
+
+            <button id="theme-toggle">
+
+                🌙 Dark Mode
+
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- =====================================================
+         DÉBUT DU CONTENU PRINCIPAL
+    ====================================================== -->
+
+    <main class="container">
+    <!-- =====================================================
+         MODULE 2
+         EN-TÊTE DU SITE
+    ====================================================== -->
+
+    <header id="top">
+
+        <!-- Citation du jour -->
+
+        <section id="quote-box">
+
+            <p id="quote"></p>
+
+            <span id="author"></span>
+
+        </section>
+
+        <!-- Titre principal -->
 
         <h1 id="accueil">
 
@@ -198,261 +218,383 @@
 
         </h1>
 
-        <p class="subtitle">
-            Explorer, comprendre et maîtriser l'univers fascinant des échecs.
+        <!-- Sous-titre -->
+
+        <p class="site-description">
+
+            Explorez l'histoire des échecs, découvrez les plus grands champions,
+            apprenez les ouvertures incontournables et plongez dans l'univers
+            fascinant du jeu de stratégie le plus célèbre au monde.
+
         </p>
 
     </header>
     <!-- =====================================================
-     MODULE 3
-     INTRODUCTION & SOMMAIRE
-===================================================== -->
+         MODULE 3
+         STATISTIQUES MONDIALES
+    ====================================================== -->
 
-<section id="introduction" class="fade-section search-item">
+    <section
+        id="statistiques"
+        class="stats-section fade-section search-item">
 
-    <nav class="sommaire">
+        <header>
 
-        <h2>📚 Sommaire</h2>
+            <h2>📊 Les échecs en quelques chiffres</h2>
 
-        <ul>
+            <p class="section-intro">
+                Présents sur tous les continents, les échecs rassemblent une immense
+                communauté de joueurs et comptent parmi les jeux de stratégie les
+                plus pratiqués au monde.
+            </p>
 
-            <li><a href="#histoire">Histoire</a></li>
+        </header>
 
-            <li><a href="#nations">Grandes nations</a></li>
+        <div class="stats-grid">
 
-            <li><a href="#origines">Origines</a></li>
+            <!-- Joueurs -->
 
-            <li><a href="#regles">Règles</a></li>
+            <article class="stat-card">
 
-            <li><a href="#ouvertures">Ouvertures</a></li>
+                <div class="stat-icon">♟️</div>
 
-            <li><a href="#champions">Champions</a></li>
+                <h3
+                    class="counter"
+                    data-counter="600">
 
-            <li><a href="#bienfaits">Bienfaits</a></li>
+                    0
 
-            <li><a href="#ia">Intelligence artificielle</a></li>
+                </h3>
 
-        </ul>
+                <p>Millions de joueurs</p>
 
-    </nav>
+            </article>
 
-    <h2>♟ Un jeu de stratégie intemporel</h2>
+            <!-- Grands Maîtres -->
 
-    <p>
+            <article class="stat-card">
 
-        Depuis plus de quinze siècles, les échecs fascinent des millions de joueurs à travers le monde. Simples dans leurs règles mais pratiquement infinis dans leurs possibilités, ils constituent l'un des jeux de stratégie les plus étudiés de l'histoire.
+                <div class="stat-icon">🏆</div>
 
-    </p>
+                <h3
+                    class="counter"
+                    data-counter="2050">
 
-    <p>
+                    0
 
-        Une partie oppose deux joueurs sur un échiquier de <strong>64 cases</strong>. Chacun dispose de <strong>16 pièces</strong> qu'il devra coordonner afin de protéger son roi tout en cherchant à mettre celui de son adversaire en <strong>échec et mat</strong>. Derrière cette règle simple se cache un jeu où se mêlent logique, créativité, anticipation et prise de décision.
+                </h3>
 
-    </p>
+                <p>Grands Maîtres</p>
 
-    <p>
+            </article>
 
-        Chess.dev Studio vous propose un voyage complet à travers l'univers des échecs : leur histoire, leurs grandes nations, les règles essentielles, les ouvertures les plus célèbres, les champions qui ont marqué leur époque ainsi que l'influence grandissante de l'intelligence artificielle sur ce jeu légendaire.
+            <!-- Pays membres -->
 
-    </p>
+            <article class="stat-card">
 
-</section>
-<!-- =====================================================
-     MODULE 4
-     HISTOIRE DES ÉCHECS
-===================================================== -->
+                <div class="stat-icon">🌍</div>
 
-<section id="histoire" class="fade-section search-item">
+                <h3
+                    class="counter"
+                    data-counter="190">
 
-    <h2>📜 La grande histoire des échecs</h2>
+                    0
 
-    <p class="intro-histoire">
-        Né il y a plus de quinze siècles, le jeu d'échecs a traversé les civilisations, les empires et les révolutions technologiques. D'un simple jeu de stratégie militaire en Inde, il est devenu un sport intellectuel pratiqué dans le monde entier. Cette frise retrace les grandes étapes de cette évolution.
-    </p>
+                </h3>
 
-    <div class="timeline">
+                <p>Pays membres de la FIDE</p>
 
-        <div class="timeline-item">
+            </article>
 
-            <div class="timeline-date">VIᵉ siècle</div>
+            <!-- Nombre de positions -->
 
-            <div class="timeline-content">
+            <article class="stat-card">
 
-                <h3>🇮🇳 Le Chaturanga</h3>
+                <div class="stat-icon">🧠</div>
 
-                <p>
-                    Les premières formes des échecs apparaissent en Inde avec le <strong>Chaturanga</strong>. Les pièces représentent les différentes unités de l'armée et posent les bases du jeu moderne.
-                </p>
+                <h3 class="counter">
 
-            </div>
+                    10<span class="expo">120</span>
 
-        </div>
+                </h3>
 
-        <div class="timeline-item">
+                <p>Positions possibles</p>
 
-            <div class="timeline-date">VIIᵉ siècle</div>
-
-            <div class="timeline-content">
-
-                <h3>🇮🇷 Le Chatrang</h3>
-
-                <p>
-                    Le jeu est adopté en Perse où il prend le nom de <strong>Chatrang</strong>. Les règles commencent à évoluer et les échecs gagnent progressivement en popularité.
-                </p>
-
-            </div>
+            </article>
 
         </div>
 
-        <div class="timeline-item">
+    </section>
+    <!-- =====================================================
+         MODULE 4
+         SOMMAIRE & INTRODUCTION
+    ====================================================== -->
 
-            <div class="timeline-date">IXᵉ siècle</div>
+    <section
+        id="introduction"
+        class="fade-section search-item">
 
-            <div class="timeline-content">
+        <!-- =====================
+             SOMMAIRE
+        ====================== -->
 
-                <h3>☪️ Le Shatranj</h3>
+        <nav class="sommaire">
 
-                <p>
-                    Le monde arabe contribue largement au développement des échecs en rédigeant les premiers traités stratégiques et en diffusant le jeu dans tout le bassin méditerranéen.
-                </p>
+            <h2>📚 Sommaire</h2>
 
-            </div>
+            <ul>
+                <li><a href="#histoire">Histoire</a></li>
+                <li><a href="#nations">Grandes nations</a></li>
+                <li><a href="#origines">Origines</a></li>
+                <li><a href="#regles">Règles du jeu</a></li>
+                <li><a href="#ouvertures">Ouvertures</a></li>
+                <li><a href="#champions">Champions</a></li>
+                <li><a href="#bienfaits">Bienfaits</a></li>
+                <li><a href="#ia">Intelligence artificielle</a></li>
+            </ul>
+
+        </nav>
+
+        <!-- =====================
+             INTRODUCTION
+        ====================== -->
+
+        <header>
+
+            <h2>♟️ Un jeu de stratégie universel</h2>
+
+        </header>
+
+        <p>
+            Les échecs sont l'un des plus anciens jeux de stratégie encore pratiqués aujourd'hui.
+            Opposant deux joueurs sur un échiquier de <strong>64 cases</strong>, ils combinent
+            réflexion, anticipation et créativité dans une discipline où chaque décision peut
+            influencer l'issue de la partie.
+        </p>
+
+        <p>
+            Chaque joueur débute avec <strong>16 pièces</strong> — un roi, une dame,
+            deux tours, deux fous, deux cavaliers et huit pions — soit un total de
+            <strong>32 pièces</strong> sur l'échiquier. L'objectif est de placer le
+            <strong>roi adverse en échec et mat</strong>, c'est-à-dire dans une position
+            où aucune défense légale n'est possible.
+        </p>
+
+        <p>
+            Au-delà de la compétition, les échecs sont devenus un phénomène culturel et
+            éducatif. Ils sont enseignés dans de nombreuses écoles, étudiés par les
+            scientifiques pour leurs bénéfices cognitifs et pratiqués aussi bien par les
+            amateurs que par les meilleurs joueurs du monde.
+        </p>
+
+    </section>
+    <!-- =====================================================
+         MODULE 5
+         LA GRANDE HISTOIRE DES ÉCHECS
+    ====================================================== -->
+
+    <section
+        id="histoire"
+        class="fade-section search-item">
+
+        <header>
+
+            <h2>📜 La grande histoire des échecs</h2>
+
+            <p class="intro-histoire">
+                Depuis plus de quinze siècles, les échecs traversent les civilisations,
+                évoluent au fil des époques et deviennent l'un des jeux de stratégie
+                les plus pratiqués au monde. Cette frise retrace les grandes étapes
+                qui ont façonné leur histoire.
+            </p>
+
+        </header>
+
+        <div class="timeline">
+
+            <!-- VIe siècle -->
+
+            <article class="timeline-item">
+
+                <div class="timeline-date">VIᵉ siècle</div>
+
+                <div class="timeline-content">
+
+                    <h3>🇮🇳 Le Chaturanga</h3>
+
+                    <p>
+                        Né en Inde, le <strong>Chaturanga</strong> est considéré comme
+                        l'ancêtre direct des échecs modernes. Il représente les quatre
+                        corps de l'armée : l'infanterie, la cavalerie, les éléphants
+                        et les chars.
+                    </p>
+
+                </div>
+
+            </article>
+
+            <!-- VIIe siècle -->
+
+            <article class="timeline-item">
+
+                <div class="timeline-date">VIIᵉ siècle</div>
+
+                <div class="timeline-content">
+
+                    <h3>🇮🇷 Le Chatrang</h3>
+
+                    <p>
+                        Le jeu arrive en Perse où il prend le nom de
+                        <strong>Chatrang</strong>. Les règles évoluent progressivement
+                        avant sa diffusion dans tout le Moyen-Orient.
+                    </p>
+
+                </div>
+
+            </article>
+
+            <!-- IXe siècle -->
+
+            <article class="timeline-item">
+
+                <div class="timeline-date">IXᵉ siècle</div>
+
+                <div class="timeline-content">
+
+                    <h3>☪️ Le Shatranj</h3>
+
+                    <p>
+                        Les savants du monde arabe développent le
+                        <strong>Shatranj</strong>, rédigent les premiers traités
+                        stratégiques et contribuent largement à la diffusion des échecs.
+                    </p>
+
+                </div>
+
+            </article>
+
+            <!-- 1475 -->
+
+            <article class="timeline-item">
+
+                <div class="timeline-date">1475</div>
+
+                <div class="timeline-content">
+
+                    <h3>👑 Les règles modernes</h3>
+
+                    <p>
+                        Les règles évoluent profondément. La Dame devient la pièce la
+                        plus puissante et les parties gagnent en dynamisme, donnant
+                        naissance aux échecs modernes.
+                    </p>
+
+                </div>
+
+            </article>
+
+            <!-- 1886 -->
+
+            <article class="timeline-item">
+
+                <div class="timeline-date">1886</div>
+
+                <div class="timeline-content">
+
+                    <h3>🏆 Premier Champion du Monde</h3>
+
+                    <p>
+                        Wilhelm Steinitz est reconnu comme le premier Champion du Monde
+                        officiel, inaugurant une tradition qui perdure encore aujourd'hui.
+                    </p>
+
+                </div>
+
+            </article>
+
+            <!-- 1972 -->
+
+            <article class="timeline-item">
+
+                <div class="timeline-date">1972</div>
+
+                <div class="timeline-content">
+
+                    <h3>🇺🇸 Fischer contre Spassky</h3>
+
+                    <p>
+                        Le célèbre « Match du siècle » oppose Bobby Fischer à Boris
+                        Spassky en pleine Guerre froide. Cette confrontation contribue
+                        à populariser les échecs dans le monde entier.
+                    </p>
+
+                </div>
+
+            </article>
+
+            <!-- 1997 -->
+
+            <article class="timeline-item">
+
+                <div class="timeline-date">1997</div>
+
+                <div class="timeline-content">
+
+                    <h3>🤖 Deep Blue</h3>
+
+                    <p>
+                        Le superordinateur Deep Blue d'IBM bat Garry Kasparov lors
+                        d'un match officiel, marquant un tournant majeur dans l'histoire
+                        des échecs et de l'intelligence artificielle.
+                    </p>
+
+                </div>
+
+            </article>
+
+            <!-- 2013 -->
+
+            <article class="timeline-item">
+
+                <div class="timeline-date">2013</div>
+
+                <div class="timeline-content">
+
+                    <h3>♟️ Magnus Carlsen</h3>
+
+                    <p>
+                        À seulement 22 ans, Magnus Carlsen devient Champion du Monde
+                        et domine durablement la scène échiquéenne grâce à son style
+                        universel.
+                    </p>
+
+                </div>
+
+            </article>
+
+            <!-- 2024 -->
+
+            <article class="timeline-item">
+
+                <div class="timeline-date">2024</div>
+
+                <div class="timeline-content">
+
+                    <h3>🌟 Gukesh Dommaraju</h3>
+
+                    <p>
+                        À 18 ans, Gukesh devient le plus jeune Champion du Monde de
+                        l'histoire, symbole d'une nouvelle génération de joueurs
+                        d'exception.
+                    </p>
+
+                </div>
+
+            </article>
 
         </div>
 
-        <div class="timeline-item">
-
-            <div class="timeline-date">1475</div>
-
-            <div class="timeline-content">
-
-                <h3>👑 Les règles modernes</h3>
-
-                <p>
-                    En Europe, les déplacements de plusieurs pièces sont modifiés, notamment celui de la Dame. Les parties deviennent plus dynamiques et ressemblent désormais aux échecs actuels.
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="timeline-item">
-
-            <div class="timeline-date">1886</div>
-
-            <div class="timeline-content">
-
-                <h3>🏆 Premier Champion du Monde</h3>
-
-                <p>
-                    Wilhelm Steinitz remporte le premier Championnat du Monde officiel et pose les fondements de la stratégie moderne.
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="timeline-item">
-
-            <div class="timeline-date">1972</div>
-
-            <div class="timeline-content">
-
-                <h3>🇺🇸 Fischer contre Spassky</h3>
-
-                <p>
-                    Le « Match du siècle » oppose Bobby Fischer à Boris Spassky en pleine Guerre froide. Cette rencontre dépasse largement le cadre sportif et passionne le monde entier.
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="timeline-item">
-
-            <div class="timeline-date">1997</div>
-
-            <div class="timeline-content">
-
-                <h3>🤖 Deep Blue</h3>
-
-                <p>
-                    L'ordinateur Deep Blue d'IBM bat Garry Kasparov lors d'un match officiel, marquant un tournant majeur dans l'histoire de l'intelligence artificielle.
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="timeline-item">
-
-            <div class="timeline-date">2013</div>
-
-            <div class="timeline-content">
-
-                <h3>♟ Magnus Carlsen</h3>
-
-                <p>
-                    Magnus Carlsen devient Champion du Monde et domine les échecs pendant plus d'une décennie grâce à son extraordinaire polyvalence.
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="timeline-item">
-
-            <div class="timeline-date">2024</div>
-
-            <div class="timeline-content">
-
-                <h3>🌟 Gukesh Dommaraju</h3>
-
-                <p>
-                    À seulement 18 ans, Gukesh devient le plus jeune Champion du Monde de l'histoire, symbole d'une nouvelle génération de joueurs.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =====================================================
-     MODULE 5
-     LES GRANDES NATIONS DES ÉCHECS
-===================================================== -->
-
-<section id="nations" class="fade-section search-item">
-
-    <h2>🌍 Les grandes nations des échecs</h2>
-
-    <p class="intro-nations">
-        Si les échecs sont aujourd'hui pratiqués sur tous les continents, certains pays se distinguent depuis longtemps par la qualité de leur formation, le nombre de Grands Maîtres et leurs performances internationales.
-    </p>
-
-    <div class="nations-grid">
-
-        <!-- Conserver ici tes six cartes actuelles :
-             Russie
-             Inde
-             États-Unis
-             Chine
-             France
-             Norvège -->
-
-    </div>
-
-    <p class="conclusion-nations">
-
-        De la domination historique de la Russie à l'essor spectaculaire de l'Inde, la carte mondiale des échecs évolue constamment. De nouveaux talents apparaissent chaque année, rendant les compétitions internationales toujours plus ouvertes.
-
-    </p>
-
-</section>
-
+    </section>
 <!-- =====================================================
      MODULE 6
      LES ORIGINES DES ÉCHECS
@@ -460,30 +602,38 @@
 
 <section id="origines" class="fade-section search-item">
 
-    <h2>♟ Les origines des échecs</h2>
+    <h2>♟️ Les origines des échecs</h2>
 
     <p>
-
-        Bien avant de devenir un sport reconnu, les échecs étaient un jeu inspiré de l'organisation militaire. Leur ancêtre, le <strong>Chaturanga</strong>, représentait les principales forces d'une armée : l'infanterie, la cavalerie, les éléphants et les chars de guerre.
-
+        Les échecs sont nés en <strong>Inde</strong> il y a environ
+        <strong>1 500 ans</strong>. Leur ancêtre, le
+        <strong>Chaturanga</strong>, représentait les quatre corps de l'armée
+        indienne : l'infanterie, la cavalerie, les éléphants et les chars.
     </p>
 
     <p>
-
-        Au fil des échanges commerciaux et des conquêtes, le jeu voyage de l'Inde vers la Perse, puis vers le monde arabe avant d'arriver en Europe. Chaque civilisation y apporte ses propres adaptations, faisant progressivement évoluer les règles et le rôle des pièces.
-
+        Au cours des siècles, le jeu voyage vers la <strong>Perse</strong>,
+        où il devient le <strong>Chatrang</strong>, puis se diffuse dans le
+        monde arabe sous le nom de <strong>Shatranj</strong>. Les règles
+        évoluent progressivement avant d'arriver en Europe au Moyen Âge.
     </p>
 
     <p>
+        Vers la fin du XVe siècle, les règles modernes apparaissent :
+        la reine devient la pièce la plus puissante, les parties gagnent
+        en dynamisme et les échecs prennent leur forme actuelle.
+    </p>
 
-        À partir de la Renaissance, les échecs prennent leur forme moderne. Les déplacements deviennent plus rapides, les stratégies s'enrichissent et le jeu acquiert la profondeur qui fait aujourd'hui sa renommée. Cette évolution explique pourquoi les échecs sont souvent considérés comme un véritable langage universel de la réflexion.
-
+    <p>
+        Aujourd'hui, ce jeu de stratégie est pratiqué sur tous les continents,
+        aussi bien dans les clubs que dans les compétitions internationales,
+        les écoles et sur les plateformes en ligne.
     </p>
 
 </section>
 <!-- =====================================================
      MODULE 7
-     RÈGLES DU JEU
+     LES RÈGLES DU JEU
 ===================================================== -->
 
 <section id="regles" class="fade-section search-item">
@@ -491,26 +641,51 @@
     <h2>♔ Les règles du jeu</h2>
 
     <p>
-        Les échecs se jouent à deux sur un échiquier de <strong>64 cases</strong>. Chaque joueur dispose de
-        <strong>16 pièces</strong> et joue alternativement, les Blancs effectuant toujours le premier coup.
-        L'objectif est de mettre le roi adverse en <strong>échec et mat</strong>, c'est-à-dire dans une position où aucune défense légale n'est possible.
+        Une partie d'échecs oppose deux joueurs qui jouent alternativement,
+        les <strong>Blancs</strong> effectuant toujours le premier coup.
+        Chaque joueur dispose de <strong>16 pièces</strong> et tente de mettre
+        le roi adverse en <strong>échec et mat</strong>, c'est-à-dire dans une
+        position dont il ne peut plus s'échapper.
     </p>
 
-    <h3>Déplacement des pièces</h3>
+    <h3>Le déplacement des pièces</h3>
 
     <ul>
 
-        <li><strong>👑 Roi :</strong> se déplace d'une case dans toutes les directions.</li>
+        <li>
+            <strong>👑 Roi :</strong>
+            se déplace d'une seule case dans toutes les directions.
+            Sa capture est impossible : la partie s'arrête dès qu'il est échec et mat.
+        </li>
 
-        <li><strong>👸 Dame :</strong> combine les déplacements de la tour et du fou, ce qui en fait la pièce la plus puissante.</li>
+        <li>
+            <strong>👸 Dame :</strong>
+            la pièce la plus puissante.
+            Elle peut se déplacer horizontalement, verticalement et en diagonale
+            sur autant de cases que souhaité.
+        </li>
 
-        <li><strong>🏰 Tour :</strong> se déplace horizontalement ou verticalement sur autant de cases que souhaité.</li>
+        <li>
+            <strong>🏰 Tour :</strong>
+            se déplace horizontalement ou verticalement sur une distance illimitée.
+        </li>
 
-        <li><strong>⛪ Fou :</strong> se déplace uniquement en diagonale.</li>
+        <li>
+            <strong>⛪ Fou :</strong>
+            se déplace uniquement en diagonale sans limitation de distance.
+        </li>
 
-        <li><strong>🐴 Cavalier :</strong> avance en forme de « L » et peut sauter par-dessus les autres pièces.</li>
+        <li>
+            <strong>🐴 Cavalier :</strong>
+            effectue un déplacement en forme de « L ».
+            C'est la seule pièce capable de sauter par-dessus les autres.
+        </li>
 
-        <li><strong>♟️ Pion :</strong> avance vers l'avant, capture en diagonale et peut être promu lorsqu'il atteint la dernière rangée.</li>
+        <li>
+            <strong>♟️ Pion :</strong>
+            avance d'une case, ou de deux lors de son premier déplacement.
+            Il capture en diagonale et peut être promu lorsqu'il atteint la dernière rangée.
+        </li>
 
     </ul>
 
@@ -518,11 +693,21 @@
 
     <ul>
 
-        <li><strong>Le roque</strong> protège le roi tout en développant une tour.</li>
+        <li>
+            <strong>Le roque :</strong>
+            permet de déplacer simultanément le roi et une tour afin de renforcer la sécurité du roi.
+        </li>
 
-        <li><strong>La prise en passant</strong> est une capture exceptionnelle entre deux pions dans une situation bien précise.</li>
+        <li>
+            <strong>La prise en passant :</strong>
+            une capture exceptionnelle possible dans une situation bien précise entre deux pions.
+        </li>
 
-        <li><strong>La promotion</strong> permet de transformer un pion arrivé au bout de l'échiquier en dame, tour, fou ou cavalier.</li>
+        <li>
+            <strong>La promotion :</strong>
+            lorsqu'un pion atteint la dernière rangée,
+            il peut être transformé en dame, tour, fou ou cavalier.
+        </li>
 
     </ul>
 
@@ -530,25 +715,29 @@
 
     <ul>
 
-        <li>♔ Échec et mat</li>
+        <li>✔️ Échec et mat.</li>
 
-        <li>🤝 Match nul</li>
+        <li>✔️ Abandon d'un joueur.</li>
 
-        <li>🏳️ Abandon</li>
+        <li>✔️ Match nul accepté par les deux joueurs.</li>
 
-        <li>⚖️ Pat</li>
+        <li>✔️ Pat (aucun coup légal sans être en échec).</li>
 
-        <li>♟️ Manque de matériel</li>
+        <li>✔️ Manque de matériel pour mater.</li>
 
     </ul>
 
-    <h3>🏆 Les compétitions</h3>
+    <h3>🏆 Les compétitions officielles</h3>
 
     <p>
-
-        Les compétitions vont des tournois locaux jusqu'au Championnat du Monde organisé par la FIDE.
-        La force des joueurs est mesurée grâce au <strong>classement Elo</strong>, utilisé dans le monde entier.
-
+        Les échecs sont pratiqués à tous les niveaux :
+        écoles, clubs, championnats nationaux et compétitions internationales.
+        La compétition la plus prestigieuse est le
+        <strong>Championnat du Monde</strong>, organisé par la
+        <strong>FIDE (Fédération Internationale des Échecs)</strong>.
+        Les meilleurs joueurs obtiennent le prestigieux titre de
+        <strong>Grand Maître International (GMI)</strong> et sont classés selon
+        le système <strong>Elo</strong>, qui mesure leur niveau de jeu.
     </p>
 
     <h3>💰 Valeur théorique des pièces</h3>
@@ -564,19 +753,19 @@
         <tr>
             <td>👑 Roi</td>
             <td>∞</td>
-            <td>1 case</td>
+            <td>1 case dans toutes les directions</td>
         </tr>
 
         <tr>
             <td>👸 Dame</td>
             <td>9</td>
-            <td>Toutes directions</td>
+            <td>Horizontal, vertical, diagonale</td>
         </tr>
 
         <tr>
             <td>🏰 Tour</td>
             <td>5</td>
-            <td>Horizontal / Vertical</td>
+            <td>Horizontal et vertical</td>
         </tr>
 
         <tr>
@@ -588,22 +777,21 @@
         <tr>
             <td>🐴 Cavalier</td>
             <td>3</td>
-            <td>En L</td>
+            <td>En « L »</td>
         </tr>
 
         <tr>
             <td>♟️ Pion</td>
             <td>1</td>
-            <td>Vers l'avant</td>
+            <td>Avant, capture en diagonale</td>
         </tr>
 
     </table>
 
 </section>
-
 <!-- =====================================================
      MODULE 8
-     LES OUVERTURES D'ÉCHECS
+     LES PRINCIPALES OUVERTURES
 ===================================================== -->
 
 <section id="ouvertures" class="fade-section search-item">
@@ -611,9 +799,19 @@
     <h2>♞ Les principales ouvertures</h2>
 
     <p>
+        Les ouvertures correspondent aux premiers coups d'une partie d'échecs.
+        Elles permettent de développer rapidement les pièces, de contrôler le
+        centre de l'échiquier et de préparer le milieu de partie. Chaque
+        ouverture possède sa propre philosophie : certaines favorisent
+        l'attaque, d'autres privilégient la solidité ou la stratégie
+        positionnelle.
+    </p>
 
-        Les premiers coups d'une partie sont appelés <strong>ouverture</strong>. Ils permettent de développer les pièces, contrôler le centre de l'échiquier et préparer le milieu de partie. Chaque ouverture possède son propre style et conduit à des positions très différentes.
-
+    <p>
+        Les grands maîtres consacrent une part importante de leur préparation
+        à l'étude des ouvertures afin d'obtenir un avantage dès les premiers
+        coups. En pratique, aucune ouverture n'est parfaite : chacune présente
+        des avantages, des risques et des idées stratégiques différentes.
     </p>
 
     <!-- =====================================================
@@ -622,86 +820,223 @@
 
     <div class="galerie-ouvertures">
 
-        <!-- Conserver ici tes 6 cartes actuelles :
-             Italienne
-             Sicilienne
-             Française
-             Caro-Kann
-             Espagnole
-             Anglaise -->
+        <!-- Carte Italienne -->
+
+        <!-- Carte Sicilienne -->
+
+        <!-- Carte Française -->
+
+        <!-- Carte Caro-Kann -->
+
+        <!-- Carte Espagnole -->
+
+        <!-- Carte Anglaise -->
 
     </div>
 
-    <h3>Les ouvertures incontournables</h3>
+    <!-- =====================================================
+         FICHES DÉTAILLÉES
+    ====================================================== -->
 
-    <article>
+    <article class="ouverture-detail">
 
-        <h4>♙ Ouverture Italienne</h4>
+        <h3>♙ L'ouverture Italienne</h3>
 
         <p>
-
-            L'une des ouvertures les plus anciennes et les plus accessibles. Elle favorise un développement rapide des pièces et un jeu offensif tout en restant idéale pour apprendre les principes fondamentaux.
-
+            L'ouverture Italienne débute après
+            <strong>1.e4 e5 2.Cf3 Cc6 3.Fc4</strong>.
+            C'est l'une des ouvertures les plus anciennes de l'histoire.
+            Son objectif est de développer rapidement les pièces tout en
+            exerçant une pression sur le pion f7, souvent considéré comme le
+            point faible des Noirs.
         </p>
+
+        <div class="ouverture-info">
+            <p><strong>Popularité :</strong> ⭐⭐⭐⭐⭐</p>
+            <p><strong>Difficulté :</strong> ⭐⭐☆☆☆</p>
+            <p><strong>Style :</strong> Offensif et développement rapide.</p>
+            <p><strong>Joueurs célèbres :</strong> Paul Morphy, Bobby Fischer, Magnus Carlsen.</p>
+        </div>
 
     </article>
 
-    <article>
+    <hr>
 
-        <h4>♞ Défense Sicilienne</h4>
+    <article class="ouverture-detail">
+
+        <h3>♞ La Défense Sicilienne</h3>
 
         <p>
-
-            La défense la plus populaire contre 1.e4. Très dynamique, elle offre des possibilités de contre-attaque et conduit souvent à des parties tactiques de haut niveau.
-
+            La Défense Sicilienne apparaît après
+            <strong>1.e4 c5</strong>.
+            C'est la réponse la plus populaire à 1.e4 au plus haut niveau.
+            Les Noirs cherchent un contre-jeu dynamique plutôt qu'une occupation
+            immédiate du centre.
         </p>
+
+        <div class="ouverture-info">
+            <p><strong>Popularité :</strong> ⭐⭐⭐⭐⭐</p>
+            <p><strong>Difficulté :</strong> ⭐⭐⭐⭐⭐</p>
+            <p><strong>Style :</strong> Dynamique et tactique.</p>
+            <p><strong>Joueurs célèbres :</strong> Kasparov, Carlsen, Fischer, Nakamura.</p>
+        </div>
 
     </article>
 
-    <article>
+    <hr>
 
-        <h4>♜ Défense Caro-Kann</h4>
+    <article class="ouverture-detail">
+
+        <h3>♟ La Défense Française</h3>
 
         <p>
-
-            Réputée pour sa solidité, elle permet d'obtenir des positions équilibrées avec peu de faiblesses structurelles. Elle convient parfaitement aux joueurs positionnels.
-
+            La Défense Française commence par
+            <strong>1.e4 e6</strong>.
+            Les Noirs préparent la poussée ...d5 afin de contester le centre
+            blanc tout en obtenant une structure solide.
         </p>
+
+        <div class="ouverture-info">
+            <p><strong>Popularité :</strong> ⭐⭐⭐⭐☆</p>
+            <p><strong>Difficulté :</strong> ⭐⭐⭐☆☆</p>
+            <p><strong>Style :</strong> Positionnel et solide.</p>
+            <p><strong>Joueurs célèbres :</strong> Korchnoï, Andersson, Firouzja.</p>
+        </div>
 
     </article>
 
-    <article>
+    <hr>
 
-        <h4>♝ Ouverture Espagnole (Ruy López)</h4>
+    <article class="ouverture-detail">
+
+        <h3>♜ La Défense Caro-Kann</h3>
 
         <p>
-
-            Véritable classique des Championnats du Monde, elle offre une richesse stratégique exceptionnelle et reste l'une des ouvertures les plus étudiées.
-
+            La Caro-Kann apparaît après
+            <strong>1.e4 c6</strong>.
+            Réputée pour sa solidité, elle permet d'obtenir des positions
+            équilibrées avec peu de faiblesses structurelles.
         </p>
+
+        <div class="ouverture-info">
+            <p><strong>Popularité :</strong> ⭐⭐⭐⭐☆</p>
+            <p><strong>Difficulté :</strong> ⭐⭐☆☆☆</p>
+            <p><strong>Style :</strong> Défensif et stratégique.</p>
+            <p><strong>Joueurs célèbres :</strong> Karpov, Anand, Caruana.</p>
+        </div>
 
     </article>
 
-    <article>
+    <hr>
 
-        <h4>♕ Gambit Dame</h4>
+    <article class="ouverture-detail">
+
+        <h3>♕ Le Gambit Dame</h3>
 
         <p>
-
-            Cette ouverture met immédiatement l'accent sur le contrôle du centre. Malgré son nom, le pion sacrifié est souvent récupéré quelques coups plus tard.
-
+            Le Gambit Dame débute par
+            <strong>1.d4 d5 2.c4</strong>.
+            Les Blancs proposent temporairement un pion afin de renforcer leur
+            contrôle du centre. Malgré son nom, ce pion est rarement sacrifié
+            définitivement.
         </p>
+
+        <div class="ouverture-info">
+            <p><strong>Popularité :</strong> ⭐⭐⭐⭐⭐</p>
+            <p><strong>Difficulté :</strong> ⭐⭐⭐⭐☆</p>
+            <p><strong>Style :</strong> Positionnel.</p>
+            <p><strong>Joueurs célèbres :</strong> Capablanca, Karpov, Carlsen.</p>
+        </div>
 
     </article>
 
-    <article>
+    <hr>
 
-        <h4>♚ Quelle ouverture choisir ?</h4>
+    <article class="ouverture-detail">
+
+        <h3>♝ L'ouverture Espagnole (Ruy López)</h3>
 
         <p>
+            Après
+            <strong>1.e4 e5 2.Cf3 Cc6 3.Fb5</strong>,
+            les Blancs exercent une pression indirecte sur le centre.
+            Cette ouverture est considérée comme l'une des plus riches sur le
+            plan stratégique.
+        </p>
 
-            Il n'existe pas d'ouverture parfaite. Le meilleur choix dépend du style de jeu, du niveau d'expérience et des positions que l'on souhaite obtenir. Les grands maîtres maîtrisent généralement plusieurs systèmes afin de s'adapter à leurs adversaires.
+        <div class="ouverture-info">
+            <p><strong>Popularité :</strong> ⭐⭐⭐⭐⭐</p>
+            <p><strong>Difficulté :</strong> ⭐⭐⭐⭐☆</p>
+            <p><strong>Style :</strong> Positionnel avec possibilités tactiques.</p>
+            <p><strong>Joueurs célèbres :</strong> Fischer, Kramnik, Carlsen.</p>
+        </div>
 
+    </article>
+
+    <hr>
+
+    <article class="ouverture-detail">
+
+        <h3>♘ L'ouverture Anglaise</h3>
+
+        <p>
+            L'ouverture Anglaise commence par
+            <strong>1.c4</strong>.
+            Flexible, elle offre de nombreuses possibilités de transposition
+            vers d'autres systèmes et convient parfaitement aux joueurs
+            positionnels.
+        </p>
+
+        <div class="ouverture-info">
+            <p><strong>Popularité :</strong> ⭐⭐⭐⭐☆</p>
+            <p><strong>Difficulté :</strong> ⭐⭐⭐☆☆</p>
+            <p><strong>Style :</strong> Flexible et stratégique.</p>
+            <p><strong>Joueurs célèbres :</strong> Botvinnik, Aronian, Carlsen.</p>
+        </div>
+
+    </article>
+
+    <hr>
+
+    <article class="ouverture-detail">
+
+        <h3>♛ La Défense Nimzo-Indienne</h3>
+
+        <p>
+            La Défense Nimzo-Indienne apparaît après
+            <strong>1.d4 Cf6 2.c4 e6 3.Cc3 Fb4</strong>.
+            Elle combine développement rapide, contrôle du centre et pression
+            sur les pièces blanches. C'est l'une des défenses les plus solides
+            contre 1.d4.
+        </p>
+
+        <div class="ouverture-info">
+            <p><strong>Popularité :</strong> ⭐⭐⭐⭐☆</p>
+            <p><strong>Difficulté :</strong> ⭐⭐⭐⭐⭐</p>
+            <p><strong>Style :</strong> Positionnel et stratégique.</p>
+            <p><strong>Joueurs célèbres :</strong> Petrossian, Kramnik, Anand.</p>
+        </div>
+
+    </article>
+
+    <hr>
+
+    <article class="ouverture-detail">
+
+        <h3>♚ Quelle ouverture choisir ?</h3>
+
+        <p>
+            Il n'existe pas de meilleure ouverture universelle. Le choix dépend
+            avant tout du style de jeu recherché. Les joueurs offensifs
+            apprécieront généralement l'Italienne ou la Sicilienne, tandis que
+            ceux qui privilégient des positions solides pourront s'orienter vers
+            la Caro-Kann, la Défense Française ou le Gambit Dame.
+        </p>
+
+        <p>
+            Avec l'expérience, la plupart des joueurs apprennent plusieurs
+            ouvertures afin de s'adapter à leurs adversaires et d'enrichir leur
+            compréhension stratégique du jeu.
         </p>
 
     </article>
@@ -709,15 +1044,20 @@
 </section>
 <!-- =====================================================
      MODULE 9
-     LES PLUS GRANDS CHAMPIONS
+     LES CHAMPIONS DU MONDE
 ===================================================== -->
 
 <section id="champions" class="fade-section search-item">
 
-    <h2>🏆 Les plus grands champions</h2>
+    <h2>🏆 Les plus grands champions du monde</h2>
 
     <p>
-        Depuis la création du Championnat du Monde officiel en 1886, plusieurs joueurs ont marqué l'histoire des échecs par leur talent, leur créativité et leur domination. Chacun a contribué à faire évoluer la théorie du jeu et à inspirer des générations de passionnés.
+        Depuis le premier championnat du monde officiel en 1886, de nombreux
+        joueurs ont marqué l'histoire des échecs par leur talent, leur style de
+        jeu et leur influence sur les générations suivantes. Certains ont
+        révolutionné la stratégie, d'autres ont repoussé les limites du niveau
+        humain face aux meilleurs adversaires et, plus récemment, face aux
+        intelligences artificielles.
     </p>
 
     <!-- =====================================================
@@ -726,39 +1066,151 @@
 
     <section id="hall-of-fame">
 
-        <h3>Hall of Fame des Champions du Monde</h3>
+        <h3>Hall of Fame</h3>
 
         <div class="champions-grid">
 
-            <!-- Conserver ici les cartes actuelles :
-                 Magnus Carlsen
-                 Garry Kasparov
-                 Bobby Fischer -->
+            <!-- ================================================= -->
+            <!-- Magnus Carlsen -->
+            <!-- ================================================= -->
+
+            <div class="champion-card">
+
+                <img src="images/carlsen.jpg" alt="Magnus Carlsen">
+
+                <h3>Magnus Carlsen</h3>
+
+                <p>🇳🇴 Norvège</p>
+
+                <span class="badge">Champion du monde</span>
+
+                <p><strong>Elo record :</strong> 2882</p>
+
+                <button onclick="ouvrirModal('modal-carlsen')">
+                    Voir la fiche
+                </button>
+
+            </div>
+
+            <!-- ================================================= -->
+            <!-- Garry Kasparov -->
+            <!-- ================================================= -->
+
+            <div class="champion-card">
+
+                <img src="images/kasparov.jpg" alt="Garry Kasparov">
+
+                <h3>Garry Kasparov</h3>
+
+                <p>🇷🇺 Russie</p>
+
+                <span class="badge">Champion du monde</span>
+
+                <p><strong>Elo record :</strong> 2851</p>
+
+                <button onclick="ouvrirModal('modal-kasparov')">
+                    Voir la fiche
+                </button>
+
+            </div>
+
+            <!-- ================================================= -->
+            <!-- Bobby Fischer -->
+            <!-- ================================================= -->
+
+            <div class="champion-card">
+
+                <img src="images/fischer.jpg" alt="Bobby Fischer">
+
+                <h3>Bobby Fischer</h3>
+
+                <p>🇺🇸 États-Unis</p>
+
+                <span class="badge">Champion du monde</span>
+
+                <p><strong>Elo record :</strong> 2785</p>
+
+                <button onclick="ouvrirModal('modal-fischer')">
+                    Voir la fiche
+                </button>
+
+            </div>
 
         </div>
 
     </section>
 
-    <article>
+    <!-- =====================================================
+         AUTRES LÉGENDES
+    ====================================================== -->
 
-        <h3>Des légendes qui ont transformé les échecs</h3>
+    <h3>Les grandes figures des échecs</h3>
 
-        <p>
+    <ul>
 
-            Garry Kasparov a révolutionné la préparation moderne grâce à son incroyable puissance tactique. Bobby Fischer a changé l'image des échecs en remportant le célèbre « Match du siècle » en 1972. Anatoli Karpov est devenu une référence mondiale pour son jeu positionnel d'une précision remarquable, tandis que Magnus Carlsen s'est imposé comme l'un des joueurs les plus complets de tous les temps grâce à son exceptionnelle compréhension des finales et des positions techniques.
+        <li>
+            <strong>Wilhelm Steinitz</strong> est reconnu comme le premier
+            champion du monde officiel en 1886 et le fondateur des principes
+            stratégiques modernes.
+        </li>
 
-        </p>
+        <li>
+            <strong>Emanuel Lasker</strong> conserve son titre mondial pendant
+            vingt-sept ans, un record toujours inégalé.
+        </li>
 
-        <p>
+        <li>
+            <strong>José Raúl Capablanca</strong> impressionne par la simplicité
+            et la précision de son jeu, notamment en finale.
+        </li>
 
-            En 2024, Gukesh Dommaraju est devenu le plus jeune Champion du Monde de l'histoire, confirmant l'arrivée d'une nouvelle génération de grands maîtres capables de rivaliser au plus haut niveau dès leur plus jeune âge.
+        <li>
+            <strong>Mikhaïl Botvinnik</strong> contribue au développement de
+            l'école soviétique qui dominera les échecs durant plusieurs décennies.
+        </li>
 
-        </p>
+        <li>
+            <strong>Anatoli Karpov</strong> est célèbre pour son style
+            positionnel d'une remarquable précision.
+        </li>
 
-    </article>
+        <li>
+            <strong>Garry Kasparov</strong> domine les échecs mondiaux pendant
+            près de vingt ans grâce à son jeu offensif et à une préparation
+            exceptionnelle.
+        </li>
+
+        <li>
+            <strong>Bobby Fischer</strong> remporte le mythique « Match du siècle »
+            contre Boris Spassky en 1972, en pleine Guerre froide.
+        </li>
+
+        <li>
+            <strong>Viswanathan Anand</strong> popularise les échecs en Inde et
+            inspire toute une génération de jeunes talents.
+        </li>
+
+        <li>
+            <strong>Magnus Carlsen</strong> devient champion du monde en 2013
+            et atteint le plus haut classement Elo de l'histoire.
+        </li>
+
+        <li>
+            <strong>Gukesh Dommaraju</strong>, sacré champion du monde en 2024
+            à seulement 18 ans, incarne la nouvelle génération des échecs
+            internationaux.
+        </li>
+
+    </ul>
+
+    <p>
+        L'histoire des échecs continue de s'écrire. Chaque génération apporte
+        de nouveaux styles de jeu, de nouvelles idées stratégiques et de
+        nouveaux champions qui enrichissent un patrimoine vieux de plus de
+        quinze siècles.
+    </p>
 
 </section>
-
 <!-- =====================================================
      MODULE 10
      LES BIENFAITS DES ÉCHECS
@@ -769,61 +1221,69 @@
     <h2>🧠 Les bienfaits des échecs</h2>
 
     <p>
-
-        Bien plus qu'un simple jeu, les échecs développent de nombreuses compétences intellectuelles et personnelles. Ils sont aujourd'hui utilisés dans les écoles, les clubs et certains programmes éducatifs pour stimuler la réflexion et l'apprentissage.
-
+        Les échecs sont bien plus qu'un simple jeu de société. Ils constituent
+        un excellent exercice intellectuel qui stimule de nombreuses fonctions
+        cognitives tout en développant des qualités utiles dans la vie
+        quotidienne. C'est pourquoi ils sont aujourd'hui enseignés dans de
+        nombreuses écoles et utilisés comme outil pédagogique dans plusieurs
+        pays.
     </p>
 
-    <h3>🎯 Développer ses capacités intellectuelles</h3>
-
-    <ul>
-
-        <li>Améliorer la concentration.</li>
-
-        <li>Renforcer la mémoire.</li>
-
-        <li>Développer la logique.</li>
-
-        <li>Apprendre à analyser des situations complexes.</li>
-
-    </ul>
-
-    <h3>💡 Développer des qualités personnelles</h3>
-
-    <ul>
-
-        <li>Patience.</li>
-
-        <li>Persévérance.</li>
-
-        <li>Créativité.</li>
-
-        <li>Maîtrise de soi.</li>
-
-    </ul>
-
-    <h3>🚀 Des compétences utiles au quotidien</h3>
-
-    <ul>
-
-        <li>Résolution de problèmes.</li>
-
-        <li>Prise de décision.</li>
-
-        <li>Anticipation des conséquences.</li>
-
-        <li>Gestion de la pression.</li>
-
-    </ul>
+    <h3>Des bénéfices pour le cerveau</h3>
 
     <p>
+        Chaque partie demande d'observer, d'analyser, de prévoir plusieurs
+        coups à l'avance et de prendre des décisions en permanence. Cette
+        activité sollicite simultanément la mémoire, la logique, la créativité
+        et la capacité de concentration.
+    </p>
 
-        Grâce à ces qualités, les échecs sont souvent considérés comme un excellent outil d'apprentissage. Ils encouragent une réflexion structurée tout en développant l'autonomie et la capacité à apprendre de ses erreurs.
+    <ul>
 
+        <li><strong>🎯 Concentration :</strong> rester attentif pendant toute la partie.</li>
+
+        <li><strong>🧩 Logique :</strong> analyser les positions et construire un plan.</li>
+
+        <li><strong>🧠 Mémoire :</strong> retenir les ouvertures, les motifs tactiques et les finales.</li>
+
+        <li><strong>💡 Créativité :</strong> imaginer des combinaisons originales.</li>
+
+        <li><strong>🔍 Anticipation :</strong> prévoir les réponses possibles de l'adversaire.</li>
+
+        <li><strong>⚖️ Prise de décision :</strong> choisir le meilleur coup malgré plusieurs possibilités.</li>
+
+        <li><strong>⏳ Patience :</strong> accepter de construire une position progressivement.</li>
+
+        <li><strong>🎓 Résolution de problèmes :</strong> trouver des solutions face à des situations complexes.</li>
+
+    </ul>
+
+    <h3>Des qualités utiles au quotidien</h3>
+
+    <p>
+        Les compétences développées devant un échiquier sont également
+        précieuses dans la vie de tous les jours. Les échecs apprennent à
+        réfléchir avant d'agir, à assumer les conséquences de ses décisions et
+        à tirer des leçons de ses erreurs afin de progresser.
+    </p>
+
+    <p>
+        Ils favorisent également la persévérance, la maîtrise de soi et la
+        gestion du stress, notamment lors des parties longues ou des
+        compétitions officielles.
+    </p>
+
+    <h3>Un jeu accessible à tous</h3>
+
+    <p>
+        Les échecs peuvent être pratiqués à tout âge, que ce soit pour le
+        loisir ou la compétition. Débutants, joueurs occasionnels ou grands
+        maîtres partagent les mêmes règles, ce qui fait des échecs un jeu
+        universel, capable de réunir des millions de passionnés à travers le
+        monde.
     </p>
 
 </section>
-
 <!-- =====================================================
      MODULE 11
      LES ÉCHECS À L'ÈRE DU NUMÉRIQUE
@@ -833,44 +1293,71 @@
 
     <h2>🤖 Les échecs à l'ère du numérique</h2>
 
+    <p>
+        Depuis le début du XXI<sup>e</sup> siècle, les nouvelles technologies
+        ont profondément transformé la pratique des échecs. Grâce à Internet,
+        il est désormais possible de jouer contre des adversaires du monde
+        entier, de suivre les plus grands tournois en direct et de progresser
+        avec des outils d'analyse toujours plus performants.
+    </p>
+
     <article>
 
-        <h3>Internet a révolutionné la pratique des échecs</h3>
+        <h3>🌐 Les plateformes en ligne</h3>
 
         <p>
+            Les plateformes spécialisées permettent de jouer gratuitement ou en
+            compétition à n'importe quel moment de la journée. Elles proposent
+            des parties rapides, des tournois, des exercices tactiques,
+            l'analyse automatique des parties ainsi que des milliers de leçons
+            accessibles aux joueurs de tous niveaux.
+        </p>
 
-            Aujourd'hui, des millions de parties sont disputées chaque jour sur Internet. Les plateformes spécialisées permettent d'affronter des joueurs du monde entier, de participer à des tournois en ligne et de progresser grâce à des exercices interactifs accessibles à tous les niveaux.
-
+        <p>
+            Cette démocratisation a contribué à faire des échecs l'un des jeux
+            les plus populaires sur Internet, réunissant plusieurs millions de
+            parties disputées chaque jour.
         </p>
 
     </article>
 
     <article>
 
-        <h3>L'intelligence artificielle au service des joueurs</h3>
+        <h3>🧠 L'intelligence artificielle</h3>
 
         <p>
-
-            Les moteurs d'analyse comme Stockfish ont profondément transformé l'entraînement moderne. Ils permettent d'étudier chaque partie avec une précision exceptionnelle, d'identifier les erreurs et de découvrir les meilleurs coups dans presque toutes les positions.
-
+            Les moteurs d'analyse modernes sont capables d'évaluer des millions
+            de positions par seconde et d'identifier les meilleurs coups avec
+            une précision exceptionnelle. Ils sont devenus des outils
+            indispensables pour les joueurs amateurs comme pour les champions
+            du monde.
         </p>
 
         <p>
-
-            Des projets comme AlphaZero ont également démontré qu'une intelligence artificielle pouvait développer de nouvelles idées stratégiques en apprenant uniquement par l'expérience, ouvrant une nouvelle étape dans l'évolution des échecs et de l'IA.
-
+            Aujourd'hui, l'intelligence artificielle ne remplace pas le joueur :
+            elle l'aide à comprendre ses erreurs, à découvrir de nouvelles
+            idées stratégiques et à préparer ses parties plus efficacement.
         </p>
 
     </article>
 
     <article>
 
-        <h3>Un jeu tourné vers l'avenir</h3>
+        <h3>🚀 Les échecs de demain</h3>
 
         <p>
+            Les progrès de l'intelligence artificielle, de la réalité virtuelle
+            et des technologies éducatives ouvrent de nouvelles perspectives.
+            Les échecs deviennent plus accessibles, plus interactifs et
+            continuent d'attirer chaque année de nouveaux passionnés à travers
+            le monde.
+        </p>
 
-            Malgré les progrès spectaculaires de l'intelligence artificielle, les échecs restent avant tout un défi humain. La créativité, l'intuition et la capacité à prendre des décisions sous pression continuent de faire toute la richesse de ce jeu, qui réunit aujourd'hui tradition et innovation comme jamais auparavant.
-
+        <p>
+            Malgré ces évolutions technologiques, l'essence du jeu reste
+            inchangée : deux joueurs, soixante-quatre cases et une infinité de
+            possibilités stratégiques où la réflexion humaine demeure au cœur
+            de chaque partie.
         </p>
 
     </article>
@@ -878,74 +1365,145 @@
 </section>
 <!-- =====================================================
      MODULE 12
-     ANECDOTE HISTORIQUE
+     ANECDOTE • FOOTER • MODALES • JAVASCRIPT
 ===================================================== -->
+
+<!-- ==========================================
+     ANECDOTE HISTORIQUE
+========================================== -->
 
 <section id="anecdote" class="fade-section search-item">
 
-    <h2>💬 Le match qui a changé l'histoire : Kasparov contre Deep Blue</h2>
+    <h2>💬 Une anecdote célèbre : Kasparov contre Deep Blue</h2>
 
     <p>
-        En mai 1997, le champion du monde Garry Kasparov affronte
-        <strong>Deep Blue</strong>, un superordinateur développé par IBM.
-        Pour la première fois, un joueur considéré comme le meilleur de la planète
-        dispute un véritable match officiel contre une intelligence artificielle.
-        L'événement dépasse largement le cadre des échecs et attire l'attention
-        des médias du monde entier.
+        En mai 1997, le monde entier retient son souffle. D'un côté se trouve
+        <strong>Garry Kasparov</strong>, champion du monde depuis plus de dix ans
+        et considéré comme le meilleur joueur de la planète. De l'autre,
+        <strong>Deep Blue</strong>, un superordinateur conçu par IBM capable
+        d'analyser des centaines de millions de positions par seconde.
     </p>
 
     <p>
-        Contrairement à un joueur humain, Deep Blue ne réfléchit pas par intuition.
-        Sa force provient de sa capacité à analyser un nombre colossal de positions
-        en quelques secondes afin d'identifier les variantes les plus prometteuses.
-        Kasparov, lui, s'appuie sur son expérience, sa créativité et son sens
-        stratégique acquis au plus haut niveau.
+        Pendant six parties, l'expérience et l'intuition de Kasparov
+        s'opposent à la puissance de calcul de la machine. Certaines décisions
+        de Deep Blue sont si surprenantes que le champion russe doute de leur
+        origine et pense même que des grands maîtres pourraient assister
+        l'ordinateur.
     </p>
 
     <p>
-        Au fil des six parties, la confrontation devient autant psychologique que
-        sportive. Certains coups joués par l'ordinateur surprennent profondément
-        Kasparov, qui remet même en question le fonctionnement de la machine.
-        Cette pression mentale influence progressivement son jeu.
+        Le 11 mai 1997, Deep Blue remporte finalement le match sur le score de
+        <strong>3½ à 2½</strong>. Pour la première fois dans un match officiel,
+        un ordinateur bat le champion du monde en titre.
     </p>
 
     <p>
-        Deep Blue remporte finalement le match sur le score de
-        <strong>3½ à 2½</strong>. Cette victoire marque une étape historique :
-        elle démontre qu'un ordinateur peut désormais rivaliser avec les meilleurs
-        joueurs du monde dans un domaine longtemps considéré comme un symbole de
-        l'intelligence humaine.
-    </p>
-
-    <p>
-        Plus de vingt-cinq ans plus tard, cette rencontre reste une référence.
-        Elle représente le début d'une nouvelle époque où les moteurs d'analyse
-        sont devenus des outils incontournables pour l'entraînement, la préparation
-        des compétitions et l'étude approfondie des parties.
+        Cette confrontation marque un tournant majeur dans l'histoire des
+        échecs et de l'intelligence artificielle. Elle ouvre une nouvelle ère
+        où les moteurs d'analyse deviennent des outils incontournables pour
+        l'entraînement des joueurs de tous niveaux.
     </p>
 
 </section>
-<!-- =====================================================
-     MODULE 13
-     PIED DE PAGE
-===================================================== -->
+
+<!-- ==========================================
+     FOOTER
+========================================== -->
 
 <footer>
 
-    <h2>♟️ Chess.dev Studio</h2>
+    <h2>© Crédits</h2>
 
     <p>
-        Un site dédié à la découverte de l'univers des échecs :
-        histoire, stratégie, ouvertures, champions, culture et
-        intelligence artificielle.
-    </p>
-
-    <p>
-        Développé avec HTML, CSS et JavaScript.
-    </p>
-
-    <p>
-        © 2026 Chess.dev Studio — Tous droits réservés.
+        Chess.dev Studio © 2026
+        <br>
+        Créé par Chess.dev
     </p>
 
 </footer>
+
+</div>
+<!-- Fin du container -->
+
+<!-- ==========================================
+     MODALES DES CHAMPIONS
+========================================== -->
+
+<div id="modal-carlsen" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close"
+              onclick="fermerModal('modal-carlsen')">&times;</span>
+
+        <h2>Magnus Carlsen</h2>
+
+        <img src="images/carlsen.jpg"
+             alt="Magnus Carlsen">
+
+        <p><strong>Naissance :</strong> 1990</p>
+        <p><strong>Champion du monde :</strong> 2013 - 2023</p>
+        <p><strong>Elo record :</strong> 2882</p>
+        <p><strong>Style :</strong> Joueur universel, remarquable en finales et dans les positions techniques.</p>
+        <p><strong>Ouvertures favorites :</strong> Espagnole, Anglaise, Sicilienne.</p>
+        <p><strong>Fait marquant :</strong> Plus haut classement Elo de l'histoire.</p>
+
+    </div>
+
+</div>
+
+<div id="modal-kasparov" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close"
+              onclick="fermerModal('modal-kasparov')">&times;</span>
+
+        <h2>Garry Kasparov</h2>
+
+        <img src="images/kasparov.jpg"
+             alt="Garry Kasparov">
+
+        <p><strong>Naissance :</strong> 1963</p>
+        <p><strong>Champion du monde :</strong> 1985 - 2000</p>
+        <p><strong>Elo record :</strong> 2851</p>
+        <p><strong>Style :</strong> Jeu offensif, dynamique et préparation théorique exceptionnelle.</p>
+        <p><strong>Ouvertures favorites :</strong> Sicilienne, Italienne, Anglaise.</p>
+        <p><strong>Fait marquant :</strong> Son célèbre affrontement contre Deep Blue.</p>
+
+    </div>
+
+</div>
+
+<div id="modal-fischer" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close"
+              onclick="fermerModal('modal-fischer')">&times;</span>
+
+        <h2>Bobby Fischer</h2>
+
+        <img src="images/fischer.jpg"
+             alt="Bobby Fischer">
+
+        <p><strong>Naissance :</strong> 1943</p>
+        <p><strong>Champion du monde :</strong> 1972 - 1975</p>
+        <p><strong>Elo record :</strong> 2785</p>
+        <p><strong>Style :</strong> Joueur complet, créatif et redoutable tacticien.</p>
+        <p><strong>Ouvertures favorites :</strong> Italienne, Scandinave.</p>
+        <p><strong>Fait marquant :</strong> Victoire historique contre Boris Spassky en 1972.</p>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     JAVASCRIPT
+========================================== -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
