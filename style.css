@@ -2450,318 +2450,6 @@ img:hover{
 
 }
 /* =====================================================
-   MODULE 13
-   INTERFACE UTILISATEUR
-   Quick Info • Recherche • Citation • Statistiques
-===================================================== */
-
-/* =========================
-   BARRE DE RECHERCHE
-========================= */
-
-.search-container{
-
-    max-width:700px;
-
-    margin:30px auto 50px;
-
-}
-
-#searchInput{
-
-    width:100%;
-
-    padding:16px 24px;
-
-    border:1px solid var(--border);
-
-    border-radius:999px;
-
-    background:var(--surface);
-
-    color:var(--text);
-
-    font-size:1rem;
-
-    box-shadow:var(--shadow-sm);
-
-    transition:var(--transition);
-
-}
-
-#searchInput:focus{
-
-    outline:none;
-
-    border-color:var(--blue);
-
-    box-shadow:0 0 0 4px rgba(37,99,235,.15);
-
-}
-
-/* =========================
-   CITATION DU JOUR
-========================= */
-
-#quote-box{
-
-    max-width:850px;
-
-    margin:0 auto 50px;
-
-    text-align:center;
-
-    padding:30px;
-
-    background:var(--surface);
-
-    border:1px solid var(--border);
-
-    border-radius:22px;
-
-    box-shadow:var(--shadow);
-
-}
-
-#quote{
-
-    font-size:1.25rem;
-
-    font-style:italic;
-
-    line-height:1.7;
-
-    color:var(--text);
-
-}
-
-#author{
-
-    display:block;
-
-    margin-top:18px;
-
-    font-weight:700;
-
-    color:var(--blue);
-
-}
-
-/* =========================
-   QUICK INFO PANEL
-========================= */
-
-#info-panel{
-
-    position:sticky;
-
-    top:25px;
-
-    width:300px;
-
-    background:var(--surface);
-
-    border:1px solid var(--border);
-
-    border-radius:24px;
-
-    padding:28px;
-
-    box-shadow:var(--shadow);
-
-}
-
-#info-panel h3{
-
-    text-align:center;
-
-    margin-bottom:25px;
-
-    color:var(--blue);
-
-}
-
-.panel-section{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:16px;
-
-}
-
-.panel-section p{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:20px;
-
-    margin:0;
-
-    font-size:.98rem;
-
-}
-
-.panel-section strong{
-
-    color:var(--text);
-
-}
-
-#info-panel hr{
-
-    border:none;
-
-    border-top:1px solid var(--border);
-
-    margin:22px 0;
-
-}
-
-/* =========================
-   BOUTON MODE SOMBRE
-========================= */
-
-#theme-toggle{
-
-    width:100%;
-
-}
-
-/* =========================
-   STATISTIQUES DE LECTURE
-========================= */
-
-#reading-stats{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(auto-fit,minmax(180px,1fr));
-
-    gap:20px;
-
-    margin:50px 0;
-
-}
-
-.reading-card{
-
-    background:var(--surface);
-
-    border:1px solid var(--border);
-
-    border-radius:18px;
-
-    padding:22px;
-
-    text-align:center;
-
-    box-shadow:var(--shadow-sm);
-
-}
-
-.reading-card span{
-
-    display:block;
-
-    font-size:2rem;
-
-    margin-bottom:12px;
-
-}
-
-.reading-card strong{
-
-    display:block;
-
-    font-size:1.4rem;
-
-    color:var(--blue);
-
-}
-
-.reading-card small{
-
-    color:var(--text-light);
-
-}
-
-/* =========================
-   TIMER DE VISITE
-========================= */
-
-#visit-timer{
-
-    position:fixed;
-
-    bottom:20px;
-
-    right:20px;
-
-    padding:12px 18px;
-
-    background:var(--surface);
-
-    color:var(--text);
-
-    border:1px solid var(--border);
-
-    border-radius:999px;
-
-    box-shadow:var(--shadow);
-
-    font-weight:600;
-
-    z-index:900;
-
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:1100px){
-
-    #info-panel{
-
-        position:relative;
-
-        width:100%;
-
-        margin-bottom:40px;
-
-        top:0;
-
-    }
-
-}
-
-@media(max-width:768px){
-
-    #reading-stats{
-
-        grid-template-columns:1fr;
-
-    }
-
-    #visit-timer{
-
-        right:12px;
-
-        bottom:12px;
-
-        font-size:.9rem;
-
-    }
-
-}
-/* =====================================================
    MODULE 14
    FOOTER • UTILITAIRES • RESPONSIVE • SCROLLBAR
    ===================================================== */
@@ -2799,44 +2487,6 @@ footer p{
     color:var(--text-light);
 
     line-height:1.8;
-
-}
-
-/* =========================
-   BARRE DE PROGRESSION
-========================= */
-
-#progress-container{
-
-    position:fixed;
-
-    top:0;
-
-    left:0;
-
-    width:100%;
-
-    height:5px;
-
-    background:transparent;
-
-    z-index:9999;
-
-}
-
-#progress-bar{
-
-    width:0;
-
-    height:100%;
-
-    background:linear-gradient(
-        90deg,
-        var(--gold),
-        var(--blue)
-    );
-
-    transition:width .15s linear;
 
 }
 
@@ -3035,6 +2685,674 @@ footer p{
     footer{
 
         padding:40px 20px;
+
+    }
+
+}
+/* =====================================================
+   MODULE 15
+   LIEN D'ÉVITEMENT (ACCESSIBILITÉ)
+   ===================================================== */
+
+.skip-link{
+
+    position:absolute;
+
+    top:-60px;
+    left:12px;
+
+    z-index:10050;
+
+    padding:12px 20px;
+
+    background:var(--blue);
+    color:#fff;
+
+    border-radius:0 0 10px 10px;
+
+    font-weight:700;
+
+    transition:top .2s ease;
+
+}
+
+.skip-link:focus{
+
+    top:0;
+
+}
+
+/* =====================================================
+   MODULE 16
+   BARRE DE NAVIGATION FIXE
+   ===================================================== */
+
+body{
+
+    padding-top:68px;
+
+}
+
+.site-nav{
+
+    position:fixed;
+
+    top:5px;
+    left:0;
+
+    width:100%;
+
+    z-index:9990;
+
+    background:var(--surface);
+
+    border-bottom:1px solid var(--border);
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.site-nav-inner{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    height:63px;
+
+}
+
+.site-nav-logo{
+
+    font-size:1.3rem;
+
+    font-weight:800;
+
+    white-space:nowrap;
+
+}
+
+.site-nav-logo span{
+
+    color:var(--gold);
+
+}
+
+.nav-toggle{
+
+    display:none;
+
+    font-size:1.6rem;
+
+    line-height:1;
+
+    padding:6px 10px;
+
+    border-radius:10px;
+
+    color:var(--text);
+
+}
+
+.nav-toggle:hover{
+
+    background:var(--surface-alt);
+
+}
+
+.nav-menu ul{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+
+}
+
+.nav-link{
+
+    display:inline-block;
+
+    padding:10px 14px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+    font-size:.94rem;
+
+    color:var(--text-light);
+
+    white-space:nowrap;
+
+    transition:var(--transition);
+
+}
+
+.nav-link:hover{
+
+    background:var(--surface-alt);
+
+    color:var(--text);
+
+}
+
+.nav-link.active{
+
+    background:var(--blue);
+
+    color:#fff;
+
+}
+
+@media(max-width:900px){
+
+    body{
+
+        padding-top:60px;
+
+    }
+
+    .nav-toggle{
+
+        display:inline-flex;
+
+        align-items:center;
+
+    }
+
+    .nav-menu{
+
+        position:fixed;
+
+        top:60px;
+
+        left:0;
+
+        width:100%;
+
+        max-height:0;
+
+        overflow:hidden;
+
+        background:var(--surface);
+
+        border-bottom:1px solid var(--border);
+
+        box-shadow:var(--shadow);
+
+        transition:max-height .3s ease;
+
+    }
+
+    .nav-menu.open{
+
+        max-height:420px;
+
+    }
+
+    .nav-menu ul{
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+        padding:10px 16px 18px;
+
+        gap:4px;
+
+    }
+
+    .nav-link{
+
+        width:100%;
+
+        padding:14px 16px;
+
+    }
+
+}
+
+/* =====================================================
+   MODULE 17
+   BOUTON RETOUR EN HAUT
+   ===================================================== */
+
+.back-to-top{
+
+    position:fixed;
+
+    bottom:20px;
+
+    left:20px;
+
+    width:48px;
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:var(--blue);
+
+    color:#fff;
+
+    font-size:1.3rem;
+
+    box-shadow:var(--shadow);
+
+    z-index:900;
+
+    opacity:0;
+
+    transform:translateY(15px);
+
+    pointer-events:none;
+
+    transition:
+        opacity .25s ease,
+        transform .25s ease,
+        background .25s ease;
+
+}
+
+.back-to-top.visible{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+    pointer-events:auto;
+
+}
+
+.back-to-top:hover{
+
+    background:var(--blue-dark);
+
+}
+
+@media(max-width:768px){
+
+    .back-to-top{
+
+        bottom:12px;
+
+        left:12px;
+
+        width:44px;
+
+        height:44px;
+
+    }
+
+}
+
+/* =====================================================
+   MODULE 18
+   STATISTIQUES (CARTES CORRIGÉES)
+   ===================================================== */
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:26px;
+
+    margin-top:40px;
+
+}
+
+.stat-card{
+
+    text-align:center;
+
+    padding:32px 24px;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-lg);
+
+    box-shadow:var(--shadow-sm);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:var(--shadow);
+
+}
+
+.stat-icon{
+
+    font-size:2.4rem;
+
+    margin-bottom:14px;
+
+}
+
+.stat-card .counter{
+
+    font-size:2.2rem;
+
+    font-weight:800;
+
+    color:var(--blue-dark);
+
+    margin-bottom:8px;
+
+}
+
+.stat-card h3{
+
+    margin:6px 0 10px;
+
+    color:var(--text);
+
+}
+
+.stat-card p{
+
+    color:var(--text-light);
+
+    text-align:center;
+
+    margin:0;
+
+}
+
+/* =====================================================
+   MODULE 19
+   VISUELS DE CARTE (remplacent les images manquantes)
+   ===================================================== */
+
+.card-visual{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    height:190px;
+
+    font-size:3.6rem;
+
+    color:#fff;
+
+    text-shadow:0 4px 14px rgba(0,0,0,.25);
+
+}
+
+.card-visual.tone-1{ background:linear-gradient(135deg,#2563eb,#1d4ed8); }
+.card-visual.tone-2{ background:linear-gradient(135deg,#d4af37,#b8860b); }
+.card-visual.tone-3{ background:linear-gradient(135deg,#22c55e,#15803d); }
+.card-visual.tone-4{ background:linear-gradient(135deg,#f59e0b,#c2410c); }
+.card-visual.tone-5{ background:linear-gradient(135deg,#0f172a,#334155); }
+.card-visual.tone-6{ background:linear-gradient(135deg,#ef4444,#991b1b); }
+
+/* =====================================================
+   MODULE 20
+   OUVERTURES (CARTES CORRIGÉES)
+   ===================================================== */
+
+.galerie-ouvertures{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+    gap:30px;
+
+    margin-top:40px;
+
+}
+
+.carte-ouverture{
+
+    overflow:hidden;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-lg);
+
+    box-shadow:var(--shadow);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+
+}
+
+.carte-ouverture:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+.carte-ouverture h3{
+
+    margin:20px 24px 8px;
+
+    color:var(--text);
+
+}
+
+.carte-ouverture p{
+
+    margin:0 24px 24px;
+
+    color:var(--text-light);
+
+    text-align:left;
+
+}
+
+/* =====================================================
+   MODULE 21
+   CHAMPIONS (CARTES CORRIGÉES)
+   ===================================================== */
+
+.champions-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:30px;
+
+    margin-top:40px;
+
+}
+
+.champion-card{
+
+    text-align:center;
+
+    overflow:hidden;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-lg);
+
+    box-shadow:var(--shadow);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+
+}
+
+.champion-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+.champion-card h3{
+
+    margin:20px 0 10px;
+
+}
+
+.champion-card .badge{
+
+    display:inline-block;
+
+    padding:6px 16px;
+
+    border-radius:999px;
+
+    background:var(--blue-light);
+
+    color:var(--blue-dark);
+
+    font-weight:700;
+
+    font-size:.85rem;
+
+}
+
+.champion-card p{
+
+    margin:16px 24px 24px;
+
+    color:var(--text-light);
+
+    text-align:left;
+
+}
+
+body.dark-mode .champion-card .badge{
+
+    background:rgba(37,99,235,.25);
+
+    color:#dbeafe;
+
+}
+
+/* =====================================================
+   MODULE 22
+   BIBLIOGRAPHIE (CARTES CORRIGÉES)
+   ===================================================== */
+
+.nations-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:30px;
+
+    margin-top:40px;
+
+}
+
+.nation-card{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-lg);
+
+    box-shadow:var(--shadow-sm);
+
+    padding:28px;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+
+}
+
+.nation-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:var(--shadow);
+
+}
+
+.nation-card h3{
+
+    margin-top:0;
+
+}
+
+.nation-card ul{
+
+    padding-left:20px;
+
+}
+
+.nation-card li{
+
+    color:var(--text-light);
+
+}
+
+/* =====================================================
+   MODULE 23
+   ACCESSIBILITÉ • FOCUS • MOUVEMENT RÉDUIT
+   ===================================================== */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible{
+
+    outline:3px solid var(--blue);
+
+    outline-offset:2px;
+
+}
+
+@media (prefers-reduced-motion: reduce){
+
+    *,
+    *::before,
+    *::after{
+
+        animation-duration:.001ms !important;
+
+        animation-iteration-count:1 !important;
+
+        transition-duration:.001ms !important;
+
+        scroll-behavior:auto !important;
 
     }
 

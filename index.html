@@ -105,6 +105,14 @@
         href="apple-touch-icon.png">
 
     <!-- =====================================================
+         CANONIQUE
+    ====================================================== -->
+
+    <link
+        rel="canonical"
+        href="https://chessdevstudio.github.io/chess-dev/">
+
+    <!-- =====================================================
          FEUILLE DE STYLE
     ====================================================== -->
 
@@ -112,10 +120,32 @@
         rel="stylesheet"
         href="style.css">
 
+    <!-- =====================================================
+         DONNÉES STRUCTURÉES (SEO)
+    ====================================================== -->
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Chess.dev Studio",
+        "url": "https://chessdevstudio.github.io/chess-dev/",
+        "inLanguage": "fr",
+        "description": "Le site francophone dédié à l'histoire, aux règles, aux ouvertures et aux champions des échecs."
+    }
+    </script>
+
 </head>
 
 <body>
-        <!-- =====================================================
+
+    <!-- ==========================================
+         Lien d'évitement (accessibilité clavier)
+    =========================================== -->
+
+    <a href="#top" class="skip-link">Aller au contenu principal</a>
+
+    <!-- =====================================================
          MODULE 1
          INTERFACE UTILISATEUR
     ====================================================== -->
@@ -129,6 +159,53 @@
         <div id="progress-bar"></div>
 
     </div>
+
+    <!-- ==========================================
+         Barre de navigation fixe
+    =========================================== -->
+
+    <header class="site-nav">
+
+        <div class="site-nav-inner container">
+
+            <a href="#top" class="site-nav-logo">
+                Chess<span>.dev</span>
+            </a>
+
+            <button
+                id="nav-toggle"
+                class="nav-toggle"
+                aria-expanded="false"
+                aria-controls="nav-menu"
+                aria-label="Ouvrir le menu">
+
+                ☰
+
+            </button>
+
+            <nav id="nav-menu" class="nav-menu" aria-label="Navigation principale">
+
+                <ul>
+
+                    <li><a href="#histoire" class="nav-link">Histoire</a></li>
+
+                    <li><a href="#regles" class="nav-link">Règles</a></li>
+
+                    <li><a href="#ouvertures" class="nav-link">Ouvertures</a></li>
+
+                    <li><a href="#champions" class="nav-link">Champions</a></li>
+
+                    <li><a href="#ia" class="nav-link">IA</a></li>
+
+                    <li><a href="#bibliographie" class="nav-link">Ressources</a></li>
+
+                </ul>
+
+            </nav>
+
+        </div>
+
+    </header>
 
     <!-- ==========================================
          Barre de recherche
@@ -1002,7 +1079,7 @@
 
             <article class="carte-ouverture">
 
-                <img src="images/italienne.jpg" alt="Ouverture Italienne">
+                <div class="card-visual tone-1" aria-hidden="true">♗</div>
 
                 <h3>Ouverture Italienne</h3>
 
@@ -1018,7 +1095,7 @@
 
             <article class="carte-ouverture">
 
-                <img src="images/sicilienne.jpg" alt="Défense Sicilienne">
+                <div class="card-visual tone-3" aria-hidden="true">♟️</div>
 
                 <h3>Défense Sicilienne</h3>
 
@@ -1033,7 +1110,7 @@
 
             <article class="carte-ouverture">
 
-                <img src="images/francaise.jpg" alt="Défense Française">
+                <div class="card-visual tone-5" aria-hidden="true">♟️</div>
 
                 <h3>Défense Française</h3>
 
@@ -1048,7 +1125,7 @@
 
             <article class="carte-ouverture">
 
-                <img src="images/caro-kann.jpg" alt="Défense Caro-Kann">
+                <div class="card-visual tone-4" aria-hidden="true">♟️</div>
 
                 <h3>Défense Caro-Kann</h3>
 
@@ -1063,7 +1140,7 @@
 
             <article class="carte-ouverture">
 
-                <img src="images/gambit-dame.jpg" alt="Gambit Dame">
+                <div class="card-visual tone-2" aria-hidden="true">♛</div>
 
                 <h3>Gambit Dame</h3>
 
@@ -1078,7 +1155,7 @@
 
             <article class="carte-ouverture">
 
-                <img src="images/espagnole.jpg" alt="Ouverture Espagnole">
+                <div class="card-visual tone-6" aria-hidden="true">♗</div>
 
                 <h3>Ouverture Espagnole</h3>
 
@@ -1141,9 +1218,7 @@
 
             <article class="champion-card">
 
-                <img
-                    src="images/carlsen.jpg"
-                    alt="Magnus Carlsen">
+                <div class="card-visual tone-1" aria-hidden="true">♞</div>
 
                 <h3>Magnus Carlsen</h3>
 
@@ -1160,9 +1235,7 @@
 
             <article class="champion-card">
 
-                <img
-                    src="images/kasparov.jpg"
-                    alt="Garry Kasparov">
+                <div class="card-visual tone-6" aria-hidden="true">♜</div>
 
                 <h3>Garry Kasparov</h3>
 
@@ -1179,9 +1252,7 @@
 
             <article class="champion-card">
 
-                <img
-                    src="images/fischer.jpg"
-                    alt="Bobby Fischer">
+                <div class="card-visual tone-2" aria-hidden="true">♚</div>
 
                 <h3>Bobby Fischer</h3>
 
@@ -1688,6 +1759,19 @@
     </footer>
 
 </main>
+    <!-- ==========================================
+         Retour en haut
+    =========================================== -->
+
+    <button
+        id="back-to-top"
+        class="back-to-top"
+        aria-label="Retour en haut de la page">
+
+        ↑
+
+    </button>
+
     <!-- =====================================================
          MODULE 14
          JAVASCRIPT

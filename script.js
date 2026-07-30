@@ -126,7 +126,13 @@ const App={
 
     wordCount:$("word-count"),
 
-    visitTime:$("visit-time")
+    visitTime:$("visit-time"),
+
+    navToggle:$("nav-toggle"),
+
+    navMenu:$("nav-menu"),
+
+    backToTop:$("back-to-top")
 
 };
 
@@ -915,6 +921,120 @@ function initialiserModales(){
 
 log("✅ Module 9 chargé");
 /* =====================================================
+   MODULE 9 bis
+   NAVIGATION FIXE (MENU MOBILE + SURLIGNAGE)
+===================================================== */
+
+/* =====================================================
+   MENU MOBILE
+===================================================== */
+
+function initialiserMenuMobile(){
+
+    if(!App.navToggle || !App.navMenu) return;
+
+    App.navToggle.addEventListener("click",()=>{
+
+        const ouvert = App.navMenu.classList.toggle("open");
+
+        App.navToggle.setAttribute(
+            "aria-expanded",
+            ouvert ? "true" : "false"
+        );
+
+    });
+
+    App.navMenu.querySelectorAll(".nav-link").forEach(lien=>{
+
+        lien.addEventListener("click",()=>{
+
+            App.navMenu.classList.remove("open");
+
+            App.navToggle.setAttribute("aria-expanded","false");
+
+        });
+
+    });
+
+}
+
+/* =====================================================
+   SURLIGNAGE DU LIEN ACTIF (SCROLLSPY)
+===================================================== */
+
+function initialiserScrollspy(){
+
+    const liens = $$$(".nav-link");
+
+    if(!liens.length) return;
+
+    const sections = Array.from(liens)
+        .map(lien => document.querySelector(lien.getAttribute("href")))
+        .filter(Boolean);
+
+    if(!sections.length) return;
+
+    const observer = new IntersectionObserver(
+        (entries)=>{
+
+            entries.forEach(entry=>{
+
+                if(!entry.isIntersecting) return;
+
+                liens.forEach(lien=>{
+
+                    lien.classList.toggle(
+                        "active",
+                        lien.getAttribute("href") === "#" + entry.target.id
+                    );
+
+                });
+
+            });
+
+        },
+        {
+            rootMargin:"-45% 0px -50% 0px",
+            threshold:0
+        }
+    );
+
+    sections.forEach(section => observer.observe(section));
+
+}
+
+log("✅ Module 9 bis chargé");
+/* =====================================================
+   MODULE 9 ter
+   BOUTON RETOUR EN HAUT
+===================================================== */
+
+function initialiserRetourHaut(){
+
+    if(!App.backToTop) return;
+
+    window.addEventListener(
+        "scroll",
+        throttle(()=>{
+
+            App.backToTop.classList.toggle(
+                "visible",
+                window.scrollY > 500
+            );
+
+        },100)
+    );
+
+    App.backToTop.addEventListener("click",()=>{
+
+        window.scrollTo({top:0,behavior:"smooth"});
+
+    });
+
+}
+
+log("✅ Module 9 ter chargé");
+/* =====================================================
    MODULE 10
    INITIALISATION GÉNÉRALE
 ===================================================== */
@@ -976,6 +1096,20 @@ document.addEventListener("DOMContentLoaded",()=>{
     ========================= */
 
     initialiserModales();
+
+    /* =========================
+       Menu mobile & scrollspy
+    ========================= */
+
+    initialiserMenuMobile();
+
+    initialiserScrollspy();
+
+    /* =========================
+       Retour en haut
+    ========================= */
+
+    initialiserRetourHaut();
 
     log("✅ Chess.dev Studio prêt.");
 
