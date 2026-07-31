@@ -3109,6 +3109,20 @@ body{
 
 }
 
+img.card-visual{
+
+    width:100%;
+
+    height:190px;
+
+    object-fit:cover;
+
+    display:block;
+
+    background:var(--surface-alt);
+
+}
+
 .card-visual.tone-1{ background:linear-gradient(135deg,#2563eb,#1d4ed8); }
 .card-visual.tone-2{ background:linear-gradient(135deg,#d4af37,#b8860b); }
 .card-visual.tone-3{ background:linear-gradient(135deg,#22c55e,#15803d); }
