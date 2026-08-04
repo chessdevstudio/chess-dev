@@ -1186,6 +1186,293 @@ function initialiserQuiz(){
 
 log("✅ Module 9 quinquies chargé");
 /* =====================================================
+   MODULE 9 sexies
+   ÉCHIQUIER INTERACTIF
+===================================================== */
+
+const PIECES_UNICODE = {
+    wP:"♙", wN:"♘", wB:"♗", wR:"♖", wQ:"♕", wK:"♔",
+    bP:"♟", bN:"♞", bB:"♝", bR:"♜", bQ:"♛", bK:"♚"
+};
+
+const positionInitialeEchecs = {
+    a1:"wR", b1:"wN", c1:"wB", d1:"wQ", e1:"wK", f1:"wB", g1:"wN", h1:"wR",
+    a2:"wP", b2:"wP", c2:"wP", d2:"wP", e2:"wP", f2:"wP", g2:"wP", h2:"wP",
+    a7:"bP", b7:"bP", c7:"bP", d7:"bP", e7:"bP", f7:"bP", g7:"bP", h7:"bP",
+    a8:"bR", b8:"bN", c8:"bB", d8:"bQ", e8:"bK", f8:"bB", g8:"bN", h8:"bR"
+};
+
+const OUVERTURES_ECHIQUIER = {
+
+    "italienne":{
+        nom:"Ouverture Italienne",
+        coups:[
+            {de:"e2",a:"e4",san:"1. e4"},
+            {de:"e7",a:"e5",san:"1... e5"},
+            {de:"g1",a:"f3",san:"2. Cf3"},
+            {de:"b8",a:"c6",san:"2... Cc6"},
+            {de:"f1",a:"c4",san:"3. Fc4"}
+        ]
+    },
+
+    "sicilienne":{
+        nom:"Défense Sicilienne",
+        coups:[
+            {de:"e2",a:"e4",san:"1. e4"},
+            {de:"c7",a:"c5",san:"1... c5"}
+        ]
+    },
+
+    "francaise":{
+        nom:"Défense Française",
+        coups:[
+            {de:"e2",a:"e4",san:"1. e4"},
+            {de:"e7",a:"e6",san:"1... e6"}
+        ]
+    },
+
+    "caro-kann":{
+        nom:"Défense Caro-Kann",
+        coups:[
+            {de:"e2",a:"e4",san:"1. e4"},
+            {de:"c7",a:"c6",san:"1... c6"}
+        ]
+    },
+
+    "anglaise":{
+        nom:"Ouverture Anglaise",
+        coups:[
+            {de:"c2",a:"c4",san:"1. c4"}
+        ]
+    },
+
+    "espagnole":{
+        nom:"Ouverture Espagnole (Ruy López)",
+        coups:[
+            {de:"e2",a:"e4",san:"1. e4"},
+            {de:"e7",a:"e5",san:"1... e5"},
+            {de:"g1",a:"f3",san:"2. Cf3"},
+            {de:"b8",a:"c6",san:"2... Cc6"},
+            {de:"f1",a:"b5",san:"3. Fb5"}
+        ]
+    }
+
+};
+
+const EchiquierEtat = {
+    ouvertureActuelle:"italienne",
+    indexCoup:0
+};
+
+function calculerPositionEchiquier(cle, jusquA){
+
+    const position = Object.assign({}, positionInitialeEchecs);
+
+    const coups = OUVERTURES_ECHIQUIER[cle].coups;
+
+    for(let i=0;i<jusquA;i++){
+
+        const coup = coups[i];
+
+        position[coup.a] = position[coup.de];
+
+        delete position[coup.de];
+
+    }
+
+    return position;
+
+}
+
+function construirePlateauDOM(){
+
+    const plateau = document.getElementById("echiquier-plateau");
+
+    if(!plateau) return;
+
+    plateau.innerHTML = "";
+
+    const fichiers = ["a","b","c","d","e","f","g","h"];
+
+    for(let rangee=8; rangee>=1; rangee--){
+
+        for(let f=0; f<8; f++){
+
+            const caseDiv = document.createElement("div");
+
+            const carre = fichiers[f] + rangee;
+
+            const claire = (f + rangee) % 2 === 0;
+
+            caseDiv.className = "echiquier-case " + (claire ? "claire" : "sombre");
+
+            caseDiv.dataset.square = carre;
+
+            plateau.appendChild(caseDiv);
+
+        }
+
+    }
+
+}
+
+function afficherPositionEchiquier(position, dernierCoup){
+
+    const cases = document.querySelectorAll("#echiquier-plateau .echiquier-case");
+
+    cases.forEach(caseDiv=>{
+
+        const carre = caseDiv.dataset.square;
+
+        caseDiv.classList.remove("derniere-de","derniere-a");
+
+        const piece = position[carre];
+
+        caseDiv.innerHTML = piece
+            ? `<span class="${piece[0]==="w" ? "piece-blanche" : "piece-noire"}">${PIECES_UNICODE[piece]}</span>`
+            : "";
+
+        if(dernierCoup){
+
+            if(carre === dernierCoup.de) caseDiv.classList.add("derniere-de");
+
+            if(carre === dernierCoup.a) caseDiv.classList.add("derniere-a");
+
+        }
+
+    });
+
+}
+
+function mettreAJourEchiquier(){
+
+    const cle = EchiquierEtat.ouvertureActuelle;
+
+    const coups = OUVERTURES_ECHIQUIER[cle].coups;
+
+    const position = calculerPositionEchiquier(cle, EchiquierEtat.indexCoup);
+
+    const dernierCoup = EchiquierEtat.indexCoup > 0
+        ? coups[EchiquierEtat.indexCoup - 1]
+        : null;
+
+    afficherPositionEchiquier(position, dernierCoup);
+
+    const titre = document.getElementById("echiquier-titre");
+
+    const compteur = document.getElementById("echiquier-compteur");
+
+    const notation = document.getElementById("echiquier-notation");
+
+    const boutonPrecedent = document.getElementById("echiquier-precedent");
+
+    const boutonSuivant = document.getElementById("echiquier-suivant");
+
+    if(titre) titre.textContent = OUVERTURES_ECHIQUIER[cle].nom;
+
+    if(compteur) compteur.textContent = EchiquierEtat.indexCoup + " / " + coups.length;
+
+    if(notation){
+
+        notation.textContent = coups
+            .slice(0, EchiquierEtat.indexCoup)
+            .map(c=>c.san)
+            .join("  ") || "Position de départ";
+
+    }
+
+    if(boutonPrecedent) boutonPrecedent.disabled = EchiquierEtat.indexCoup === 0;
+
+    if(boutonSuivant) boutonSuivant.disabled = EchiquierEtat.indexCoup === coups.length;
+
+}
+
+function initialiserEchiquier(){
+
+    const plateau = document.getElementById("echiquier-plateau");
+
+    if(!plateau) return;
+
+    construirePlateauDOM();
+
+    mettreAJourEchiquier();
+
+    const boutonSuivant = document.getElementById("echiquier-suivant");
+
+    const boutonPrecedent = document.getElementById("echiquier-precedent");
+
+    const boutonReset = document.getElementById("echiquier-reset");
+
+    const onglets = document.querySelectorAll(".echiquier-onglet");
+
+    if(boutonSuivant){
+
+        boutonSuivant.addEventListener("click",()=>{
+
+            const coups = OUVERTURES_ECHIQUIER[EchiquierEtat.ouvertureActuelle].coups;
+
+            if(EchiquierEtat.indexCoup < coups.length){
+
+                EchiquierEtat.indexCoup++;
+
+                mettreAJourEchiquier();
+
+            }
+
+        });
+
+    }
+
+    if(boutonPrecedent){
+
+        boutonPrecedent.addEventListener("click",()=>{
+
+            if(EchiquierEtat.indexCoup > 0){
+
+                EchiquierEtat.indexCoup--;
+
+                mettreAJourEchiquier();
+
+            }
+
+        });
+
+    }
+
+    if(boutonReset){
+
+        boutonReset.addEventListener("click",()=>{
+
+            EchiquierEtat.indexCoup = 0;
+
+            mettreAJourEchiquier();
+
+        });
+
+    }
+
+    onglets.forEach(onglet=>{
+
+        onglet.addEventListener("click",()=>{
+
+            onglets.forEach(o=>o.classList.remove("active"));
+
+            onglet.classList.add("active");
+
+            EchiquierEtat.ouvertureActuelle = onglet.dataset.ouverture;
+
+            EchiquierEtat.indexCoup = 0;
+
+            mettreAJourEchiquier();
+
+        });
+
+    });
+
+}
+
+log("✅ Module 9 sexies chargé");
+/* =====================================================
    MODULE 10
    INITIALISATION GÉNÉRALE
 ===================================================== */
@@ -1235,6 +1522,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     ========================= */
 
     initialiserQuiz();
+
+    /* =========================
+       Échiquier interactif
+    ========================= */
+
+    initialiserEchiquier();
 
     /* =========================
        Statistiques de lecture

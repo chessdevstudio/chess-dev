@@ -1205,6 +1205,69 @@
 
         <h3>
 
+            🎮 Échiquier interactif
+
+        </h3>
+
+        <p>
+
+            Choisissez une ouverture et avancez coup par coup pour
+            visualiser comment la position se construit sur l'échiquier.
+
+        </p>
+
+        <div class="echiquier-widget">
+
+            <div class="echiquier-selecteur" id="echiquier-selecteur">
+
+                <button class="echiquier-onglet active" data-ouverture="italienne">Italienne</button>
+
+                <button class="echiquier-onglet" data-ouverture="sicilienne">Sicilienne</button>
+
+                <button class="echiquier-onglet" data-ouverture="francaise">Française</button>
+
+                <button class="echiquier-onglet" data-ouverture="caro-kann">Caro-Kann</button>
+
+                <button class="echiquier-onglet" data-ouverture="anglaise">Anglaise</button>
+
+                <button class="echiquier-onglet" data-ouverture="espagnole">Espagnole</button>
+
+            </div>
+
+            <div class="echiquier-corps">
+
+                <div id="echiquier-plateau" class="echiquier-plateau"></div>
+
+                <div class="echiquier-panneau">
+
+                    <p class="echiquier-titre" id="echiquier-titre"></p>
+
+                    <p class="echiquier-notation" id="echiquier-notation"></p>
+
+                    <div class="echiquier-controles">
+
+                        <button id="echiquier-precedent" class="echiquier-btn">◀ Précédent</button>
+
+                        <span id="echiquier-compteur" class="echiquier-compteur">0 / 0</span>
+
+                        <button id="echiquier-suivant" class="echiquier-btn">Suivant ▶</button>
+
+                    </div>
+
+                    <button id="echiquier-reset" class="echiquier-btn echiquier-btn-reset">
+
+                        ↺ Réinitialiser
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <h3>
+
             Comment choisir son ouverture ?
 
         </h3>

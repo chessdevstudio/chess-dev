@@ -3552,3 +3552,259 @@ input:focus-visible{
     }
 
 }
+/* =========================
+   ÉCHIQUIER INTERACTIF
+========================= */
+
+.echiquier-widget{
+
+    margin-top:20px;
+
+    padding:24px;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
+}
+
+.echiquier-selecteur{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin-bottom:24px;
+
+}
+
+.echiquier-onglet{
+
+    padding:8px 16px;
+
+    background:var(--bg);
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    color:var(--text);
+
+    font-size:0.85em;
+
+    font-family:inherit;
+
+    cursor:pointer;
+
+    transition:background 0.2s ease,color 0.2s ease,border-color 0.2s ease;
+
+}
+
+.echiquier-onglet:hover{
+
+    border-color:var(--blue);
+
+}
+
+.echiquier-onglet.active{
+
+    background:var(--blue);
+
+    color:#fff;
+
+    border-color:var(--blue);
+
+}
+
+.echiquier-corps{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:30px;
+
+    align-items:flex-start;
+
+    justify-content:center;
+
+}
+
+.echiquier-plateau{
+
+    display:grid;
+
+    grid-template-columns:repeat(8,1fr);
+
+    grid-template-rows:repeat(8,1fr);
+
+    width:min(400px,80vw);
+
+    height:min(400px,80vw);
+
+    border:3px solid var(--text);
+
+    border-radius:6px;
+
+    overflow:hidden;
+
+    flex-shrink:0;
+
+}
+
+.echiquier-case{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:min(7.5vw,32px);
+
+    line-height:1;
+
+    user-select:none;
+
+    position:relative;
+
+}
+
+.echiquier-case.claire{
+
+    background:#f0d9b5;
+
+}
+
+.echiquier-case.sombre{
+
+    background:#b58863;
+
+}
+
+.echiquier-case.derniere-de{
+
+    box-shadow:inset 0 0 0 3px rgba(37,99,235,0.55);
+
+}
+
+.echiquier-case.derniere-a{
+
+    box-shadow:inset 0 0 0 3px rgba(37,99,235,0.9);
+}
+
+.piece-blanche{
+
+    color:#fdfdfd;
+
+    text-shadow:0 0 2px #000,0 1px 1px #000;
+
+}
+
+.piece-noire{
+
+    color:#111;
+
+    text-shadow:0 0 2px #fff;
+
+}
+
+.echiquier-panneau{
+
+    min-width:220px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+}
+
+.echiquier-titre{
+
+    font-weight:700;
+
+    color:var(--blue);
+
+    font-size:1.05em;
+
+}
+
+.echiquier-notation{
+
+    color:var(--text-light);
+
+    line-height:1.7;
+
+    min-height:60px;
+
+}
+
+.echiquier-controles{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+}
+
+.echiquier-btn{
+
+    padding:10px 16px;
+
+    background:var(--bg);
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    color:var(--text);
+
+    font-family:inherit;
+
+    font-size:0.9em;
+
+    cursor:pointer;
+
+    transition:border-color 0.2s ease;
+
+}
+
+.echiquier-btn:hover:not(:disabled){
+
+    border-color:var(--blue);
+
+}
+
+.echiquier-btn:disabled{
+
+    opacity:0.4;
+
+    cursor:default;
+
+}
+
+.echiquier-compteur{
+
+    font-size:0.85em;
+
+    opacity:0.7;
+
+    white-space:nowrap;
+
+}
+
+.echiquier-btn-reset{
+
+    align-self:flex-start;
+
+}
