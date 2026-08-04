@@ -1035,6 +1035,157 @@ function initialiserRetourHaut(){
 
 log("✅ Module 9 ter chargé");
 /* =====================================================
+   MODULE 9 quinquies
+   QUIZ TACTIQUE
+===================================================== */
+
+const questionsQuiz = [
+    {
+        question: "Combien de cases peut parcourir un fou en une seule fois, sur une diagonale libre ?",
+        reponses: ["1 case", "3 cases maximum", "Autant que la diagonale le permet", "2 cases"],
+        correcte: 2
+    },
+    {
+        question: "Quel est le seul coup permettant de déplacer deux pièces en même temps ?",
+        reponses: ["La promotion", "Le roque", "La prise en passant", "L'échec et mat"],
+        correcte: 1
+    },
+    {
+        question: "Combien de points vaut approximativement une Dame, en valeur matérielle standard ?",
+        reponses: ["3 points", "5 points", "9 points", "12 points"],
+        correcte: 2
+    },
+    {
+        question: "Quelle pièce ne peut jamais reculer ?",
+        reponses: ["Le Cavalier", "Le Pion", "La Tour", "Le Fou"],
+        correcte: 1
+    },
+    {
+        question: "Quelle ouverture commence par 1.e4 e5 2.Cf3 Cc6 3.Fb5 ?",
+        reponses: ["L'Italienne", "La Sicilienne", "L'Espagnole (Ruy Lopez)", "La Française"],
+        correcte: 2
+    }
+];
+
+let indexQuestionActuelle = 0;
+
+let scoreQuiz = 0;
+
+function afficherQuestionQuiz(){
+
+    const conteneur = document.getElementById("quiz-conteneur");
+
+    if(!conteneur) return;
+
+    if(indexQuestionActuelle >= questionsQuiz.length){
+
+        conteneur.innerHTML = `
+            <div class="quiz-resultat">
+                <h3>Résultat : ${scoreQuiz} / ${questionsQuiz.length}</h3>
+                <p>${
+                    scoreQuiz === questionsQuiz.length
+                        ? "Score parfait, bravo !"
+                        : "Continuez à vous entraîner pour progresser."
+                }</p>
+                <button id="quiz-recommencer" class="quiz-bouton-recommencer">
+                    Recommencer le quiz
+                </button>
+            </div>
+        `;
+
+        const boutonRecommencer = document.getElementById(
+            "quiz-recommencer"
+        );
+
+        boutonRecommencer.addEventListener("click",()=>{
+
+            indexQuestionActuelle = 0;
+
+            scoreQuiz = 0;
+
+            afficherQuestionQuiz();
+
+        });
+
+        return;
+
+    }
+
+    const q = questionsQuiz[indexQuestionActuelle];
+
+    conteneur.innerHTML = `
+        <p class="quiz-progression">
+            Question ${indexQuestionActuelle + 1} / ${questionsQuiz.length}
+        </p>
+        <h3 class="quiz-question">${q.question}</h3>
+        <div class="quiz-reponses">
+            ${q.reponses.map((reponse,i)=>`
+                <button class="quiz-reponse-btn" data-index="${i}">
+                    ${reponse}
+                </button>
+            `).join("")}
+        </div>
+    `;
+
+    const boutonsReponses = conteneur.querySelectorAll(
+        ".quiz-reponse-btn"
+    );
+
+    boutonsReponses.forEach(bouton=>{
+
+        bouton.addEventListener("click",()=>{
+
+            const choisi = Number(bouton.dataset.index);
+
+            boutonsReponses.forEach(b=>{
+
+                b.disabled = true;
+
+                if(Number(b.dataset.index) === q.correcte){
+
+                    b.classList.add("quiz-correcte");
+
+                }
+
+            });
+
+            if(choisi === q.correcte){
+
+                scoreQuiz++;
+
+            }
+            else{
+
+                bouton.classList.add("quiz-incorrecte");
+
+            }
+
+            setTimeout(()=>{
+
+                indexQuestionActuelle++;
+
+                afficherQuestionQuiz();
+
+            },1200);
+
+        });
+
+    });
+
+}
+
+function initialiserQuiz(){
+
+    const conteneur = document.getElementById("quiz-conteneur");
+
+    if(!conteneur) return;
+
+    afficherQuestionQuiz();
+
+}
+
+log("✅ Module 9 quinquies chargé");
+/* =====================================================
    MODULE 10
    INITIALISATION GÉNÉRALE
 ===================================================== */
@@ -1078,6 +1229,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     ========================= */
 
     initialiserCompteurs();
+
+    /* =========================
+       Quiz tactique
+    ========================= */
+
+    initialiserQuiz();
 
     /* =========================
        Statistiques de lecture
