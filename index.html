@@ -187,19 +187,19 @@
 
                 <ul>
 
-                    <li><a href="#histoire" class="nav-link">Histoire</a></li>
+                    <li><a href="#histoire" class="nav-link" data-i18n="nav-histoire">Histoire</a></li>
 
-                    <li><a href="#regles" class="nav-link">Règles</a></li>
+                    <li><a href="#regles" class="nav-link" data-i18n="nav-regles">Règles</a></li>
 
-                    <li><a href="#ouvertures" class="nav-link">Ouvertures</a></li>
+                    <li><a href="#ouvertures" class="nav-link" data-i18n="nav-ouvertures">Ouvertures</a></li>
 
-                    <li><a href="#champions" class="nav-link">Champions</a></li>
+                    <li><a href="#champions" class="nav-link" data-i18n="nav-champions">Champions</a></li>
 
                     <li><a href="#ia" class="nav-link">IA</a></li>
 
                     <li><a href="#quiz" class="nav-link">Quiz</a></li>
 
-                    <li><a href="#bibliographie" class="nav-link">Ressources</a></li>
+                    <li><a href="#bibliographie" class="nav-link" data-i18n="nav-ressources">Ressources</a></li>
 
                 </ul>
 
@@ -218,7 +218,7 @@
         <input
             type="search"
             id="searchInput"
-            placeholder="🔍 Rechercher dans le site..."
+            placeholder="🔍 Rechercher dans le site..." data-i18n-placeholder="search-placeholder"
             autocomplete="off"
             aria-label="Recherche">
 
@@ -236,7 +236,7 @@
 
             <p>
 
-                <span>📖 Temps estimé</span>
+                <span data-i18n="panel-temps">📖 Temps estimé</span>
 
                 <strong id="reading-time">
                     0 min
@@ -246,7 +246,7 @@
 
             <p>
 
-                <span>📊 Progression</span>
+                <span data-i18n="panel-progression">📊 Progression</span>
 
                 <strong id="reading-progress">
                     0%
@@ -256,7 +256,7 @@
 
             <p>
 
-                <span>📝 Mots</span>
+                <span data-i18n="panel-mots">📝 Mots</span>
 
                 <strong id="word-count">
                     0
@@ -272,7 +272,7 @@
 
             <p>
 
-                <span>⏱ Temps passé</span>
+                <span data-i18n="panel-temps-passe">⏱ Temps passé</span>
 
                 <strong id="visit-time">
                     00:00
@@ -291,6 +291,18 @@
                 aria-label="Changer de thème">
 
                 🌙 Mode sombre
+
+            </button>
+
+        </div>
+
+        <div class="panel-section">
+
+            <button
+                id="lang-toggle"
+                aria-label="Switch to English">
+
+                🇬🇧 EN
 
             </button>
 
@@ -332,7 +344,7 @@
 
             </h1>
 
-            <p class="site-description">
+            <p class="site-description" data-i18n="hero-desc">
 
                 Découvrez l'univers des échecs à travers son histoire,
                 ses champions, ses ouvertures, ses stratégies,
@@ -354,13 +366,13 @@
 
         <header>
 
-            <h2>
+            <h2 data-i18n="stats-title">
 
                 📊 Les échecs en quelques chiffres
 
             </h2>
 
-            <p class="section-intro">
+            <p class="section-intro" data-i18n="stats-intro">
 
                 Derrière un simple échiquier se cache l'un des jeux
                 les plus pratiqués au monde, avec une communauté
@@ -390,7 +402,7 @@
 
                 </div>
 
-                <p>
+                <p data-i18n="stats-joueurs">
 
                     Millions de joueurs
 
@@ -416,7 +428,7 @@
 
                 </div>
 
-                <p>
+                <p data-i18n="stats-gm">
 
                     Grands Maîtres
 
@@ -442,7 +454,7 @@
 
                 </div>
 
-                <p>
+                <p data-i18n="stats-federations">
 
                     Fédérations affiliées à la FIDE
 
@@ -466,7 +478,7 @@
 
                 </div>
 
-                <p>
+                <p data-i18n="stats-positions">
 
                     Positions théoriques possibles
 
@@ -492,25 +504,25 @@
 
         <nav class="sommaire">
 
-            <h2>📚 Sommaire</h2>
+            <h2 data-i18n="sommaire-title">📚 Sommaire</h2>
 
             <ul>
 
-                <li><a href="#histoire">Histoire</a></li>
+                <li><a href="#histoire" data-i18n="som-histoire">Histoire</a></li>
 
-                <li><a href="#origines">Origines</a></li>
+                <li><a href="#origines" data-i18n="som-origines">Origines</a></li>
 
-                <li><a href="#regles">Règles</a></li>
+                <li><a href="#regles" data-i18n="som-regles">Règles</a></li>
 
-                <li><a href="#ouvertures">Ouvertures</a></li>
+                <li><a href="#ouvertures" data-i18n="som-ouvertures">Ouvertures</a></li>
 
-                <li><a href="#champions">Champions</a></li>
+                <li><a href="#champions" data-i18n="som-champions">Champions</a></li>
 
-                <li><a href="#bienfaits">Bienfaits</a></li>
+                <li><a href="#bienfaits" data-i18n="som-bienfaits">Bienfaits</a></li>
 
-                <li><a href="#ia">Intelligence artificielle</a></li>
+                <li><a href="#ia" data-i18n="som-ia">Intelligence artificielle</a></li>
 
-                <li><a href="#bibliographie">Bibliographie</a></li>
+                <li><a href="#bibliographie" data-i18n="som-biblio">Bibliographie</a></li>
 
             </ul>
 
@@ -522,7 +534,7 @@
 
         <header>
 
-            <h2>
+            <h2 data-i18n="welcome-title">
 
                 ♟️ Bienvenue dans l'univers des échecs
 
@@ -530,7 +542,7 @@
 
         </header>
 
-        <p>
+        <p data-i18n="welcome-p1">
 
             Les échecs constituent l'un des plus anciens jeux de stratégie
             encore pratiqués aujourd'hui. Depuis plus de quinze siècles,
@@ -539,7 +551,7 @@
 
         </p>
 
-        <p>
+        <p data-i18n="welcome-p2">
 
             Une partie oppose deux joueurs disposant chacun de
             <strong>16 pièces</strong> sur un échiquier de
@@ -549,7 +561,7 @@
 
         </p>
 
-        <p>
+        <p data-i18n="welcome-p3">
 
             Bien plus qu'un simple jeu, les échecs développent la réflexion,
             la mémoire, l'analyse, la créativité et la prise de décision.
@@ -571,13 +583,13 @@
 
         <header>
 
-            <h2>
+            <h2 data-i18n="hist-title">
 
                 📜 La grande histoire des échecs
 
             </h2>
 
-            <p class="intro-histoire">
+            <p class="intro-histoire" data-i18n="hist-intro">
 
                 De l'Inde antique aux championnats du monde modernes,
                 les échecs ont traversé les civilisations, accompagné les
@@ -592,7 +604,7 @@
 
             <article class="timeline-item">
 
-                <div class="timeline-date">
+                <div class="timeline-date" data-i18n="hist-t1-date">
 
                     VIᵉ siècle
 
@@ -600,9 +612,9 @@
 
                 <div class="timeline-content">
 
-                    <h3>🇮🇳 Le Chaturanga</h3>
+                    <h3 data-i18n="hist-t1-titre">🇮🇳 Le Chaturanga</h3>
 
-                    <p>
+                    <p data-i18n="hist-t1-texte">
 
                         Apparition en Inde du Chaturanga,
                         considéré comme l'ancêtre direct des
@@ -616,7 +628,7 @@
 
             <article class="timeline-item">
 
-                <div class="timeline-date">
+                <div class="timeline-date" data-i18n="hist-t2-date">
 
                     VIIᵉ siècle
 
@@ -624,9 +636,9 @@
 
                 <div class="timeline-content">
 
-                    <h3>🇮🇷 Le Chatrang</h3>
+                    <h3 data-i18n="hist-t2-titre">🇮🇷 Le Chatrang</h3>
 
-                    <p>
+                    <p data-i18n="hist-t2-texte">
 
                         Le jeu arrive en Perse où les règles
                         commencent progressivement à évoluer.
@@ -639,7 +651,7 @@
 
             <article class="timeline-item">
 
-                <div class="timeline-date">
+                <div class="timeline-date" data-i18n="hist-t3-date">
 
                     IXᵉ siècle
 
@@ -647,9 +659,9 @@
 
                 <div class="timeline-content">
 
-                    <h3>☪️ Le Shatranj</h3>
+                    <h3 data-i18n="hist-t3-titre">☪️ Le Shatranj</h3>
 
-                    <p>
+                    <p data-i18n="hist-t3-texte">
 
                         Les savants du monde arabe développent
                         la théorie échiquéenne et diffusent
@@ -663,7 +675,7 @@
 
             <article class="timeline-item">
 
-                <div class="timeline-date">
+                <div class="timeline-date" data-i18n="hist-t4-date">
 
                     1475
 
@@ -671,9 +683,9 @@
 
                 <div class="timeline-content">
 
-                    <h3>👑 Les règles modernes</h3>
+                    <h3 data-i18n="hist-t4-titre">👑 Les règles modernes</h3>
 
-                    <p>
+                    <p data-i18n="hist-t4-texte">
 
                         La Dame acquiert sa puissance actuelle,
                         donnant naissance aux échecs modernes.
@@ -686,7 +698,7 @@
 
             <article class="timeline-item">
 
-                <div class="timeline-date">
+                <div class="timeline-date" data-i18n="hist-t5-date">
 
                     1886
 
@@ -694,9 +706,9 @@
 
                 <div class="timeline-content">
 
-                    <h3>🏆 Premier championnat du monde</h3>
+                    <h3 data-i18n="hist-t5-titre">🏆 Premier championnat du monde</h3>
 
-                    <p>
+                    <p data-i18n="hist-t5-texte">
 
                         Wilhelm Steinitz devient le premier
                         champion du monde officiel.
@@ -709,7 +721,7 @@
 
             <article class="timeline-item">
 
-                <div class="timeline-date">
+                <div class="timeline-date" data-i18n="hist-t6-date">
 
                     1972
 
@@ -717,9 +729,9 @@
 
                 <div class="timeline-content">
 
-                    <h3>🇺🇸 Fischer vs Spassky</h3>
+                    <h3 data-i18n="hist-t6-titre">🇺🇸 Fischer vs Spassky</h3>
 
-                    <p>
+                    <p data-i18n="hist-t6-texte">
 
                         Le « Match du siècle » dépasse le cadre
                         sportif et devient un symbole de la
@@ -733,7 +745,7 @@
 
             <article class="timeline-item">
 
-                <div class="timeline-date">
+                <div class="timeline-date" data-i18n="hist-t7-date">
 
                     1997
 
@@ -741,9 +753,9 @@
 
                 <div class="timeline-content">
 
-                    <h3>🤖 Deep Blue</h3>
+                    <h3 data-i18n="hist-t7-titre">🤖 Deep Blue</h3>
 
-                    <p>
+                    <p data-i18n="hist-t7-texte">
 
                         L'ordinateur d'IBM bat Garry Kasparov,
                         marquant une étape majeure dans
@@ -757,7 +769,7 @@
 
             <article class="timeline-item">
 
-                <div class="timeline-date">
+                <div class="timeline-date" data-i18n="hist-t8-date">
 
                     2013
 
@@ -765,9 +777,9 @@
 
                 <div class="timeline-content">
 
-                    <h3>♞ Magnus Carlsen</h3>
+                    <h3 data-i18n="hist-t8-titre">♞ Magnus Carlsen</h3>
 
-                    <p>
+                    <p data-i18n="hist-t8-texte">
 
                         À 22 ans, Magnus Carlsen devient
                         champion du monde et domine les
@@ -781,7 +793,7 @@
 
             <article class="timeline-item">
 
-                <div class="timeline-date">
+                <div class="timeline-date" data-i18n="hist-t9-date">
 
                     2024
 
@@ -789,9 +801,9 @@
 
                 <div class="timeline-content">
 
-                    <h3>🌟 Gukesh Dommaraju</h3>
+                    <h3 data-i18n="hist-t9-titre">🌟 Gukesh Dommaraju</h3>
 
-                    <p>
+                    <p data-i18n="hist-t9-texte">
 
                         À seulement 18 ans, Gukesh devient
                         le plus jeune champion du monde de
@@ -817,7 +829,7 @@
 
         <header>
 
-            <h2>
+            <h2 data-i18n="orig-title">
 
                 🌍 Les origines des échecs
 
@@ -825,7 +837,7 @@
 
         </header>
 
-        <p>
+        <p data-i18n="orig-p1">
 
             L'histoire des échecs débute en Inde vers le VIᵉ siècle avec le
             <strong>Chaturanga</strong>, un jeu inspiré de l'organisation de
@@ -834,7 +846,7 @@
 
         </p>
 
-        <p>
+        <p data-i18n="orig-p2">
 
             Le jeu se diffuse ensuite en Perse, où il prend le nom de
             <strong>Chatrang</strong>, avant d'être adopté par le monde arabe
@@ -844,7 +856,7 @@
 
         </p>
 
-        <p>
+        <p data-i18n="orig-p3">
 
             À partir du Moyen Âge, les échecs gagnent progressivement toute
             l'Europe. Les pièces changent de nom, les mouvements deviennent
@@ -853,7 +865,7 @@
 
         </p>
 
-        <p>
+        <p data-i18n="orig-p4">
 
             Aujourd'hui, les échecs sont pratiqués sur tous les continents.
             Ils réunissent des millions de joueurs, des compétitions
@@ -861,7 +873,7 @@
 
         </p>
 
-        <p class="sources-note">
+        <p class="sources-note" data-i18n="orig-sources">
 
             Sources générales : Fédération Internationale des Échecs
             (<a href="https://www.fide.com" target="_blank" rel="noopener noreferrer">FIDE</a>),
@@ -881,7 +893,7 @@
 
         <header>
 
-            <h2>
+            <h2 data-i18n="regles-title">
 
                 ♔ Les règles du jeu
 
@@ -889,7 +901,7 @@
 
         </header>
 
-        <p>
+        <p data-i18n="regles-intro">
 
             Une partie d'échecs oppose deux joueurs qui jouent alternativement,
             les Blancs ayant toujours le premier coup. Chacun dispose de
@@ -898,7 +910,7 @@
 
         </p>
 
-        <h3>
+        <h3 data-i18n="regles-h3-pieces">
 
             Les pièces et leurs déplacements
 
@@ -910,11 +922,11 @@
 
                 <tr>
 
-                    <th>Pièce</th>
+                    <th data-i18n="regles-th-piece">Pièce</th>
 
-                    <th>Valeur</th>
+                    <th data-i18n="regles-th-valeur">Valeur</th>
 
-                    <th>Déplacement</th>
+                    <th data-i18n="regles-th-deplacement">Déplacement</th>
 
                 </tr>
 
@@ -924,61 +936,61 @@
 
                 <tr>
 
-                    <td>👑 Roi</td>
+                    <td data-i18n="regles-roi-nom">👑 Roi</td>
 
                     <td>∞</td>
 
-                    <td>Une case dans toutes les directions.</td>
+                    <td data-i18n="regles-roi-dep">Une case dans toutes les directions.</td>
 
                 </tr>
 
                 <tr>
 
-                    <td>👸 Dame</td>
+                    <td data-i18n="regles-dame-nom">👸 Dame</td>
 
                     <td>9</td>
 
-                    <td>Horizontalement, verticalement et en diagonale.</td>
+                    <td data-i18n="regles-dame-dep">Horizontalement, verticalement et en diagonale.</td>
 
                 </tr>
 
                 <tr>
 
-                    <td>🏰 Tour</td>
+                    <td data-i18n="regles-tour-nom">🏰 Tour</td>
 
                     <td>5</td>
 
-                    <td>Horizontalement et verticalement.</td>
+                    <td data-i18n="regles-tour-dep">Horizontalement et verticalement.</td>
 
                 </tr>
 
                 <tr>
 
-                    <td>⛪ Fou</td>
+                    <td data-i18n="regles-fou-nom">⛪ Fou</td>
 
                     <td>3</td>
 
-                    <td>En diagonale.</td>
+                    <td data-i18n="regles-fou-dep">En diagonale.</td>
 
                 </tr>
 
                 <tr>
 
-                    <td>🐴 Cavalier</td>
+                    <td data-i18n="regles-cavalier-nom">🐴 Cavalier</td>
 
                     <td>3</td>
 
-                    <td>En « L », en sautant les autres pièces.</td>
+                    <td data-i18n="regles-cavalier-dep">En « L », en sautant les autres pièces.</td>
 
                 </tr>
 
                 <tr>
 
-                    <td>♟️ Pion</td>
+                    <td data-i18n="regles-pion-nom">♟️ Pion</td>
 
                     <td>1</td>
 
-                    <td>Avance d'une case et capture en diagonale.</td>
+                    <td data-i18n="regles-pion-dep">Avance d'une case et capture en diagonale.</td>
 
                 </tr>
 
@@ -986,7 +998,7 @@
 
         </table>
 
-        <h3>
+        <h3 data-i18n="regles-h3-particulieres">
 
             Les règles particulières
 
@@ -994,21 +1006,21 @@
 
         <ul>
 
-            <li>
+            <li data-i18n="regles-roque">
 
                 <strong>Le roque :</strong>
                 déplacement simultané du roi et d'une tour afin de mettre le roi en sécurité.
 
             </li>
 
-            <li>
+            <li data-i18n="regles-passant">
 
                 <strong>La prise en passant :</strong>
                 capture exceptionnelle entre deux pions dans une situation précise.
 
             </li>
 
-            <li>
+            <li data-i18n="regles-promotion">
 
                 <strong>La promotion :</strong>
                 lorsqu'un pion atteint la dernière rangée, il peut devenir une dame, une tour, un fou ou un cavalier.
@@ -1017,7 +1029,7 @@
 
         </ul>
 
-        <h3>
+        <h3 data-i18n="regles-h3-fin">
 
             Fin d'une partie
 
@@ -1025,25 +1037,25 @@
 
         <ul>
 
-            <li>✔️ Échec et mat.</li>
+            <li data-i18n="regles-fin1">✔️ Échec et mat.</li>
 
-            <li>✔️ Abandon d'un joueur.</li>
+            <li data-i18n="regles-fin2">✔️ Abandon d'un joueur.</li>
 
-            <li>✔️ Match nul.</li>
+            <li data-i18n="regles-fin3">✔️ Match nul.</li>
 
-            <li>✔️ Pat.</li>
+            <li data-i18n="regles-fin4">✔️ Pat.</li>
 
-            <li>✔️ Manque de matériel pour mater.</li>
+            <li data-i18n="regles-fin5">✔️ Manque de matériel pour mater.</li>
 
         </ul>
 
-        <h3>
+        <h3 data-i18n="regles-h3-competitions">
 
             Les compétitions officielles
 
         </h3>
 
-        <p>
+        <p data-i18n="regles-competitions">
 
             Les compétitions sont organisées par la
             <strong>FIDE</strong> (Fédération Internationale des Échecs).
@@ -1065,13 +1077,13 @@
 
         <header>
 
-            <h2>
+            <h2 data-i18n="ouv-title">
 
                 ♞ Les principales ouvertures
 
             </h2>
 
-            <p>
+            <p data-i18n="ouv-intro">
 
                 L'ouverture correspond aux premiers coups d'une partie.
                 Elle conditionne souvent le développement des pièces,
@@ -1095,9 +1107,9 @@
                     class="card-visual"
                     loading="lazy">
 
-                <h3>Ouverture Italienne</h3>
+                <h3 data-i18n="ouv-italienne-titre">Ouverture Italienne</h3>
 
-                <p>
+                <p data-i18n="ouv-italienne-texte">
                     Développement rapide des pièces et attaque du pion f7.
                     Une ouverture idéale pour apprendre les principes
                     fondamentaux.
@@ -1115,9 +1127,9 @@
                     class="card-visual"
                     loading="lazy">
 
-                <h3>Défense Sicilienne</h3>
+                <h3 data-i18n="ouv-sicilienne-titre">Défense Sicilienne</h3>
 
-                <p>
+                <p data-i18n="ouv-sicilienne-texte">
                     Réponse dynamique à 1.e4 offrant des positions
                     complexes et un important potentiel de contre-attaque.
                 </p>
@@ -1134,9 +1146,9 @@
                     class="card-visual"
                     loading="lazy">
 
-                <h3>Défense Française</h3>
+                <h3 data-i18n="ouv-francaise-titre">Défense Française</h3>
 
-                <p>
+                <p data-i18n="ouv-francaise-texte">
                     Une défense solide qui privilégie la structure de pions
                     et les manœuvres positionnelles.
                 </p>
@@ -1153,9 +1165,9 @@
                     class="card-visual"
                     loading="lazy">
 
-                <h3>Défense Caro-Kann</h3>
+                <h3 data-i18n="ouv-caro-kann-titre">Défense Caro-Kann</h3>
 
-                <p>
+                <p data-i18n="ouv-caro-kann-texte">
                     Très appréciée pour sa robustesse, elle conduit
                     généralement à des positions équilibrées.
                 </p>
@@ -1172,9 +1184,9 @@
                     class="card-visual"
                     loading="lazy">
 
-                <h3>Ouverture Anglaise</h3>
+                <h3 data-i18n="ouv-anglaise-titre">Ouverture Anglaise</h3>
 
-                <p>
+                <p data-i18n="ouv-anglaise-texte">
                     Une ouverture flexible débutant par 1.c4, qui
                     retarde l'affrontement central pour mieux le
                     contrôler à distance.
@@ -1192,9 +1204,9 @@
                     class="card-visual"
                     loading="lazy">
 
-                <h3>Ouverture Espagnole</h3>
+                <h3 data-i18n="ouv-espagnole-titre">Ouverture Espagnole</h3>
 
-                <p>
+                <p data-i18n="ouv-espagnole-texte">
                     Aussi appelée Ruy López, elle reste l'une des
                     ouvertures les plus étudiées de l'histoire.
                 </p>
@@ -1203,13 +1215,13 @@
 
         </div>
 
-        <h3>
+        <h3 data-i18n="ouv-echiquier-titre">
 
             🎮 Échiquier interactif
 
         </h3>
 
-        <p>
+        <p data-i18n="ouv-echiquier-desc">
 
             Choisissez une ouverture et avancez coup par coup pour
             visualiser comment la position se construit sur l'échiquier.
@@ -1220,17 +1232,17 @@
 
             <div class="echiquier-selecteur" id="echiquier-selecteur">
 
-                <button class="echiquier-onglet active" data-ouverture="italienne">Italienne</button>
+                <button class="echiquier-onglet active" data-ouverture="italienne" data-i18n="tab-italienne">Italienne</button>
 
-                <button class="echiquier-onglet" data-ouverture="sicilienne">Sicilienne</button>
+                <button class="echiquier-onglet" data-ouverture="sicilienne" data-i18n="tab-sicilienne">Sicilienne</button>
 
-                <button class="echiquier-onglet" data-ouverture="francaise">Française</button>
+                <button class="echiquier-onglet" data-ouverture="francaise" data-i18n="tab-francaise">Française</button>
 
-                <button class="echiquier-onglet" data-ouverture="caro-kann">Caro-Kann</button>
+                <button class="echiquier-onglet" data-ouverture="caro-kann" data-i18n="tab-caro-kann">Caro-Kann</button>
 
-                <button class="echiquier-onglet" data-ouverture="anglaise">Anglaise</button>
+                <button class="echiquier-onglet" data-ouverture="anglaise" data-i18n="tab-anglaise">Anglaise</button>
 
-                <button class="echiquier-onglet" data-ouverture="espagnole">Espagnole</button>
+                <button class="echiquier-onglet" data-ouverture="espagnole" data-i18n="tab-espagnole">Espagnole</button>
 
             </div>
 
@@ -1246,15 +1258,15 @@
 
                     <div class="echiquier-controles">
 
-                        <button id="echiquier-precedent" class="echiquier-btn">◀ Précédent</button>
+                        <button id="echiquier-precedent" class="echiquier-btn" data-i18n="echiquier-precedent">◀ Précédent</button>
 
                         <span id="echiquier-compteur" class="echiquier-compteur">0 / 0</span>
 
-                        <button id="echiquier-suivant" class="echiquier-btn">Suivant ▶</button>
+                        <button id="echiquier-suivant" class="echiquier-btn" data-i18n="echiquier-suivant">Suivant ▶</button>
 
                     </div>
 
-                    <button id="echiquier-reset" class="echiquier-btn echiquier-btn-reset">
+                    <button id="echiquier-reset" class="echiquier-btn echiquier-btn-reset" data-i18n="echiquier-reset">
 
                         ↺ Réinitialiser
 
@@ -1266,13 +1278,13 @@
 
         </div>
 
-        <h3>
+        <h3 data-i18n="ouv-choisir-titre">
 
             Comment choisir son ouverture ?
 
         </h3>
 
-        <p>
+        <p data-i18n="ouv-choisir-texte">
 
             Il n'existe pas de meilleure ouverture universelle.
             Le choix dépend avant tout du style de jeu recherché.
@@ -1283,7 +1295,7 @@
 
         </p>
 
-        <p class="internal-links">
+        <p class="internal-links" data-i18n="ouv-internal-links">
 
             À voir aussi : découvrez comment
             <a href="#champions">Garry Kasparov</a> et
@@ -1306,13 +1318,13 @@
 
         <header>
 
-            <h2>
+            <h2 data-i18n="champ-title">
 
                 🏆 Les plus grands champions du monde
 
             </h2>
 
-            <p>
+            <p data-i18n="champ-intro">
 
                 Depuis 1886, plusieurs générations de champions ont marqué
                 l'histoire des échecs. Leur créativité, leur préparation
@@ -1335,9 +1347,9 @@
 
                 <h3>Magnus Carlsen</h3>
 
-                <span class="badge">🇳🇴 Norvège</span>
+                <span class="badge" data-i18n="champ-norvege">🇳🇴 Norvège</span>
 
-                <p>
+                <p data-i18n="champ-carlsen-p">
 
                     Champion du monde de 2013 à 2023 et détenteur du
                     record Elo de l'histoire avec 2882 points.
@@ -1356,9 +1368,9 @@
 
                 <h3>Garry Kasparov</h3>
 
-                <span class="badge">🇷🇺 Russie</span>
+                <span class="badge" data-i18n="champ-russie">🇷🇺 Russie</span>
 
-                <p>
+                <p data-i18n="champ-kasparov-p">
 
                     Considéré comme l'un des plus grands joueurs de tous
                     les temps grâce à son style offensif et sa préparation.
@@ -1377,9 +1389,9 @@
 
                 <h3>Bobby Fischer</h3>
 
-                <span class="badge">🇺🇸 États-Unis</span>
+                <span class="badge" data-i18n="champ-etatsunis">🇺🇸 États-Unis</span>
 
-                <p>
+                <p data-i18n="champ-fischer-p">
 
                     Vainqueur du mythique championnat du monde de 1972,
                     il popularise les échecs dans le monde occidental.
@@ -1390,7 +1402,7 @@
 
         </div>
 
-        <h3>
+        <h3 data-i18n="champ-legendes-titre">
 
             D'autres légendes des échecs
 
@@ -1398,29 +1410,29 @@
 
         <ul>
 
-            <li><strong>Wilhelm Steinitz</strong> — premier champion du monde officiel.</li>
+            <li data-i18n="champ-l1"><strong>Wilhelm Steinitz</strong> — premier champion du monde officiel.</li>
 
-            <li><strong>Emanuel Lasker</strong> — champion durant vingt-sept ans.</li>
+            <li data-i18n="champ-l2"><strong>Emanuel Lasker</strong> — champion durant vingt-sept ans.</li>
 
-            <li><strong>José Raúl Capablanca</strong> — maître incontesté des finales.</li>
+            <li data-i18n="champ-l3"><strong>José Raúl Capablanca</strong> — maître incontesté des finales.</li>
 
-            <li><strong>Alexandre Alekhine</strong> — célèbre pour son imagination tactique.</li>
+            <li data-i18n="champ-l4"><strong>Alexandre Alekhine</strong> — célèbre pour son imagination tactique.</li>
 
-            <li><strong>Mikhaïl Botvinnik</strong> — fondateur de l'école soviétique moderne.</li>
+            <li data-i18n="champ-l5"><strong>Mikhaïl Botvinnik</strong> — fondateur de l'école soviétique moderne.</li>
 
-            <li><strong>Anatoli Karpov</strong> — virtuose du jeu positionnel.</li>
+            <li data-i18n="champ-l6"><strong>Anatoli Karpov</strong> — virtuose du jeu positionnel.</li>
 
-            <li><strong>Viswanathan Anand</strong> — premier champion du monde indien.</li>
+            <li data-i18n="champ-l7"><strong>Viswanathan Anand</strong> — premier champion du monde indien.</li>
 
-            <li><strong>Vladimir Kramnik</strong> — vainqueur de Kasparov en 2000.</li>
+            <li data-i18n="champ-l8"><strong>Vladimir Kramnik</strong> — vainqueur de Kasparov en 2000.</li>
 
-            <li><strong>Magnus Carlsen</strong> — champion dominant du XXIᵉ siècle.</li>
+            <li data-i18n="champ-l9"><strong>Magnus Carlsen</strong> — champion dominant du XXIᵉ siècle.</li>
 
-            <li><strong>Gukesh Dommaraju</strong> — plus jeune champion du monde de l'histoire.</li>
+            <li data-i18n="champ-l10"><strong>Gukesh Dommaraju</strong> — plus jeune champion du monde de l'histoire.</li>
 
         </ul>
 
-        <p>
+        <p data-i18n="champ-conclusion">
 
             Chaque génération apporte de nouvelles idées, enrichissant sans
             cesse la théorie et la compréhension du jeu. L'histoire des
@@ -1441,13 +1453,13 @@
 
         <header>
 
-            <h2>
+            <h2 data-i18n="bienf-title">
 
                 🧠 Les bienfaits des échecs
 
             </h2>
 
-            <p>
+            <p data-i18n="bienf-intro">
 
                 Bien plus qu'un jeu de stratégie, les échecs constituent un
                 excellent exercice intellectuel. Leur pratique régulière
@@ -1464,9 +1476,9 @@
 
                 <div class="stat-icon">🎯</div>
 
-                <h3>Concentration</h3>
+                <h3 data-i18n="bienf-c1-titre">Concentration</h3>
 
-                <p>
+                <p data-i18n="bienf-c1-texte">
 
                     Chaque coup demande une attention soutenue et une analyse
                     précise de la position.
@@ -1479,9 +1491,9 @@
 
                 <div class="stat-icon">🧩</div>
 
-                <h3>Logique</h3>
+                <h3 data-i18n="bienf-c2-titre">Logique</h3>
 
-                <p>
+                <p data-i18n="bienf-c2-texte">
 
                     Les échecs apprennent à résoudre des problèmes en évaluant
                     plusieurs solutions avant de prendre une décision.
@@ -1494,9 +1506,9 @@
 
                 <div class="stat-icon">📚</div>
 
-                <h3>Mémoire</h3>
+                <h3 data-i18n="bienf-c3-titre">Mémoire</h3>
 
-                <p>
+                <p data-i18n="bienf-c3-texte">
 
                     L'étude des ouvertures, des finales et des schémas tactiques
                     renforce la mémoire à long terme.
@@ -1509,9 +1521,9 @@
 
                 <div class="stat-icon">⚡</div>
 
-                <h3>Décision</h3>
+                <h3 data-i18n="bienf-c4-titre">Décision</h3>
 
-                <p>
+                <p data-i18n="bienf-c4-texte">
 
                     Chaque partie développe la capacité à choisir rapidement
                     sous contrainte de temps.
@@ -1522,13 +1534,13 @@
 
         </div>
 
-        <h3>
+        <h3 data-i18n="bienf-outil-titre">
 
             Un outil éducatif
 
         </h3>
 
-        <p>
+        <p data-i18n="bienf-outil-texte">
 
             De nombreuses écoles utilisent aujourd'hui les échecs comme support
             pédagogique. Ils favorisent la patience, la persévérance, la
@@ -1549,13 +1561,13 @@
 
         <header>
 
-            <h2>
+            <h2 data-i18n="ia-title">
 
                 🤖 Les échecs et l'intelligence artificielle
 
             </h2>
 
-            <p>
+            <p data-i18n="ia-intro">
 
                 Les échecs ont joué un rôle majeur dans le développement de
                 l'intelligence artificielle. Depuis les premiers programmes
@@ -1571,7 +1583,7 @@
 
             <article class="timeline-item">
 
-                <div class="timeline-date">
+                <div class="timeline-date" data-i18n="ia-t1-date">
 
                     1997
 
@@ -1579,13 +1591,13 @@
 
                 <div class="timeline-content">
 
-                    <h3>
+                    <h3 data-i18n="ia-t1-titre">
 
                         💻 Deep Blue
 
                     </h3>
 
-                    <p>
+                    <p data-i18n="ia-t1-texte">
 
                         Le superordinateur d'IBM bat Garry Kasparov lors d'un
                         match officiel, démontrant la puissance du calcul
@@ -1599,7 +1611,7 @@
 
             <article class="timeline-item">
 
-                <div class="timeline-date">
+                <div class="timeline-date" data-i18n="ia-t2-date">
 
                     2017
 
@@ -1607,13 +1619,13 @@
 
                 <div class="timeline-content">
 
-                    <h3>
+                    <h3 data-i18n="ia-t2-titre">
 
                         ♟️ AlphaZero
 
                     </h3>
 
-                    <p>
+                    <p data-i18n="ia-t2-texte">
 
                         En apprenant uniquement les règles du jeu, AlphaZero
                         développe un style original capable de surpasser les
@@ -1627,7 +1639,7 @@
 
             <article class="timeline-item">
 
-                <div class="timeline-date">
+                <div class="timeline-date" data-i18n="ia-t3-date">
 
                     Aujourd'hui
 
@@ -1635,13 +1647,13 @@
 
                 <div class="timeline-content">
 
-                    <h3>
+                    <h3 data-i18n="ia-t3-titre">
 
                         🚀 Stockfish & IA modernes
 
                     </h3>
 
-                    <p>
+                    <p data-i18n="ia-t3-texte">
 
                         Les moteurs d'analyse assistent désormais les joueurs,
                         les entraîneurs et les arbitres. Ils permettent
@@ -1655,13 +1667,13 @@
 
         </div>
 
-        <h3>
+        <h3 data-i18n="ia-revolution-titre">
 
             Une révolution pour les joueurs
 
         </h3>
 
-        <p>
+        <p data-i18n="ia-p1">
 
             Les intelligences artificielles ont profondément transformé
             l'apprentissage des échecs. Elles permettent d'analyser une partie,
@@ -1671,7 +1683,7 @@
 
         </p>
 
-        <p>
+        <p data-i18n="ia-p2">
 
             Malgré ces avancées, la créativité, l'intuition et le plaisir de
             jouer restent au cœur des échecs. Les moteurs sont devenus des
@@ -1691,13 +1703,13 @@
 
         <header>
 
-            <h2>
+            <h2 data-i18n="quiz-title">
 
                 🧩 Testez vos connaissances
 
             </h2>
 
-            <p>
+            <p data-i18n="quiz-intro">
 
                 Un petit quiz pour vérifier vos bases échiquéennes.
 
@@ -1719,13 +1731,13 @@
 
         <header>
 
-            <h2>
+            <h2 data-i18n="biblio-title">
 
                 📚 Pour aller plus loin
 
             </h2>
 
-            <p>
+            <p data-i18n="biblio-intro">
 
                 Les échecs possèdent une littérature exceptionnelle.
                 Des ouvrages historiques aux manuels de stratégie,
@@ -1742,7 +1754,7 @@
 
                 <div class="nation-body">
 
-                    <h3>
+                    <h3 data-i18n="biblio-livres-titre">
 
                         📖 Livres incontournables
 
@@ -1770,7 +1782,7 @@
 
                 <div class="nation-body">
 
-                    <h3>
+                    <h3 data-i18n="biblio-plateformes-titre">
 
                         🌐 Plateformes de référence
 
@@ -1798,13 +1810,13 @@
 
                 <div class="nation-body">
 
-                    <h3>
+                    <h3 data-i18n="biblio-progresser-titre">
 
                         🎓 Pour progresser
 
                     </h3>
 
-                    <p>
+                    <p data-i18n="biblio-progresser-texte">
 
                         La progression repose avant tout sur une pratique
                         régulière. Jouer, analyser ses parties,
@@ -1840,7 +1852,7 @@
 
         </header>
 
-        <p>
+        <p data-i18n="concl-p1">
 
             Depuis plus de quinze siècles, les échecs traversent les
             civilisations sans perdre leur capacité à fasciner. Leur
@@ -1849,7 +1861,7 @@
 
         </p>
 
-        <p>
+        <p data-i18n="concl-p2">
 
             Des premiers joueurs du Chaturanga aux champions du monde
             contemporains, des affrontements historiques aux moteurs
@@ -1859,7 +1871,7 @@
 
         </p>
 
-        <p>
+        <p data-i18n="concl-p3">
 
             Que vous soyez débutant, joueur de club ou compétiteur,
             chaque partie représente une nouvelle occasion de progresser.
@@ -1870,13 +1882,13 @@
 
         <blockquote id="quote-box">
 
-            <p>
+            <p data-i18n="concl-citation">
 
                 « Les échecs sont le gymnase de l'esprit. »
 
             </p>
 
-            <footer>
+            <footer data-i18n="concl-citation-note">
 
                 — Citation traditionnellement attribuée à Blaise Pascal,
                 mais dont l'origine exacte n'est pas confirmée par les
@@ -1899,7 +1911,7 @@
 
         </h2>
 
-        <p>
+        <p data-i18n="footer-p">
 
             © 2026 • Créé avec passion pour partager
             l'histoire, la stratégie et la culture des échecs.
@@ -1908,7 +1920,7 @@
 
         <p class="last-updated">
 
-            Dernière mise à jour : <time datetime="2026-08-04">4 août 2026</time>
+            <span data-i18n="footer-updated">Dernière mise à jour :</span> <time datetime="2026-08-04">4 août 2026</time>
 
         </p>
 

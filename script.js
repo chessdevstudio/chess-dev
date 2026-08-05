@@ -1,4 +1,5 @@
 /* =====================================================
+/* =====================================================
    CHESS.DEV STUDIO V6
    MODULE 0
    CONFIGURATION GLOBALE
@@ -160,51 +161,61 @@ const citations = [
 
     {
         texte : "Les échecs sont la gymnastique de l'esprit.",
+        texte_en : "Chess is gymnastics for the mind.",
         auteur : "Blaise Pascal"
     },
 
     {
         texte : "Aux échecs, comme dans la vie, le meilleur coup est toujours celui que l'on trouve soi-même.",
+        texte_en : "In chess, as in life, the best move is always the one you find yourself.",
         auteur : "Savielly Tartakower"
     },
 
     {
         texte : "Les pions sont l'âme des échecs.",
+        texte_en : "Pawns are the soul of chess.",
         auteur : "François-André Philidor"
     },
 
     {
         texte : "Les échecs exigent une concentration absolue.",
+        texte_en : "Chess demands total concentration.",
         auteur : "Magnus Carlsen"
     },
 
     {
         texte : "Le roi est une pièce forte... uniquement en finale.",
+        texte_en : "The king is a strong piece... only in the endgame.",
         auteur : "José Raúl Capablanca"
     },
 
     {
         texte : "Le tacticien sait quoi faire lorsqu'il y a quelque chose à faire. Le stratège sait quoi faire lorsqu'il n'y a rien à faire.",
+        texte_en : "The tactician knows what to do when there is something to do. The strategist knows what to do when there is nothing to do.",
         auteur : "Savielly Tartakower"
     },
 
     {
         texte : "Les combinaisons naissent d'une position supérieure.",
+        texte_en : "Combinations are born from a superior position.",
         auteur : "Garry Kasparov"
     },
 
     {
         texte : "Chaque partie d'échecs est une aventure.",
+        texte_en : "Every game of chess is an adventure.",
         auteur : "David Bronstein"
     },
 
     {
         texte : "Même le plus long voyage commence par un premier coup.",
+        texte_en : "Even the longest journey begins with a first move.",
         auteur : "Proverbe adapté aux échecs"
     },
 
     {
         texte : "Aux échecs, les erreurs sont toujours là, attendant d'être découvertes.",
+        texte_en : "In chess, mistakes are always there, waiting to be discovered.",
         auteur : "Garry Kasparov"
     }
 
@@ -214,6 +225,8 @@ const citations = [
    AFFICHAGE
 ===================================================== */
 
+let indexCitationActuelle = null;
+
 function afficherCitation(){
 
     const citation = $("quote");
@@ -221,11 +234,21 @@ function afficherCitation(){
 
     if(!citation || !auteur) return;
 
-    const index = random(0, citations.length - 1);
+    if(indexCitationActuelle === null){
 
-    citation.textContent = `"${citations[index].texte}"`;
+        indexCitationActuelle = random(0, citations.length - 1);
 
-    auteur.textContent = "— " + citations[index].auteur;
+    }
+
+    const c = citations[indexCitationActuelle];
+
+    const texte = (typeof langueActuelle !== "undefined" && langueActuelle === "en")
+        ? c.texte_en
+        : c.texte;
+
+    citation.textContent = `"${texte}"`;
+
+    auteur.textContent = "— " + c.auteur;
 
 }
 
@@ -1042,27 +1065,37 @@ log("✅ Module 9 ter chargé");
 const questionsQuiz = [
     {
         question: "Combien de cases peut parcourir un fou en une seule fois, sur une diagonale libre ?",
+        question_en: "How many squares can a bishop move at once, along a clear diagonal?",
         reponses: ["1 case", "3 cases maximum", "Autant que la diagonale le permet", "2 cases"],
+        reponses_en: ["1 square", "3 squares maximum", "As many as the diagonal allows", "2 squares"],
         correcte: 2
     },
     {
         question: "Quel est le seul coup permettant de déplacer deux pièces en même temps ?",
+        question_en: "What is the only move that allows two pieces to move at the same time?",
         reponses: ["La promotion", "Le roque", "La prise en passant", "L'échec et mat"],
+        reponses_en: ["Promotion", "Castling", "En passant", "Checkmate"],
         correcte: 1
     },
     {
         question: "Combien de points vaut approximativement une Dame, en valeur matérielle standard ?",
+        question_en: "Roughly how many points is a Queen worth, in standard material value?",
         reponses: ["3 points", "5 points", "9 points", "12 points"],
+        reponses_en: ["3 points", "5 points", "9 points", "12 points"],
         correcte: 2
     },
     {
         question: "Quelle pièce ne peut jamais reculer ?",
+        question_en: "Which piece can never move backward?",
         reponses: ["Le Cavalier", "Le Pion", "La Tour", "Le Fou"],
+        reponses_en: ["The Knight", "The Pawn", "The Rook", "The Bishop"],
         correcte: 1
     },
     {
         question: "Quelle ouverture commence par 1.e4 e5 2.Cf3 Cc6 3.Fb5 ?",
+        question_en: "Which opening starts with 1.e4 e5 2.Nf3 Nc6 3.Bb5?",
         reponses: ["L'Italienne", "La Sicilienne", "L'Espagnole (Ruy Lopez)", "La Française"],
+        reponses_en: ["The Italian", "The Sicilian", "The Spanish (Ruy Lopez)", "The French"],
         correcte: 2
     }
 ];
@@ -1077,18 +1110,26 @@ function afficherQuestionQuiz(){
 
     if(!conteneur) return;
 
+    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
     if(indexQuestionActuelle >= questionsQuiz.length){
+
+        const titreResultat = estAnglais
+            ? `Result: ${scoreQuiz} / ${questionsQuiz.length}`
+            : `Résultat : ${scoreQuiz} / ${questionsQuiz.length}`;
+
+        const messageResultat = scoreQuiz === questionsQuiz.length
+            ? (estAnglais ? "Perfect score, well done!" : "Score parfait, bravo !")
+            : (estAnglais ? "Keep practicing to improve." : "Continuez à vous entraîner pour progresser.");
+
+        const texteBouton = estAnglais ? "Restart the quiz" : "Recommencer le quiz";
 
         conteneur.innerHTML = `
             <div class="quiz-resultat">
-                <h3>Résultat : ${scoreQuiz} / ${questionsQuiz.length}</h3>
-                <p>${
-                    scoreQuiz === questionsQuiz.length
-                        ? "Score parfait, bravo !"
-                        : "Continuez à vous entraîner pour progresser."
-                }</p>
+                <h3>${titreResultat}</h3>
+                <p>${messageResultat}</p>
                 <button id="quiz-recommencer" class="quiz-bouton-recommencer">
-                    Recommencer le quiz
+                    ${texteBouton}
                 </button>
             </div>
         `;
@@ -1113,13 +1154,19 @@ function afficherQuestionQuiz(){
 
     const q = questionsQuiz[indexQuestionActuelle];
 
+    const texteQuestion = estAnglais ? q.question_en : q.question;
+
+    const reponsesAffichees = estAnglais ? q.reponses_en : q.reponses;
+
+    const labelQuestion = estAnglais ? "Question" : "Question";
+
     conteneur.innerHTML = `
         <p class="quiz-progression">
-            Question ${indexQuestionActuelle + 1} / ${questionsQuiz.length}
+            ${labelQuestion} ${indexQuestionActuelle + 1} / ${questionsQuiz.length}
         </p>
-        <h3 class="quiz-question">${q.question}</h3>
+        <h3 class="quiz-question">${texteQuestion}</h3>
         <div class="quiz-reponses">
-            ${q.reponses.map((reponse,i)=>`
+            ${reponsesAffichees.map((reponse,i)=>`
                 <button class="quiz-reponse-btn" data-index="${i}">
                     ${reponse}
                 </button>
@@ -1206,54 +1253,60 @@ const OUVERTURES_ECHIQUIER = {
 
     "italienne":{
         nom:"Ouverture Italienne",
+        nom_en:"Italian Opening",
         coups:[
-            {de:"e2",a:"e4",san:"1. e4"},
-            {de:"e7",a:"e5",san:"1... e5"},
-            {de:"g1",a:"f3",san:"2. Cf3"},
-            {de:"b8",a:"c6",san:"2... Cc6"},
-            {de:"f1",a:"c4",san:"3. Fc4"}
+            {de:"e2",a:"e4",san:"1. e4",san_en:"1. e4"},
+            {de:"e7",a:"e5",san:"1... e5",san_en:"1... e5"},
+            {de:"g1",a:"f3",san:"2. Cf3",san_en:"2. Nf3"},
+            {de:"b8",a:"c6",san:"2... Cc6",san_en:"2... Nc6"},
+            {de:"f1",a:"c4",san:"3. Fc4",san_en:"3. Bc4"}
         ]
     },
 
     "sicilienne":{
         nom:"Défense Sicilienne",
+        nom_en:"Sicilian Defense",
         coups:[
-            {de:"e2",a:"e4",san:"1. e4"},
-            {de:"c7",a:"c5",san:"1... c5"}
+            {de:"e2",a:"e4",san:"1. e4",san_en:"1. e4"},
+            {de:"c7",a:"c5",san:"1... c5",san_en:"1... c5"}
         ]
     },
 
     "francaise":{
         nom:"Défense Française",
+        nom_en:"French Defense",
         coups:[
-            {de:"e2",a:"e4",san:"1. e4"},
-            {de:"e7",a:"e6",san:"1... e6"}
+            {de:"e2",a:"e4",san:"1. e4",san_en:"1. e4"},
+            {de:"e7",a:"e6",san:"1... e6",san_en:"1... e6"}
         ]
     },
 
     "caro-kann":{
         nom:"Défense Caro-Kann",
+        nom_en:"Caro-Kann Defense",
         coups:[
-            {de:"e2",a:"e4",san:"1. e4"},
-            {de:"c7",a:"c6",san:"1... c6"}
+            {de:"e2",a:"e4",san:"1. e4",san_en:"1. e4"},
+            {de:"c7",a:"c6",san:"1... c6",san_en:"1... c6"}
         ]
     },
 
     "anglaise":{
         nom:"Ouverture Anglaise",
+        nom_en:"English Opening",
         coups:[
-            {de:"c2",a:"c4",san:"1. c4"}
+            {de:"c2",a:"c4",san:"1. c4",san_en:"1. c4"}
         ]
     },
 
     "espagnole":{
         nom:"Ouverture Espagnole (Ruy López)",
+        nom_en:"Spanish Opening (Ruy López)",
         coups:[
-            {de:"e2",a:"e4",san:"1. e4"},
-            {de:"e7",a:"e5",san:"1... e5"},
-            {de:"g1",a:"f3",san:"2. Cf3"},
-            {de:"b8",a:"c6",san:"2... Cc6"},
-            {de:"f1",a:"b5",san:"3. Fb5"}
+            {de:"e2",a:"e4",san:"1. e4",san_en:"1. e4"},
+            {de:"e7",a:"e5",san:"1... e5",san_en:"1... e5"},
+            {de:"g1",a:"f3",san:"2. Cf3",san_en:"2. Nf3"},
+            {de:"b8",a:"c6",san:"2... Cc6",san_en:"2... Nc6"},
+            {de:"f1",a:"b5",san:"3. Fb5",san_en:"3. Bb5"}
         ]
     }
 
@@ -1368,16 +1421,22 @@ function mettreAJourEchiquier(){
 
     const boutonSuivant = document.getElementById("echiquier-suivant");
 
-    if(titre) titre.textContent = OUVERTURES_ECHIQUIER[cle].nom;
+    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
+    if(titre) titre.textContent = estAnglais
+        ? OUVERTURES_ECHIQUIER[cle].nom_en
+        : OUVERTURES_ECHIQUIER[cle].nom;
 
     if(compteur) compteur.textContent = EchiquierEtat.indexCoup + " / " + coups.length;
 
     if(notation){
 
+        const texteVide = estAnglais ? "Starting position" : "Position de départ";
+
         notation.textContent = coups
             .slice(0, EchiquierEtat.indexCoup)
-            .map(c=>c.san)
-            .join("  ") || "Position de départ";
+            .map(c=> estAnglais ? c.san_en : c.san)
+            .join("  ") || texteVide;
 
     }
 
@@ -1473,6 +1532,308 @@ function initialiserEchiquier(){
 
 log("✅ Module 9 sexies chargé");
 /* =====================================================
+   MODULE 9 septies
+   INTERNATIONALISATION (FR/EN)
+===================================================== */
+
+let langueActuelle = localStorage.getItem("langue") || "fr";
+
+const traductionsEN = {
+    "nav-histoire": "History",
+    "nav-regles": "Rules",
+    "nav-ouvertures": "Openings",
+    "nav-champions": "Champions",
+    "nav-ressources": "Resources",
+    "search-placeholder": "🔍 Search the site...",
+    "panel-temps": "📖 Reading time",
+    "panel-progression": "📊 Progress",
+    "panel-mots": "📝 Words",
+    "panel-temps-passe": "⏱ Time on page",
+    "hero-desc": "Discover the world of chess through its history, its champions, its openings, its strategies, its records and new technologies.",
+    "stats-title": "📊 Chess in numbers",
+    "stats-intro": "Behind a simple chessboard lies one of the most widely played games in the world, with an ever-growing international community.",
+    "stats-joueurs": "Million players",
+    "stats-gm": "Grandmasters",
+    "stats-federations": "Federations affiliated with FIDE",
+    "stats-positions": "Possible theoretical positions",
+    "sommaire-title": "📚 Table of contents",
+    "som-histoire": "History",
+    "som-origines": "Origins",
+    "som-regles": "Rules",
+    "som-ouvertures": "Openings",
+    "som-champions": "Champions",
+    "som-bienfaits": "Benefits",
+    "som-ia": "Artificial intelligence",
+    "som-biblio": "Bibliography",
+    "welcome-title": "♟️ Welcome to the world of chess",
+    "welcome-p1": "Chess is one of the oldest strategy games still played today. For over fifteen centuries, it has fascinated beginners and world champions alike thanks to its tactical and strategic depth.",
+    "welcome-p2": "A game pits two players against each other, each with <strong>16 pieces</strong> on a board of <strong>64 squares</strong>. The goal is to place the <strong>opponent's king in checkmate</strong>, meaning a position from which no legal defense is possible.",
+    "welcome-p3": "Far more than a simple game, chess develops reasoning, memory, analysis, creativity and decision-making. It is now taught in many schools, present in the biggest international competitions, and accessible to everyone through online platforms.",
+    "hist-title": "📜 The great history of chess",
+    "hist-intro": "From ancient India to modern world championships, chess has crossed civilizations, followed cultural shifts and inspired generations of players. This timeline traces the main stages of its history.",
+    "hist-t1-date": "6th century",
+    "hist-t1-titre": "🇮🇳 The Chaturanga",
+    "hist-t1-texte": "Chaturanga appears in India, considered the direct ancestor of modern chess.",
+    "hist-t2-date": "7th century",
+    "hist-t2-titre": "🇮🇷 The Chatrang",
+    "hist-t2-texte": "The game reaches Persia, where the rules gradually begin to evolve.",
+    "hist-t3-date": "9th century",
+    "hist-t3-titre": "☪️ The Shatranj",
+    "hist-t3-texte": "Scholars of the Arab world develop chess theory and spread the game widely.",
+    "hist-t4-date": "1475",
+    "hist-t4-titre": "👑 Modern rules",
+    "hist-t4-texte": "The Queen gains her current power, giving rise to modern chess.",
+    "hist-t5-date": "1886",
+    "hist-t5-titre": "🏆 First World Championship",
+    "hist-t5-texte": "Wilhelm Steinitz becomes the first official World Champion.",
+    "hist-t6-date": "1972",
+    "hist-t6-titre": "🇺🇸 Fischer vs Spassky",
+    "hist-t6-texte": "The “Match of the Century” goes beyond sport and becomes a symbol of the Cold War.",
+    "hist-t7-date": "1997",
+    "hist-t7-titre": "🤖 Deep Blue",
+    "hist-t7-texte": "IBM's computer beats Garry Kasparov, marking a major milestone in the history of artificial intelligence.",
+    "hist-t8-date": "2013",
+    "hist-t8-titre": "♞ Magnus Carlsen",
+    "hist-t8-texte": "At age 22, Magnus Carlsen becomes World Champion and dominates chess for over a decade.",
+    "hist-t9-date": "2024",
+    "hist-t9-titre": "🌟 Gukesh Dommaraju",
+    "hist-t9-texte": "At just 18 years old, Gukesh becomes the youngest World Champion in chess history.",
+    "orig-title": "🌍 The origins of chess",
+    "orig-p1": "The history of chess begins in India around the 6th century with <strong>Chaturanga</strong>, a game inspired by the organization of the Indian army. Each type of piece represented a military unit: infantry, cavalry, elephants and chariots.",
+    "orig-p2": "The game then spread to Persia, where it took the name <strong>Chatrang</strong>, before being adopted by the Arab world under the name <strong>Shatranj</strong>. During this period, the first strategic analyses appeared and the rules continued to evolve.",
+    "orig-p3": "From the Middle Ages onward, chess gradually gained ground across Europe. The pieces changed names, movements became more dynamic and, toward the end of the 15th century, the Queen gained her current power, giving rise to the modern rules.",
+    "orig-p4": "Today, chess is played on every continent. It brings together millions of players, prestigious international competitions and a huge online community.",
+    "orig-sources": "General sources: Fédération Internationale des Échecs (<a href=\"https://www.fide.com\" target=\"_blank\" rel=\"noopener noreferrer\">FIDE</a>), <a href=\"https://www.britannica.com/topic/chess\" target=\"_blank\" rel=\"noopener noreferrer\">Encyclopædia Britannica — Chess</a>.",
+    "regles-title": "♔ The rules of the game",
+    "regles-intro": "A game of chess pits two players against each other, taking turns, with White always moving first. Each player has <strong>16 pieces</strong>, and the shared goal is to place the <strong>opponent's king in checkmate</strong>.",
+    "regles-h3-pieces": "Pieces and their movements",
+    "regles-th-piece": "Piece",
+    "regles-th-valeur": "Value",
+    "regles-th-deplacement": "Movement",
+    "regles-roi-nom": "👑 King",
+    "regles-roi-dep": "One square in any direction.",
+    "regles-dame-nom": "👸 Queen",
+    "regles-dame-dep": "Horizontally, vertically and diagonally.",
+    "regles-tour-nom": "🏰 Rook",
+    "regles-tour-dep": "Horizontally and vertically.",
+    "regles-fou-nom": "⛪ Bishop",
+    "regles-fou-dep": "Diagonally.",
+    "regles-cavalier-nom": "🐴 Knight",
+    "regles-cavalier-dep": "In an “L” shape, jumping over other pieces.",
+    "regles-pion-nom": "♟️ Pawn",
+    "regles-pion-dep": "Advances one square and captures diagonally.",
+    "regles-h3-particulieres": "Special rules",
+    "regles-roque": "<strong>Castling:</strong> a simultaneous move of the king and a rook to bring the king to safety.",
+    "regles-passant": "<strong>En passant:</strong> an exceptional capture between two pawns in a specific situation.",
+    "regles-promotion": "<strong>Promotion:</strong> when a pawn reaches the last rank, it can become a queen, rook, bishop or knight.",
+    "regles-h3-fin": "End of a game",
+    "regles-fin1": "✔️ Checkmate.",
+    "regles-fin2": "✔️ Resignation by a player.",
+    "regles-fin3": "✔️ Draw.",
+    "regles-fin4": "✔️ Stalemate.",
+    "regles-fin5": "✔️ Insufficient material to checkmate.",
+    "regles-h3-competitions": "Official competitions",
+    "regles-competitions": "Competitions are organized by <strong>FIDE</strong> (the International Chess Federation). The best players earn the prestigious title of <strong>International Grandmaster</strong> and are ranked using the <strong>Elo</strong> system, which measures their level.",
+    "ouv-title": "♞ The main openings",
+    "ouv-intro": "The opening covers the first moves of a game. It often shapes piece development, control of the center and the strategic plans that follow. Each system has its own philosophy, whether aggressive, positional or defensive.",
+    "ouv-italienne-titre": "Italian Opening",
+    "ouv-italienne-texte": "Rapid piece development and an attack on the f7 pawn. An ideal opening for learning fundamental principles.",
+    "ouv-sicilienne-titre": "Sicilian Defense",
+    "ouv-sicilienne-texte": "A dynamic reply to 1.e4 offering complex positions and strong counterattacking potential.",
+    "ouv-francaise-titre": "French Defense",
+    "ouv-francaise-texte": "A solid defense that favors pawn structure and positional maneuvering.",
+    "ouv-caro-kann-titre": "Caro-Kann Defense",
+    "ouv-caro-kann-texte": "Highly regarded for its solidity, it generally leads to balanced positions.",
+    "ouv-anglaise-titre": "English Opening",
+    "ouv-anglaise-texte": "A flexible opening starting with 1.c4, delaying the central clash to control it from a distance instead.",
+    "ouv-espagnole-titre": "Spanish Opening",
+    "ouv-espagnole-texte": "Also known as the Ruy López, it remains one of the most studied openings in history.",
+    "ouv-echiquier-titre": "🎮 Interactive chessboard",
+    "ouv-echiquier-desc": "Choose an opening and step through the moves to see how the position builds up on the board.",
+    "tab-italienne": "Italian",
+    "tab-sicilienne": "Sicilian",
+    "tab-francaise": "French",
+    "tab-caro-kann": "Caro-Kann",
+    "tab-anglaise": "English",
+    "tab-espagnole": "Spanish",
+    "echiquier-precedent": "◀ Previous",
+    "echiquier-suivant": "Next ▶",
+    "echiquier-reset": "↺ Reset",
+    "ouv-choisir-titre": "How to choose your opening?",
+    "ouv-choisir-texte": "There is no universal best opening. The choice mainly depends on the style of play you're after. Aggressive players will generally prefer the Italian or the Sicilian, while those who favor solidity will lean toward the Caro-Kann, the French Defense or the English Opening.",
+    "ouv-internal-links": "See also: discover how <a href=\"#champions\">Garry Kasparov</a> and <a href=\"#champions\">Magnus Carlsen</a> used these openings at the highest level, or explore the role of <a href=\"#ia\">artificial intelligence</a> in modern opening analysis.",
+    "champ-title": "🏆 The greatest world champions",
+    "champ-intro": "Since 1886, several generations of champions have shaped the history of chess. Their creativity, preparation and strategic innovations continue to inspire players around the world.",
+    "champ-norvege": "🇳🇴 Norway",
+    "champ-russie": "🇷🇺 Russia",
+    "champ-etatsunis": "🇺🇸 United States",
+    "champ-carlsen-p": "World Champion from 2013 to 2023 and holder of the all-time Elo record with 2882 points.",
+    "champ-kasparov-p": "Considered one of the greatest players of all time thanks to his aggressive style and preparation.",
+    "champ-fischer-p": "Winner of the legendary 1972 World Championship, he popularized chess in the Western world.",
+    "champ-legendes-titre": "Other chess legends",
+    "champ-l1": "<strong>Wilhelm Steinitz</strong> — first official World Champion.",
+    "champ-l2": "<strong>Emanuel Lasker</strong> — champion for twenty-seven years.",
+    "champ-l3": "<strong>José Raúl Capablanca</strong> — undisputed master of the endgame.",
+    "champ-l4": "<strong>Alexander Alekhine</strong> — famous for his tactical imagination.",
+    "champ-l5": "<strong>Mikhail Botvinnik</strong> — founder of the modern Soviet school.",
+    "champ-l6": "<strong>Anatoly Karpov</strong> — virtuoso of positional play.",
+    "champ-l7": "<strong>Viswanathan Anand</strong> — first Indian World Champion.",
+    "champ-l8": "<strong>Vladimir Kramnik</strong> — defeated Kasparov in 2000.",
+    "champ-l9": "<strong>Magnus Carlsen</strong> — dominant champion of the 21st century.",
+    "champ-l10": "<strong>Gukesh Dommaraju</strong> — youngest World Champion in history.",
+    "champ-conclusion": "Each generation brings new ideas, constantly enriching the theory and understanding of the game. The history of chess continues today with the rise of ever younger talents.",
+    "bienf-title": "🧠 The benefits of chess",
+    "bienf-intro": "Far more than a strategy game, chess is an excellent mental workout. Regular practice builds many skills useful in everyday life as well as in school or work.",
+    "bienf-c1-titre": "Concentration",
+    "bienf-c1-texte": "Every move requires sustained attention and precise analysis of the position.",
+    "bienf-c2-titre": "Logic",
+    "bienf-c2-texte": "Chess teaches problem-solving by weighing several solutions before making a decision.",
+    "bienf-c3-titre": "Memory",
+    "bienf-c3-texte": "Studying openings, endgames and tactical patterns strengthens long-term memory.",
+    "bienf-c4-titre": "Decision-making",
+    "bienf-c4-texte": "Every game builds the ability to choose quickly under time pressure.",
+    "bienf-outil-titre": "An educational tool",
+    "bienf-outil-texte": "Many schools now use chess as a teaching tool. It fosters patience, perseverance, self-confidence and respect for rules, while stimulating creativity and critical thinking.",
+    "ia-title": "🤖 Chess and artificial intelligence",
+    "ia-intro": "Chess has played a major role in the development of artificial intelligence. From the earliest computer programs to modern neural networks, it serves as a testing ground for new approaches to decision-making.",
+    "ia-t1-date": "1997",
+    "ia-t1-titre": "💻 Deep Blue",
+    "ia-t1-texte": "IBM's supercomputer beats Garry Kasparov in an official match, demonstrating the power of computing.",
+    "ia-t2-date": "2017",
+    "ia-t2-titre": "♟️ AlphaZero",
+    "ia-t2-texte": "By learning only the rules of the game, AlphaZero develops an original style capable of surpassing the best traditional engines.",
+    "ia-t3-date": "Today",
+    "ia-t3-titre": "🚀 Stockfish & modern AI",
+    "ia-t3-texte": "Analysis engines now assist players, coaches and arbiters. They make it possible to study games with unmatched precision.",
+    "ia-revolution-titre": "A revolution for players",
+    "ia-p1": "Artificial intelligence has profoundly transformed how chess is learned. It can analyze a game, detect mistakes, suggest the best moves and explore variations that were previously impossible to calculate by hand.",
+    "ia-p2": "Despite these advances, creativity, intuition and the enjoyment of playing remain at the heart of chess. Engines have become training partners rather than replacements for players.",
+    "quiz-title": "🧩 Test your knowledge",
+    "quiz-intro": "A short quiz to check your chess fundamentals.",
+    "biblio-title": "📚 Going further",
+    "biblio-intro": "Chess has an exceptional body of literature. From historical works to strategy manuals, these references let you dig deeper into every aspect of the game, whatever your level.",
+    "biblio-livres-titre": "📖 Essential books",
+    "biblio-plateformes-titre": "🌐 Reference platforms",
+    "biblio-progresser-titre": "🎓 How to improve",
+    "biblio-progresser-texte": "Progress is built above all on regular practice. Playing, analyzing your games, solving tactical exercises and studying endgames remain the most effective ways to steadily raise your level.",
+    "concl-p1": "For more than fifteen centuries, chess has crossed civilizations without losing its power to fascinate. Its strategic richness, cultural dimension and universality make it far more than just a game.",
+    "concl-p2": "From the first Chaturanga players to today's world champions, from historic clashes to artificial intelligence engines, chess has never stopped evolving while keeping its essence: learning, thinking and creating.",
+    "concl-p3": "Whether you're a beginner, a club player or a competitor, every game is a new chance to improve. Every position is a puzzle, every mistake a lesson, every win a reward.",
+    "concl-citation": "“Chess is the gymnasium of the mind.”",
+    "concl-citation-note": "— Quote traditionally attributed to Blaise Pascal, though its exact origin is not confirmed by historical sources.",
+    "footer-p": "© 2026 • Made with passion to share the history, strategy and culture of chess.",
+    "footer-updated": "Last updated:"
+};
+
+function appliquerLangue(langue){
+
+    langueActuelle = langue;
+
+    document.documentElement.lang = langue;
+
+    localStorage.setItem("langue", langue);
+
+    const elements = document.querySelectorAll("[data-i18n]");
+
+    elements.forEach(el=>{
+
+        if(el.dataset.i18nFr === undefined){
+
+            el.dataset.i18nFr = el.innerHTML;
+
+        }
+
+        const cle = el.dataset.i18n;
+
+        if(langue === "en" && traductionsEN[cle] !== undefined){
+
+            el.innerHTML = traductionsEN[cle];
+
+        }
+        else{
+
+            el.innerHTML = el.dataset.i18nFr;
+
+        }
+
+    });
+
+    const elementsPlaceholder = document.querySelectorAll(
+        "[data-i18n-placeholder]"
+    );
+
+    elementsPlaceholder.forEach(el=>{
+
+        if(el.dataset.i18nPlaceholderFr === undefined){
+
+            el.dataset.i18nPlaceholderFr = el.getAttribute("placeholder");
+
+        }
+
+        const cle = el.dataset.i18nPlaceholder;
+
+        el.setAttribute(
+            "placeholder",
+            langue === "en" && traductionsEN[cle] !== undefined
+                ? traductionsEN[cle]
+                : el.dataset.i18nPlaceholderFr
+        );
+
+    });
+
+    const boutonLangue = document.getElementById("lang-toggle");
+
+    if(boutonLangue){
+
+        boutonLangue.textContent = langue === "fr" ? "🇬🇧 EN" : "🇫🇷 FR";
+
+        boutonLangue.setAttribute(
+            "aria-label",
+            langue === "fr" ? "Switch to English" : "Passer en français"
+        );
+
+    }
+
+    if(document.getElementById("quiz-conteneur")){
+
+        afficherQuestionQuiz();
+
+    }
+
+    if(document.getElementById("echiquier-plateau")){
+
+        mettreAJourEchiquier();
+
+    }
+
+    if($("quote")){
+
+        afficherCitation();
+
+    }
+
+}
+
+function initialiserI18n(){
+
+    const boutonLangue = document.getElementById("lang-toggle");
+
+    appliquerLangue(langueActuelle);
+
+    if(boutonLangue){
+
+        boutonLangue.addEventListener("click",()=>{
+
+            appliquerLangue(langueActuelle === "fr" ? "en" : "fr");
+
+        });
+
+    }
+
+}
+
+log("✅ Module 9 septies chargé");
+/* =====================================================
    MODULE 10
    INITIALISATION GÉNÉRALE
 ===================================================== */
@@ -1528,6 +1889,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     ========================= */
 
     initialiserEchiquier();
+
+    /* =========================
+       Internationalisation
+    ========================= */
+
+    initialiserI18n();
 
     /* =========================
        Statistiques de lecture
