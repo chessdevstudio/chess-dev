@@ -199,6 +199,8 @@
 
                     <li><a href="#quiz" class="nav-link">Quiz</a></li>
 
+                    <li><a href="#analyse" class="nav-link" data-i18n="nav-analyse">Analyse</a></li>
+
                     <li><a href="#bibliographie" class="nav-link" data-i18n="nav-ressources">Ressources</a></li>
 
                 </ul>
@@ -1718,6 +1720,139 @@
         </header>
 
         <div id="quiz-conteneur" class="quiz-conteneur"></div>
+
+    </section>
+    <!-- =====================================================
+         MODULE 11 quater
+         ANALYSE DE PARTIE (FEN / PGN / Stockfish)
+    ====================================================== -->
+
+    <section
+        id="analyse"
+        class="fade-section search-item">
+
+        <header>
+
+            <h2 data-i18n="analyse-title">
+
+                🔬 Analyse de partie
+
+            </h2>
+
+            <p data-i18n="analyse-intro">
+
+                Chargez une position (FEN) ou une partie complète (PGN)
+                pour l'afficher sur l'échiquier et obtenir une évaluation
+                du moteur Stockfish, exécuté directement dans votre
+                navigateur.
+
+            </p>
+
+        </header>
+
+        <div class="analyse-entrees">
+
+            <div class="analyse-bloc">
+
+                <label for="analyse-fen-input" data-i18n="analyse-fen-label">
+
+                    Position FEN
+
+                </label>
+
+                <div class="analyse-fen-ligne">
+
+                    <input
+                        type="text"
+                        id="analyse-fen-input"
+                        data-i18n-placeholder="analyse-fen-placeholder"
+                        placeholder="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1">
+
+                    <button id="analyse-fen-charger" class="analyse-btn" data-i18n="analyse-fen-bouton">
+
+                        Charger
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="analyse-bloc">
+
+                <label for="analyse-pgn-input" data-i18n="analyse-pgn-label">
+
+                    Partie PGN
+
+                </label>
+
+                <textarea
+                    id="analyse-pgn-input"
+                    rows="4"
+                    data-i18n-placeholder="analyse-pgn-placeholder"
+                    placeholder="1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 ..."></textarea>
+
+                <div class="analyse-pgn-actions">
+
+                    <input type="file" id="analyse-pgn-fichier" accept=".pgn,.txt">
+
+                    <button id="analyse-pgn-charger" class="analyse-btn" data-i18n="analyse-pgn-bouton">
+
+                        Charger la partie
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <p id="analyse-erreur" class="analyse-erreur" hidden></p>
+
+        <div class="echiquier-widget">
+
+            <div class="echiquier-corps">
+
+                <div id="analyse-plateau" class="echiquier-plateau"></div>
+
+                <div class="echiquier-panneau">
+
+                    <p class="echiquier-titre" id="analyse-fen-affichee" data-i18n="analyse-position-depart">
+
+                        Position de départ
+
+                    </p>
+
+                    <p class="echiquier-notation" id="analyse-coup-actuel"></p>
+
+                    <div class="echiquier-controles">
+
+                        <button id="analyse-precedent" class="echiquier-btn" data-i18n="echiquier-precedent">◀ Précédent</button>
+
+                        <span id="analyse-compteur" class="echiquier-compteur">0 / 0</span>
+
+                        <button id="analyse-suivant" class="echiquier-btn" data-i18n="echiquier-suivant">Suivant ▶</button>
+
+                    </div>
+
+                    <div class="analyse-stockfish">
+
+                        <button id="analyse-stockfish-bouton" class="echiquier-btn" data-i18n="analyse-stockfish-bouton">
+
+                            🧠 Analyser avec Stockfish
+
+                        </button>
+
+                        <div id="analyse-stockfish-resultat" class="analyse-stockfish-resultat"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </section>
     <!-- =====================================================

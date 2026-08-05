@@ -1,5 +1,4 @@
 /* =====================================================
-/* =====================================================
    CHESS.DEV STUDIO V6
    MODULE 0
    CONFIGURATION GLOBALE
@@ -1722,7 +1721,19 @@ const traductionsEN = {
     "concl-citation": "“Chess is the gymnasium of the mind.”",
     "concl-citation-note": "— Quote traditionally attributed to Blaise Pascal, though its exact origin is not confirmed by historical sources.",
     "footer-p": "© 2026 • Made with passion to share the history, strategy and culture of chess.",
-    "footer-updated": "Last updated:"
+    "footer-updated": "Last updated:",
+
+    "nav-analyse": "Analysis",
+    "analyse-title": "🔬 Game analysis",
+    "analyse-intro": "Load a position (FEN) or a full game (PGN) to display it on the board and get an evaluation from the Stockfish engine, running directly in your browser.",
+    "analyse-fen-label": "FEN position",
+    "analyse-fen-placeholder": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+    "analyse-fen-bouton": "Load",
+    "analyse-pgn-label": "PGN game",
+    "analyse-pgn-placeholder": "1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 ...",
+    "analyse-pgn-bouton": "Load game",
+    "analyse-position-depart": "Starting position",
+    "analyse-stockfish-bouton": "🧠 Analyze with Stockfish"
 };
 
 function appliquerLangue(langue){
@@ -1812,6 +1823,12 @@ function appliquerLangue(langue){
 
     }
 
+    if(document.getElementById("analyse-plateau") && AnalyseEtat.positions.length){
+
+        mettreAJourAnalyse();
+
+    }
+
 }
 
 function initialiserI18n(){
@@ -1833,6 +1850,989 @@ function initialiserI18n(){
 }
 
 log("✅ Module 9 septies chargé");
+/* =====================================================
+   MODULE 9 octies
+   MOTEUR D'ÉCHECS (règles complètes)
+===================================================== */
+
+/* =====================================================
+   MOTEUR D'ÉCHECS (génération de coups légaux)
+   Représentation : objet {a1:"wR", ...}, cases vides absentes
+===================================================== */
+
+function frVersCase(f, r){
+    if(f < 0 || f > 7 || r < 0 || r > 7) return null;
+    return "abcdefgh"[f] + (r + 1);
+}
+
+function caseVersFR(sq){
+    return [sq.charCodeAt(0) - 97, Number(sq[1]) - 1];
+}
+
+function copierEtat(etat){
+    return {
+        board: Object.assign({}, etat.board),
+        turn: etat.turn,
+        castling: Object.assign({}, etat.castling),
+        epSquare: etat.epSquare,
+        halfmove: etat.halfmove,
+        fullmove: etat.fullmove
+    };
+}
+
+const DIRECTIONS_FOU = [[1,1],[1,-1],[-1,1],[-1,-1]];
+const DIRECTIONS_TOUR = [[1,0],[-1,0],[0,1],[0,-1]];
+const DIRECTIONS_DAME = DIRECTIONS_FOU.concat(DIRECTIONS_TOUR);
+const SAUTS_CAVALIER = [[1,2],[2,1],[2,-1],[1,-2],[-1,-2],[-2,-1],[-2,1],[-1,2]];
+
+function estAttaquee(etat, sq, parCouleur){
+
+    const [f, r] = caseVersFR(sq);
+
+    // Pions
+    const dr = parCouleur === "w" ? -1 : 1;
+    for(const df of [-1, 1]){
+        const origine = frVersCase(f + df, r + dr);
+        if(origine && etat.board[origine] === parCouleur + "P") return true;
+    }
+
+    // Cavaliers
+    for(const [df, dr2] of SAUTS_CAVALIER){
+        const origine = frVersCase(f + df, r + dr2);
+        if(origine && etat.board[origine] === parCouleur + "N") return true;
+    }
+
+    // Roi
+    for(const [df, dr2] of DIRECTIONS_DAME){
+        const origine = frVersCase(f + df, r + dr2);
+        if(origine && etat.board[origine] === parCouleur + "K") return true;
+    }
+
+    // Glissantes : Fou/Dame (diagonales), Tour/Dame (lignes)
+    for(const [df, dr2] of DIRECTIONS_FOU){
+        let cf = f + df, cr = r + dr2;
+        while(true){
+            const c = frVersCase(cf, cr);
+            if(!c) break;
+            const piece = etat.board[c];
+            if(piece){
+                if(piece[0] === parCouleur && (piece[1] === "B" || piece[1] === "Q")) return true;
+                break;
+            }
+            cf += df; cr += dr2;
+        }
+    }
+
+    for(const [df, dr2] of DIRECTIONS_TOUR){
+        let cf = f + df, cr = r + dr2;
+        while(true){
+            const c = frVersCase(cf, cr);
+            if(!c) break;
+            const piece = etat.board[c];
+            if(piece){
+                if(piece[0] === parCouleur && (piece[1] === "R" || piece[1] === "Q")) return true;
+                break;
+            }
+            cf += df; cr += dr2;
+        }
+    }
+
+    return false;
+
+}
+
+function trouverRoi(etat, couleur){
+    for(const sq in etat.board){
+        if(etat.board[sq] === couleur + "K") return sq;
+    }
+    return null;
+}
+
+function estEnEchec(etat, couleur){
+    const roi = trouverRoi(etat, couleur);
+    if(!roi) return false;
+    return estAttaquee(etat, roi, couleur === "w" ? "b" : "w");
+}
+
+function genererPseudoCoups(etat){
+
+    const coups = [];
+    const couleur = etat.turn;
+    const adverse = couleur === "w" ? "b" : "w";
+
+    for(const sq in etat.board){
+
+        const piece = etat.board[sq];
+        if(piece[0] !== couleur) continue;
+
+        const type = piece[1];
+        const [f, r] = caseVersFR(sq);
+
+        if(type === "P"){
+
+            const dr = couleur === "w" ? 1 : -1;
+            const rangDepart = couleur === "w" ? 1 : 6;
+            const rangPromotion = couleur === "w" ? 7 : 0;
+
+            const avance1 = frVersCase(f, r + dr);
+            if(avance1 && !etat.board[avance1]){
+
+                if(r + dr === rangPromotion){
+                    for(const promo of ["Q","R","B","N"]){
+                        coups.push({from:sq, to:avance1, piece, promotion:promo});
+                    }
+                }
+                else{
+                    coups.push({from:sq, to:avance1, piece});
+
+                    if(r === rangDepart){
+                        const avance2 = frVersCase(f, r + 2*dr);
+                        if(avance2 && !etat.board[avance2]){
+                            coups.push({from:sq, to:avance2, piece, doublePas:true});
+                        }
+                    }
+                }
+
+            }
+
+            for(const df of [-1, 1]){
+                const cible = frVersCase(f + df, r + dr);
+                if(!cible) continue;
+                const cibleEstEp = cible === etat.epSquare;
+                if(etat.board[cible] && etat.board[cible][0] === adverse){
+                    if(r + dr === rangPromotion){
+                        for(const promo of ["Q","R","B","N"]){
+                            coups.push({from:sq, to:cible, piece, capture:true, promotion:promo});
+                        }
+                    }
+                    else{
+                        coups.push({from:sq, to:cible, piece, capture:true});
+                    }
+                }
+                else if(cibleEstEp){
+                    coups.push({from:sq, to:cible, piece, capture:true, enPassant:true});
+                }
+            }
+
+        }
+        else if(type === "N"){
+
+            for(const [df, dr2] of SAUTS_CAVALIER){
+                const cible = frVersCase(f + df, r + dr2);
+                if(!cible) continue;
+                const occ = etat.board[cible];
+                if(!occ || occ[0] === adverse){
+                    coups.push({from:sq, to:cible, piece, capture: !!occ});
+                }
+            }
+
+        }
+        else if(type === "K"){
+
+            for(const [df, dr2] of DIRECTIONS_DAME){
+                const cible = frVersCase(f + df, r + dr2);
+                if(!cible) continue;
+                const occ = etat.board[cible];
+                if(!occ || occ[0] === adverse){
+                    coups.push({from:sq, to:cible, piece, capture: !!occ});
+                }
+            }
+
+            // Roque
+            const rangRoque = couleur === "w" ? 0 : 7;
+            if(r === rangRoque && f === 4 && !estEnEchec(etat, couleur)){
+
+                if(etat.castling[couleur + "K"]){
+                    const b1 = frVersCase(5, rangRoque), b2 = frVersCase(6, rangRoque);
+                    if(!etat.board[b1] && !etat.board[b2] &&
+                       !estAttaquee(etat, b1, adverse) && !estAttaquee(etat, b2, adverse)){
+                        coups.push({from:sq, to:b2, piece, roque:"K"});
+                    }
+                }
+
+                if(etat.castling[couleur + "Q"]){
+                    const b1 = frVersCase(3, rangRoque), b2 = frVersCase(2, rangRoque), b3 = frVersCase(1, rangRoque);
+                    if(!etat.board[b1] && !etat.board[b2] && !etat.board[b3] &&
+                       !estAttaquee(etat, b1, adverse) && !estAttaquee(etat, b2, adverse)){
+                        coups.push({from:sq, to:b2, piece, roque:"Q"});
+                    }
+                }
+
+            }
+
+        }
+        else{
+
+            const directions = type === "B" ? DIRECTIONS_FOU
+                : type === "R" ? DIRECTIONS_TOUR
+                : DIRECTIONS_DAME;
+
+            for(const [df, dr2] of directions){
+                let cf = f + df, cr = r + dr2;
+                while(true){
+                    const cible = frVersCase(cf, cr);
+                    if(!cible) break;
+                    const occ = etat.board[cible];
+                    if(!occ){
+                        coups.push({from:sq, to:cible, piece});
+                    }
+                    else{
+                        if(occ[0] === adverse){
+                            coups.push({from:sq, to:cible, piece, capture:true});
+                        }
+                        break;
+                    }
+                    cf += df; cr += dr2;
+                }
+            }
+
+        }
+
+    }
+
+    return coups;
+
+}
+
+function appliquerCoup(etat, coup){
+
+    const nouvel = copierEtat(etat);
+    const couleur = coup.piece[0];
+
+    delete nouvel.board[coup.from];
+
+    if(coup.enPassant){
+        const rangCapture = couleur === "w" ? Number(coup.to[1]) - 1 : Number(coup.to[1]) + 1;
+        delete nouvel.board[coup.to[0] + rangCapture];
+    }
+
+    nouvel.board[coup.to] = coup.promotion ? (couleur + coup.promotion) : coup.piece;
+
+    if(coup.roque){
+        const rang = coup.to[1];
+        if(coup.roque === "K"){
+            delete nouvel.board["h" + rang];
+            nouvel.board["f" + rang] = couleur + "R";
+        }
+        else{
+            delete nouvel.board["a" + rang];
+            nouvel.board["d" + rang] = couleur + "R";
+        }
+    }
+
+    // Mise à jour des droits de roque
+    if(coup.piece[1] === "K"){
+        nouvel.castling[couleur + "K"] = false;
+        nouvel.castling[couleur + "Q"] = false;
+    }
+    if(coup.from === "a1" || coup.to === "a1") nouvel.castling.wQ = false;
+    if(coup.from === "h1" || coup.to === "h1") nouvel.castling.wK = false;
+    if(coup.from === "a8" || coup.to === "a8") nouvel.castling.bQ = false;
+    if(coup.from === "h8" || coup.to === "h8") nouvel.castling.bK = false;
+
+    nouvel.epSquare = coup.doublePas
+        ? coup.from[0] + (couleur === "w" ? Number(coup.from[1]) + 1 : Number(coup.from[1]) - 1)
+        : null;
+
+    nouvel.halfmove = (coup.capture || coup.piece[1] === "P") ? 0 : etat.halfmove + 1;
+    if(couleur === "b") nouvel.fullmove++;
+    nouvel.turn = couleur === "w" ? "b" : "w";
+
+    return nouvel;
+
+}
+
+function genererCoupsLegaux(etat){
+
+    const pseudo = genererPseudoCoups(etat);
+    const legaux = [];
+
+    for(const coup of pseudo){
+        const apres = appliquerCoup(etat, coup);
+        if(!estEnEchec(apres, etat.turn)){
+            legaux.push(coup);
+        }
+    }
+
+    return legaux;
+
+}
+
+log("✅ Module 9 octies chargé");
+/* =====================================================
+   MODULE 9 nonies
+   NOTATION FEN / PGN
+===================================================== */
+
+/* =====================================================
+   FEN
+===================================================== */
+
+function positionInitiale(){
+    return parserFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+}
+
+function parserFEN(fen){
+
+    const parties = fen.trim().split(/\s+/);
+    const [placement, trait, roques, ep, demiCoups, coupsPleins] = parties;
+
+    const board = {};
+    const rangees = placement.split("/");
+
+    for(let i = 0; i < 8; i++){
+        const rang = 8 - i; // rangée 8 en haut du FEN
+        let file = 0;
+        for(const car of rangees[i]){
+            if(/\d/.test(car)){
+                file += Number(car);
+            }
+            else{
+                const couleur = car === car.toUpperCase() ? "w" : "b";
+                const lettresVersType = {
+                    p:"P", n:"N", b:"B", r:"R", q:"Q", k:"K"
+                };
+                const type = lettresVersType[car.toLowerCase()];
+                const sq = frVersCase(file, rang - 1);
+                board[sq] = couleur + type;
+                file++;
+            }
+        }
+    }
+
+    return {
+        board,
+        turn: trait === "b" ? "b" : "w",
+        castling: {
+            wK: roques && roques.includes("K"),
+            wQ: roques && roques.includes("Q"),
+            bK: roques && roques.includes("k"),
+            bQ: roques && roques.includes("q")
+        },
+        epSquare: (ep && ep !== "-") ? ep : null,
+        halfmove: demiCoups ? Number(demiCoups) : 0,
+        fullmove: coupsPleins ? Number(coupsPleins) : 1
+    };
+
+}
+
+function exporterFEN(etat){
+
+    const typesVersLettre = {P:"p", N:"n", B:"b", R:"r", Q:"q", K:"k"};
+    let placement = [];
+
+    for(let i = 0; i < 8; i++){
+        const rang = 8 - i;
+        let ligne = "";
+        let vides = 0;
+        for(let f = 0; f < 8; f++){
+            const sq = frVersCase(f, rang - 1);
+            const piece = etat.board[sq];
+            if(!piece){
+                vides++;
+            }
+            else{
+                if(vides > 0){ ligne += vides; vides = 0; }
+                const lettre = typesVersLettre[piece[1]];
+                ligne += piece[0] === "w" ? lettre.toUpperCase() : lettre;
+            }
+        }
+        if(vides > 0) ligne += vides;
+        placement.push(ligne);
+    }
+
+    const roques =
+        (etat.castling.wK ? "K" : "") +
+        (etat.castling.wQ ? "Q" : "") +
+        (etat.castling.bK ? "k" : "") +
+        (etat.castling.bQ ? "q" : "") || "-";
+
+    return [
+        placement.join("/"),
+        etat.turn,
+        roques,
+        etat.epSquare || "-",
+        etat.halfmove,
+        etat.fullmove
+    ].join(" ");
+
+}
+
+/* =====================================================
+   PGN -> SAN tokens
+===================================================== */
+
+function extraireCoupsSAN(pgn){
+
+    let texte = pgn;
+
+    texte = texte.replace(/\{[^}]*\}/g, " ");       // commentaires
+    texte = texte.replace(/;[^\n]*/g, " ");          // commentaires ; jusqu'à fin de ligne
+    texte = texte.replace(/\$\d+/g, " ");            // NAG
+    texte = texte.replace(/\[[^\]]*\]/g, " ");       // en-têtes PGN [Event "..."]
+
+    // Variantes entre parenthèses (on les retire, on garde la ligne principale)
+    let precedent;
+    do{
+        precedent = texte;
+        texte = texte.replace(/\([^()]*\)/g, " ");
+    } while(texte !== precedent);
+
+    texte = texte.replace(/\d+\.(\.\.)?/g, " ");     // numéros de coup "12." ou "12..."
+    texte = texte.replace(/1-0|0-1|1\/2-1\/2|\*/g, " "); // résultat
+
+    return texte.trim().split(/\s+/).filter(Boolean);
+
+}
+
+/* =====================================================
+   SAN -> coup
+===================================================== */
+
+function sanVersCoup(etat, san){
+
+    const propre = san.replace(/[+#!?]+$/g, "");
+
+    if(propre === "O-O" || propre === "0-0"){
+        return genererCoupsLegaux(etat).find(c => c.roque === "K");
+    }
+    if(propre === "O-O-O" || propre === "0-0-0"){
+        return genererCoupsLegaux(etat).find(c => c.roque === "Q");
+    }
+
+    const match = propre.match(
+        /^([NBRQK])?([a-h])?([1-8])?(x)?([a-h][1-8])(=([NBRQ]))?$/
+    );
+
+    if(!match) return null;
+
+    const [, piece, ficheDisamb, rangDisamb, capture, destination, , promotion] = match;
+    const typePiece = piece || "P";
+
+    const candidats = genererCoupsLegaux(etat).filter(c=>{
+        if(c.piece[1] !== typePiece) return false;
+        if(c.to !== destination) return false;
+        if(promotion && c.promotion !== promotion) return false;
+        if(!promotion && c.promotion) return false;
+        if(ficheDisamb && c.from[0] !== ficheDisamb) return false;
+        if(rangDisamb && c.from[1] !== rangDisamb) return false;
+        return true;
+    });
+
+    if(candidats.length === 1) return candidats[0];
+
+    // Ambiguïté résiduelle (rare) : on retourne le premier candidat valide
+    return candidats[0] || null;
+
+}
+
+log("✅ Module 9 nonies chargé");
+/* =====================================================
+   MODULE 9 decies
+   INTERFACE D'ANALYSE (FEN / PGN / Stockfish)
+===================================================== */
+
+const AnalyseEtat = {
+    positions: [],   // liste des {fen, san, coup} pour chaque étape (0 = position de départ)
+    index: 0
+};
+
+function construirePlateauAnalyseDOM(){
+
+    const plateau = document.getElementById("analyse-plateau");
+
+    if(!plateau) return;
+
+    plateau.innerHTML = "";
+
+    const fichiers = ["a","b","c","d","e","f","g","h"];
+
+    for(let rangee=8; rangee>=1; rangee--){
+
+        for(let f=0; f<8; f++){
+
+            const caseDiv = document.createElement("div");
+
+            const carre = fichiers[f] + rangee;
+
+            const claire = (f + rangee) % 2 === 0;
+
+            caseDiv.className = "echiquier-case " + (claire ? "claire" : "sombre");
+
+            caseDiv.dataset.square = carre;
+
+            plateau.appendChild(caseDiv);
+
+        }
+
+    }
+
+}
+
+function afficherPositionAnalyse(etat, dernierCoup){
+
+    const cases = document.querySelectorAll("#analyse-plateau .echiquier-case");
+
+    cases.forEach(caseDiv=>{
+
+        const carre = caseDiv.dataset.square;
+
+        caseDiv.classList.remove("derniere-de","derniere-a");
+
+        const piece = etat.board[carre];
+
+        caseDiv.innerHTML = piece
+            ? `<span class="${piece[0]==="w" ? "piece-blanche" : "piece-noire"}">${PIECES_UNICODE[piece]}</span>`
+            : "";
+
+        if(dernierCoup){
+
+            if(carre === dernierCoup.from) caseDiv.classList.add("derniere-de");
+
+            if(carre === dernierCoup.to) caseDiv.classList.add("derniere-a");
+
+        }
+
+    });
+
+}
+
+function reinitialiserAnalyse(etatDepart){
+
+    AnalyseEtat.positions = [{fen: exporterFEN(etatDepart), san: null, coup: null, etat: etatDepart}];
+
+    AnalyseEtat.index = 0;
+
+    mettreAJourAnalyse();
+
+}
+
+function chargerPGNDansAnalyse(texte){
+
+    const erreurEl = document.getElementById("analyse-erreur");
+
+    const sanListe = extraireCoupsSAN(texte);
+
+    if(sanListe.length === 0){
+
+        afficherErreurAnalyse("Aucun coup détecté dans ce PGN.");
+
+        return;
+
+    }
+
+    let etat = positionInitiale();
+
+    const positions = [{fen: exporterFEN(etat), san: null, coup: null, etat}];
+
+    for(let i = 0; i < sanListe.length; i++){
+
+        const san = sanListe[i];
+
+        const coup = sanVersCoup(etat, san);
+
+        if(!coup){
+
+            afficherErreurAnalyse(
+                `Coup illisible ou illégal : "${san}" (coup n°${i + 1}). ` +
+                `Lecture arrêtée à ce stade, ${i} coup(s) chargé(s).`
+            );
+
+            break;
+
+        }
+
+        etat = appliquerCoup(etat, coup);
+
+        positions.push({fen: exporterFEN(etat), san, coup, etat});
+
+    }
+
+    if(positions.length > 1 && erreurEl) erreurEl.hidden = true;
+
+    AnalyseEtat.positions = positions;
+
+    AnalyseEtat.index = positions.length - 1;
+
+    mettreAJourAnalyse();
+
+}
+
+function afficherErreurAnalyse(message){
+
+    const erreurEl = document.getElementById("analyse-erreur");
+
+    if(!erreurEl) return;
+
+    erreurEl.textContent = "⚠️ " + message;
+
+    erreurEl.hidden = false;
+
+}
+
+function mettreAJourAnalyse(){
+
+    const positions = AnalyseEtat.positions;
+
+    if(!positions.length) return;
+
+    const actuelle = positions[AnalyseEtat.index];
+
+    afficherPositionAnalyse(actuelle.etat, actuelle.coup);
+
+    const titre = document.getElementById("analyse-fen-affichee");
+
+    const coupActuel = document.getElementById("analyse-coup-actuel");
+
+    const compteur = document.getElementById("analyse-compteur");
+
+    const boutonPrecedent = document.getElementById("analyse-precedent");
+
+    const boutonSuivant = document.getElementById("analyse-suivant");
+
+    if(titre) titre.textContent = actuelle.fen;
+
+    if(coupActuel){
+
+        coupActuel.textContent = positions
+            .slice(1, AnalyseEtat.index + 1)
+            .map((p,i)=> (i % 2 === 0 ? Math.floor(i/2) + 1 + ". " : "") + p.san)
+            .join("  ") || ((typeof langueActuelle !== "undefined" && langueActuelle === "en") ? "Starting position" : "Position de départ");
+
+    }
+
+    if(compteur) compteur.textContent = AnalyseEtat.index + " / " + (positions.length - 1);
+
+    if(boutonPrecedent) boutonPrecedent.disabled = AnalyseEtat.index === 0;
+
+    if(boutonSuivant) boutonSuivant.disabled = AnalyseEtat.index === positions.length - 1;
+
+    const resultatStockfish = document.getElementById("analyse-stockfish-resultat");
+
+    if(resultatStockfish) resultatStockfish.textContent = "";
+
+}
+
+/* =====================================================
+   STOCKFISH (Web Worker, protocole UCI)
+===================================================== */
+
+let stockfishWorker = null;
+
+let stockfishPret = false;
+
+function initialiserStockfishWorker(){
+
+    return new Promise((resolve, reject)=>{
+
+        if(stockfishWorker && stockfishPret){
+
+            resolve(stockfishWorker);
+
+            return;
+
+        }
+
+        try{
+
+            stockfishWorker = new Worker("stockfish/stockfish.js");
+
+        }
+        catch(erreur){
+
+            reject(erreur);
+
+            return;
+
+        }
+
+        const surErreur = (erreur)=>{
+
+            stockfishWorker = null;
+
+            reject(erreur);
+
+        };
+
+        stockfishWorker.addEventListener("error", surErreur, {once:true});
+
+        const surMessage = (evenement)=>{
+
+            const ligne = evenement.data;
+
+            if(typeof ligne === "string" && ligne.includes("uciok")){
+
+                stockfishWorker.removeEventListener("error", surErreur);
+
+                stockfishPret = true;
+
+                resolve(stockfishWorker);
+
+            }
+
+        };
+
+        stockfishWorker.addEventListener("message", surMessage);
+
+        stockfishWorker.postMessage("uci");
+
+        setTimeout(()=>{
+
+            if(!stockfishPret){
+
+                surErreur(new Error("Le moteur Stockfish n'a pas répondu à temps."));
+
+            }
+
+        }, 4000);
+
+    });
+
+}
+
+function analyserPositionActuelle(){
+
+    const resultatEl = document.getElementById("analyse-stockfish-resultat");
+
+    const bouton = document.getElementById("analyse-stockfish-bouton");
+
+    if(!resultatEl) return;
+
+    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
+    const positions = AnalyseEtat.positions;
+
+    if(!positions.length) return;
+
+    const fen = positions[AnalyseEtat.index].fen;
+
+    resultatEl.textContent = estAnglais ? "⏳ Analyzing…" : "⏳ Analyse en cours…";
+
+    if(bouton) bouton.disabled = true;
+
+    initialiserStockfishWorker()
+        .then(worker=>{
+
+            let meilleureEvaluation = "";
+
+            let meilleurCoup = "";
+
+            const surMessage = (evenement)=>{
+
+                const ligne = evenement.data;
+
+                if(typeof ligne !== "string") return;
+
+                const matchScore = ligne.match(/score (cp|mate) (-?\d+)/);
+
+                if(matchScore){
+
+                    if(matchScore[1] === "cp"){
+
+                        meilleureEvaluation = (Number(matchScore[2]) / 100).toFixed(2);
+
+                    }
+                    else{
+
+                        meilleureEvaluation = (estAnglais ? "Mate in " : "Mat en ") + Math.abs(Number(matchScore[2]));
+
+                    }
+
+                }
+
+                if(ligne.startsWith("bestmove")){
+
+                    const partieBestmove = ligne.split(" ");
+
+                    meilleurCoup = partieBestmove[1] || "";
+
+                    worker.removeEventListener("message", surMessage);
+
+                    if(bouton) bouton.disabled = false;
+
+                    const estMat = typeof meilleureEvaluation === "string" && meilleureEvaluation.includes("Mat");
+
+                    const classeEval = estMat
+                        ? ""
+                        : (Number(meilleureEvaluation) >= 0 ? "eval-positive" : "eval-negative");
+
+                    resultatEl.innerHTML = estAnglais
+                        ? `Evaluation: <span class="${classeEval}">${meilleureEvaluation}</span><br>Best move: <strong>${meilleurCoup}</strong>`
+                        : `Évaluation : <span class="${classeEval}">${meilleureEvaluation}</span><br>Meilleur coup : <strong>${meilleurCoup}</strong>`;
+
+                }
+
+            };
+
+            worker.addEventListener("message", surMessage);
+
+            worker.postMessage("position fen " + fen);
+
+            worker.postMessage("go depth 15");
+
+        })
+        .catch(()=>{
+
+            if(bouton) bouton.disabled = false;
+
+            resultatEl.innerHTML = estAnglais
+                ? "⚠️ Stockfish engine not found. Add <code>stockfish.js</code> (WASM build) inside a <code>/stockfish/</code> folder next to your site files."
+                : "⚠️ Moteur Stockfish introuvable. Ajoutez le fichier <code>stockfish.js</code> (version WASM) dans un dossier <code>/stockfish/</code> à côté de vos fichiers du site.";
+
+        });
+
+}
+
+function initialiserAnalyse(){
+
+    const plateau = document.getElementById("analyse-plateau");
+
+    if(!plateau) return;
+
+    construirePlateauAnalyseDOM();
+
+    reinitialiserAnalyse(positionInitiale());
+
+    const boutonFen = document.getElementById("analyse-fen-charger");
+
+    const champFen = document.getElementById("analyse-fen-input");
+
+    const boutonPgn = document.getElementById("analyse-pgn-charger");
+
+    const champPgn = document.getElementById("analyse-pgn-input");
+
+    const champFichier = document.getElementById("analyse-pgn-fichier");
+
+    const boutonPrecedent = document.getElementById("analyse-precedent");
+
+    const boutonSuivant = document.getElementById("analyse-suivant");
+
+    const boutonStockfish = document.getElementById("analyse-stockfish-bouton");
+
+    if(boutonFen){
+
+        boutonFen.addEventListener("click",()=>{
+
+            const valeur = champFen.value.trim();
+
+            if(!valeur){
+
+                afficherErreurAnalyse("Veuillez saisir une position FEN.");
+
+                return;
+
+            }
+
+            try{
+
+                const etat = parserFEN(valeur);
+
+                if(!trouverRoi(etat, "w") || !trouverRoi(etat, "b")){
+
+                    throw new Error("FEN invalide : roi manquant.");
+
+                }
+
+                document.getElementById("analyse-erreur").hidden = true;
+
+                reinitialiserAnalyse(etat);
+
+            }
+            catch(erreur){
+
+                afficherErreurAnalyse("FEN invalide, vérifiez le format saisi.");
+
+            }
+
+        });
+
+    }
+
+    if(boutonPgn){
+
+        boutonPgn.addEventListener("click",()=>{
+
+            const texte = champPgn.value.trim();
+
+            if(!texte){
+
+                afficherErreurAnalyse("Veuillez coller un PGN ou choisir un fichier.");
+
+                return;
+
+            }
+
+            chargerPGNDansAnalyse(texte);
+
+        });
+
+    }
+
+    if(champFichier){
+
+        champFichier.addEventListener("change",(e)=>{
+
+            const fichier = e.target.files[0];
+
+            if(!fichier) return;
+
+            const lecteur = new FileReader();
+
+            lecteur.onload = ()=>{
+
+                champPgn.value = lecteur.result;
+
+                chargerPGNDansAnalyse(lecteur.result);
+
+            };
+
+            lecteur.readAsText(fichier);
+
+        });
+
+    }
+
+    if(boutonPrecedent){
+
+        boutonPrecedent.addEventListener("click",()=>{
+
+            if(AnalyseEtat.index > 0){
+
+                AnalyseEtat.index--;
+
+                mettreAJourAnalyse();
+
+            }
+
+        });
+
+    }
+
+    if(boutonSuivant){
+
+        boutonSuivant.addEventListener("click",()=>{
+
+            if(AnalyseEtat.index < AnalyseEtat.positions.length - 1){
+
+                AnalyseEtat.index++;
+
+                mettreAJourAnalyse();
+
+            }
+
+        });
+
+    }
+
+    if(boutonStockfish){
+
+        boutonStockfish.addEventListener("click", analyserPositionActuelle);
+
+    }
+
+}
+
+log("✅ Module 9 decies chargé");
 /* =====================================================
    MODULE 10
    INITIALISATION GÉNÉRALE
@@ -1895,6 +2895,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     ========================= */
 
     initialiserI18n();
+
+    /* =========================
+       Analyse de partie
+    ========================= */
+
+    initialiserAnalyse();
 
     /* =========================
        Statistiques de lecture
