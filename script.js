@@ -3402,6 +3402,29 @@ function initialiserPuzzles(){
 
 log("✅ Module 9 undecies chargé");
 /* =====================================================
+   MODULE 9 duodecies
+   PWA — ENREGISTREMENT DU SERVICE WORKER
+===================================================== */
+
+function initialiserPWA(){
+
+    if(!("serviceWorker" in navigator)) return;
+
+    window.addEventListener("load", ()=>{
+
+        navigator.serviceWorker.register("sw.js").catch(()=>{
+
+            // Échec silencieux : le site continue de fonctionner normalement,
+            // simplement sans installation ni mode hors-ligne.
+
+        });
+
+    });
+
+}
+
+log("✅ Module 9 duodecies chargé");
+/* =====================================================
    MODULE 10
    INITIALISATION GÉNÉRALE
 ===================================================== */
@@ -3475,6 +3498,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     ========================= */
 
     initialiserPuzzles();
+
+    /* =========================
+       PWA
+    ========================= */
+
+    initialiserPWA();
 
     /* =========================
        Statistiques de lecture

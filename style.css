@@ -4236,3 +4236,169 @@ input:focus-visible{
     opacity:0.75;
 
 }
+
+/* =====================================================
+   MODULE 19
+   AMÉLIORATIONS RESPONSIVE MOBILE (échiquiers, analyse,
+   puzzles, quiz, cartes) — ajouté après coup pour couvrir
+   tous les composants construits depuis le lancement
+===================================================== */
+
+html, body{
+
+    overflow-x:hidden;
+
+}
+
+@media (max-width:600px){
+
+    .echiquier-corps{
+
+        gap:20px;
+
+        justify-content:stretch;
+
+    }
+
+    .echiquier-plateau{
+
+        width:min(340px,88vw);
+
+        height:min(340px,88vw);
+
+        margin:0 auto;
+
+    }
+
+    .echiquier-panneau{
+
+        min-width:0;
+
+        width:100%;
+
+    }
+
+    .echiquier-widget,
+    .puzzle-widget{
+
+        padding:16px;
+
+    }
+
+    .echiquier-controles{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+    }
+
+    .echiquier-btn{
+
+        flex:1 1 auto;
+
+        min-height:44px;
+
+    }
+
+    .echiquier-selecteur{
+
+        justify-content:center;
+
+    }
+
+    .echiquier-onglet{
+
+        min-height:40px;
+
+    }
+
+    .quiz-reponse-btn{
+
+        min-height:48px;
+
+    }
+
+    .analyse-fen-ligne{
+
+        flex-direction:column;
+
+    }
+
+    .analyse-fen-ligne .analyse-btn{
+
+        width:100%;
+
+    }
+
+    .promotion-selecteur{
+
+        justify-content:center;
+
+    }
+
+    .promotion-selecteur button{
+
+        min-width:48px;
+
+        min-height:48px;
+
+    }
+
+    .puzzle-entete{
+
+        justify-content:center;
+
+        text-align:center;
+
+    }
+
+    .puzzle-controles{
+
+        justify-content:center;
+
+    }
+
+    .puzzle-controles .echiquier-btn{
+
+        flex:1 1 auto;
+
+        min-height:44px;
+
+    }
+
+}
+
+@media (max-width:420px){
+
+    .cards-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .stats-grid{
+
+        grid-template-columns:1fr 1fr;
+
+    }
+
+    .nav-link,
+    .nav-menu a{
+
+        min-height:44px;
+
+        display:flex;
+
+        align-items:center;
+
+    }
+
+    #theme-toggle,
+    #lang-toggle{
+
+        min-height:48px;
+
+    }
+
+}
