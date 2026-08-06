@@ -2326,6 +2326,85 @@ function sanVersCoup(etat, san){
 
 }
 
+/* =====================================================
+   COUP -> SAN (pour afficher lisiblement les coups Stockfish)
+===================================================== */
+
+const LETTRES_PIECE_FR = {N:"C", B:"F", R:"T", Q:"D", K:"R"};
+const LETTRES_PIECE_EN = {N:"N", B:"B", R:"R", Q:"Q", K:"K"};
+
+function coupVersSAN(etat, coup, enAnglais){
+
+    if(coup.roque === "K") return "O-O";
+    if(coup.roque === "Q") return "O-O-O";
+
+    const type = coup.piece[1];
+    const lettres = enAnglais ? LETTRES_PIECE_EN : LETTRES_PIECE_FR;
+    const lettrePiece = type === "P" ? "" : lettres[type];
+
+    let disambiguation = "";
+
+    if(type !== "P"){
+
+        const legaux = genererCoupsLegaux(etat);
+
+        const memeArrivee = legaux.filter(c=>
+            c.piece[1] === type && c.to === coup.to && c.from !== coup.from
+        );
+
+        if(memeArrivee.length > 0){
+
+            const memeColonne = memeArrivee.some(c => c.from[0] === coup.from[0]);
+            const memeLigne = memeArrivee.some(c => c.from[1] === coup.from[1]);
+
+            if(!memeColonne){
+                disambiguation = coup.from[0];
+            }
+            else if(!memeLigne){
+                disambiguation = coup.from[1];
+            }
+            else{
+                disambiguation = coup.from;
+            }
+
+        }
+
+    }
+
+    const captureTxt = coup.capture ? "x" : "";
+
+    const prefixePion = (type === "P" && coup.capture) ? coup.from[0] : "";
+
+    const promotionTxt = coup.promotion ? "=" + lettres[coup.promotion] : "";
+
+    let san = lettrePiece + prefixePion + disambiguation + captureTxt + coup.to + promotionTxt;
+
+    const apres = appliquerCoup(etat, coup);
+    const adversaire = coup.piece[0] === "w" ? "b" : "w";
+
+    if(estEnEchec(apres, adversaire)){
+
+        san += genererCoupsLegaux(apres).length === 0 ? "#" : "+";
+
+    }
+
+    return san;
+
+}
+
+function coupUCIVersObjet(etat, coupUCI){
+
+    const from = coupUCI.slice(0, 2);
+    const to = coupUCI.slice(2, 4);
+    const promotionLettre = coupUCI.length > 4 ? coupUCI[4].toUpperCase() : null;
+
+    return genererCoupsLegaux(etat).find(c=>
+        c.from === from && c.to === to &&
+        (promotionLettre ? c.promotion === promotionLettre : !c.promotion)
+    ) || null;
+
+}
+
 log("✅ Module 9 nonies chargé");
 /* =====================================================
    MODULE 9 decies
@@ -2644,7 +2723,28 @@ function analyserPositionActuelle(){
 
                     const partieBestmove = ligne.split(" ");
 
-                    meilleurCoup = partieBestmove[1] || "";
+                    const coupUCI = partieBestmove[1] || "";
+
+                    meilleurCoup = coupUCI;
+
+                    try{
+
+                        const etatActuel = positions[AnalyseEtat.index].etat;
+
+                        const coupObjet = coupUCIVersObjet(etatActuel, coupUCI);
+
+                        if(coupObjet){
+
+                            meilleurCoup = coupVersSAN(etatActuel, coupObjet, estAnglais);
+
+                        }
+
+                    }
+                    catch(erreurConversion){
+
+                        // en cas d'échec de conversion, on garde la notation UCI brute
+
+                    }
 
                     worker.removeEventListener("message", surMessage);
 
