@@ -4032,3 +4032,207 @@ input:focus-visible{
     }
 
 }
+
+/* =========================
+   ÉCHIQUIER JOUABLE (sélection / coups légaux / promotion)
+========================= */
+
+.echiquier-case{
+
+    cursor:default;
+
+}
+
+.echiquier-plateau.jouable .echiquier-case{
+
+    cursor:pointer;
+
+}
+
+.echiquier-case.case-selectionnee{
+
+    box-shadow:inset 0 0 0 4px rgba(37,99,235,0.85);
+
+}
+
+.echiquier-case.coup-possible::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:28%;
+
+    height:28%;
+
+    border-radius:50%;
+
+    background:rgba(37,99,235,0.55);
+
+    pointer-events:none;
+
+}
+
+.echiquier-case.coup-possible.coup-capture::after{
+
+    width:80%;
+
+    height:80%;
+
+    background:transparent;
+
+    border:4px solid rgba(239,68,68,0.65);
+
+    border-radius:50%;
+
+}
+
+.promotion-selecteur{
+
+    margin-top:14px;
+
+    padding:14px;
+
+    background:var(--surface);
+
+    border:1px solid var(--blue);
+
+    border-radius:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+}
+
+.promotion-selecteur p{
+
+    font-size:0.85em;
+
+    font-weight:600;
+
+    margin:0;
+
+    color:var(--text);
+
+}
+
+.promotion-selecteur button{
+
+    font-size:1.6em;
+
+    padding:6px 12px;
+
+    background:var(--bg);
+
+    border:1px solid var(--border);
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+.promotion-selecteur button:hover{
+
+    border-color:var(--blue);
+
+}
+
+/* =========================
+   PUZZLES TACTIQUES
+========================= */
+
+.puzzle-widget{
+
+    margin-top:20px;
+
+    padding:24px;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
+}
+
+.puzzle-entete{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-bottom:18px;
+
+}
+
+.puzzle-theme{
+
+    font-weight:700;
+
+    color:var(--blue);
+
+}
+
+.puzzle-compteur{
+
+    font-size:0.85em;
+
+    opacity:0.7;
+
+}
+
+.puzzle-message{
+
+    margin-top:14px;
+
+    min-height:24px;
+
+    font-weight:600;
+
+}
+
+.puzzle-message.succes{
+
+    color:#22c55e;
+
+}
+
+.puzzle-message.erreur{
+
+    color:#ef4444;
+
+}
+
+.puzzle-controles{
+
+    margin-top:16px;
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+}
+
+.analyse-astuce{
+
+    margin-top:14px;
+
+    font-size:0.85em;
+
+    opacity:0.75;
+
+}

@@ -1733,7 +1733,15 @@ const traductionsEN = {
     "analyse-pgn-placeholder": "1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 ...",
     "analyse-pgn-bouton": "Load game",
     "analyse-position-depart": "Starting position",
-    "analyse-stockfish-bouton": "🧠 Analyze with Stockfish"
+    "analyse-stockfish-bouton": "🧠 Analyze with Stockfish",
+
+    "analyse-astuce": "💡 You can also play directly on the board: click a piece, then a destination square.",
+    "promotion-label": "Promote to:",
+    "nav-puzzles": "Puzzles",
+    "puzzle-title": "♟️ Tactical puzzles",
+    "puzzle-intro": "Find mate in one move! Click a white piece, then play the move that checkmates the black king.",
+    "puzzle-reset": "↺ Restart",
+    "puzzle-suivant": "Next ▶"
 };
 
 function appliquerLangue(langue){
@@ -1826,6 +1834,16 @@ function appliquerLangue(langue){
     if(document.getElementById("analyse-plateau") && AnalyseEtat.positions.length){
 
         mettreAJourAnalyse();
+
+    }
+
+    const themeEl = document.getElementById("puzzle-theme");
+
+    if(themeEl && typeof PUZZLES !== "undefined" && typeof puzzleIndex !== "undefined"){
+
+        themeEl.textContent = langue === "en"
+            ? PUZZLES[puzzleIndex].theme_en
+            : PUZZLES[puzzleIndex].theme;
 
     }
 
@@ -2416,6 +2434,38 @@ const AnalyseEtat = {
     index: 0
 };
 
+function ouvrirSelecteurPromotion(prefixe, callback){
+
+    const conteneur = document.getElementById(prefixe + "-promotion");
+
+    if(!conteneur){
+
+        callback("Q");
+
+        return;
+
+    }
+
+    conteneur.hidden = false;
+
+    conteneur.querySelectorAll("button").forEach(bouton=>{
+
+        bouton.onclick = ()=>{
+
+            conteneur.hidden = true;
+
+            callback(bouton.dataset.piece);
+
+        };
+
+    });
+
+}
+
+let analyseSelection = null;
+
+let analyseCoupsPossibles = [];
+
 function construirePlateauAnalyseDOM(){
 
     const plateau = document.getElementById("analyse-plateau");
@@ -2440,11 +2490,121 @@ function construirePlateauAnalyseDOM(){
 
             caseDiv.dataset.square = carre;
 
+            caseDiv.addEventListener("click", ()=> gererClicAnalyse(carre));
+
             plateau.appendChild(caseDiv);
 
         }
 
     }
+
+}
+
+function gererClicAnalyse(carre){
+
+    const etatActuel = AnalyseEtat.positions[AnalyseEtat.index].etat;
+
+    if(analyseSelection){
+
+        const candidats = analyseCoupsPossibles.filter(c => c.to === carre);
+
+        if(candidats.length > 0){
+
+            if(candidats.length > 1){
+
+                ouvrirSelecteurPromotion("analyse", (typeChoisi)=>{
+
+                    const coupFinal = candidats.find(c => c.promotion === typeChoisi) || candidats[0];
+
+                    jouerCoupAnalyse(coupFinal);
+
+                });
+
+            }
+            else{
+
+                jouerCoupAnalyse(candidats[0]);
+
+            }
+
+            return;
+
+        }
+
+    }
+
+    const piece = etatActuel.board[carre];
+
+    if(piece && piece[0] === etatActuel.turn){
+
+        analyseSelection = carre;
+
+        analyseCoupsPossibles = genererCoupsLegaux(etatActuel).filter(c => c.from === carre);
+
+    }
+    else{
+
+        analyseSelection = null;
+
+        analyseCoupsPossibles = [];
+
+    }
+
+    rafraichirSurbrillanceAnalyse();
+
+}
+
+function jouerCoupAnalyse(coup){
+
+    const etatActuel = AnalyseEtat.positions[AnalyseEtat.index].etat;
+
+    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
+    const san = coupVersSAN(etatActuel, coup, estAnglais);
+
+    const nouvelEtat = appliquerCoup(etatActuel, coup);
+
+    AnalyseEtat.positions = AnalyseEtat.positions.slice(0, AnalyseEtat.index + 1);
+
+    AnalyseEtat.positions.push({fen: exporterFEN(nouvelEtat), san, coup, etat: nouvelEtat});
+
+    AnalyseEtat.index = AnalyseEtat.positions.length - 1;
+
+    analyseSelection = null;
+
+    analyseCoupsPossibles = [];
+
+    mettreAJourAnalyse();
+
+}
+
+function rafraichirSurbrillanceAnalyse(){
+
+    const cases = document.querySelectorAll("#analyse-plateau .echiquier-case");
+
+    cases.forEach(caseDiv=>{
+
+        const carre = caseDiv.dataset.square;
+
+        caseDiv.classList.remove("case-selectionnee", "coup-possible", "coup-capture");
+
+        if(analyseSelection === carre){
+
+            caseDiv.classList.add("case-selectionnee");
+
+        }
+
+        const coup = analyseCoupsPossibles.find(c => c.to === carre);
+
+        if(coup){
+
+            caseDiv.classList.add("coup-possible");
+
+            if(coup.capture) caseDiv.classList.add("coup-capture");
+
+        }
+
+    });
 
 }
 
@@ -2589,6 +2749,12 @@ function mettreAJourAnalyse(){
     const resultatStockfish = document.getElementById("analyse-stockfish-resultat");
 
     if(resultatStockfish) resultatStockfish.textContent = "";
+
+    analyseSelection = null;
+
+    analyseCoupsPossibles = [];
+
+    rafraichirSurbrillanceAnalyse();
 
 }
 
@@ -2934,6 +3100,308 @@ function initialiserAnalyse(){
 
 log("✅ Module 9 decies chargé");
 /* =====================================================
+   MODULE 9 undecies
+   PUZZLES TACTIQUES (mat en 1)
+===================================================== */
+
+const PUZZLES = [
+
+    { fen:"6k1/5ppp/8/8/8/8/8/4R2K w - - 0 1", theme:"Mat du couloir", theme_en:"Back-rank mate" },
+    { fen:"4k3/8/4K3/8/8/8/8/6R1 w - - 0 1", theme:"Mat de la tour, roi acculé", theme_en:"Rook mate, cornered king" },
+    { fen:"7k/5Q2/6K1/8/8/8/8/8 w - - 0 1", theme:"Mat de la dame collée", theme_en:"Queen mate, king pinned to edge" },
+    { fen:"3r2k1/5ppp/8/8/8/8/5PPP/3R2K1 w - - 0 1", theme:"Mat du couloir (tours)", theme_en:"Back-rank mate (rooks)" },
+    { fen:"6k1/8/6K1/8/8/8/8/7Q w - - 0 1", theme:"Mat de la dame, roi acculé", theme_en:"Queen mate, cornered king" },
+    { fen:"7k/R7/1R6/8/8/8/8/6K1 w - - 0 1", theme:"Mat de l'escalier", theme_en:"Ladder mate" },
+    { fen:"6k1/8/6K1/8/8/8/8/2Q5 w - - 0 1", theme:"Mat de la dame soutenue par le roi", theme_en:"King-supported queen mate" },
+    { fen:"k7/2K5/8/8/8/8/8/1Q6 w - - 0 1", theme:"Mat de la dame, roi au coin", theme_en:"Queen mate, king in the corner" }
+
+];
+
+let puzzleIndex = 0;
+
+let puzzleEtatActuel = null;
+
+let puzzleSelection = null;
+
+let puzzleCoupsPossibles = [];
+
+let puzzleResolu = false;
+
+function construirePlateauPuzzleDOM(){
+
+    const plateau = document.getElementById("puzzle-plateau");
+
+    if(!plateau) return;
+
+    plateau.innerHTML = "";
+
+    const fichiers = ["a","b","c","d","e","f","g","h"];
+
+    for(let rangee=8; rangee>=1; rangee--){
+
+        for(let f=0; f<8; f++){
+
+            const caseDiv = document.createElement("div");
+
+            const carre = fichiers[f] + rangee;
+
+            const claire = (f + rangee) % 2 === 0;
+
+            caseDiv.className = "echiquier-case " + (claire ? "claire" : "sombre");
+
+            caseDiv.dataset.square = carre;
+
+            caseDiv.addEventListener("click", ()=> gererClicPuzzle(carre));
+
+            plateau.appendChild(caseDiv);
+
+        }
+
+    }
+
+}
+
+function afficherPositionPuzzle(){
+
+    const cases = document.querySelectorAll("#puzzle-plateau .echiquier-case");
+
+    cases.forEach(caseDiv=>{
+
+        const carre = caseDiv.dataset.square;
+
+        caseDiv.classList.remove(
+            "case-selectionnee", "coup-possible", "coup-capture"
+        );
+
+        const piece = puzzleEtatActuel.board[carre];
+
+        caseDiv.innerHTML = piece
+            ? `<span class="${piece[0]==="w" ? "piece-blanche" : "piece-noire"}">${PIECES_UNICODE[piece]}</span>`
+            : "";
+
+        if(puzzleSelection === carre){
+
+            caseDiv.classList.add("case-selectionnee");
+
+        }
+
+        const coup = puzzleCoupsPossibles.find(c => c.to === carre);
+
+        if(coup){
+
+            caseDiv.classList.add("coup-possible");
+
+            if(coup.capture) caseDiv.classList.add("coup-capture");
+
+        }
+
+    });
+
+}
+
+function chargerPuzzle(index){
+
+    puzzleIndex = ((index % PUZZLES.length) + PUZZLES.length) % PUZZLES.length;
+
+    puzzleEtatActuel = parserFEN(PUZZLES[puzzleIndex].fen);
+
+    puzzleSelection = null;
+
+    puzzleCoupsPossibles = [];
+
+    puzzleResolu = false;
+
+    afficherPositionPuzzle();
+
+    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
+    const themeEl = document.getElementById("puzzle-theme");
+
+    const compteurEl = document.getElementById("puzzle-compteur");
+
+    const messageEl = document.getElementById("puzzle-message");
+
+    const boutonPrecedent = document.getElementById("puzzle-precedent");
+
+    if(themeEl){
+
+        themeEl.textContent = estAnglais
+            ? PUZZLES[puzzleIndex].theme_en
+            : PUZZLES[puzzleIndex].theme;
+
+    }
+
+    if(compteurEl){
+
+        compteurEl.textContent = (puzzleIndex + 1) + " / " + PUZZLES.length;
+
+    }
+
+    if(messageEl){
+
+        messageEl.textContent = "";
+
+        messageEl.className = "puzzle-message";
+
+    }
+
+    if(boutonPrecedent){
+
+        boutonPrecedent.disabled = puzzleIndex === 0;
+
+    }
+
+}
+
+function gererClicPuzzle(carre){
+
+    if(puzzleResolu) return;
+
+    if(puzzleSelection){
+
+        const candidats = puzzleCoupsPossibles.filter(c => c.to === carre);
+
+        if(candidats.length > 0){
+
+            if(candidats.length > 1){
+
+                ouvrirSelecteurPromotion("puzzle", (typeChoisi)=>{
+
+                    const coupFinal = candidats.find(c => c.promotion === typeChoisi) || candidats[0];
+
+                    jouerCoupPuzzle(coupFinal);
+
+                });
+
+            }
+            else{
+
+                jouerCoupPuzzle(candidats[0]);
+
+            }
+
+            return;
+
+        }
+
+    }
+
+    const piece = puzzleEtatActuel.board[carre];
+
+    if(piece && piece[0] === puzzleEtatActuel.turn){
+
+        puzzleSelection = carre;
+
+        puzzleCoupsPossibles = genererCoupsLegaux(puzzleEtatActuel).filter(c => c.from === carre);
+
+    }
+    else{
+
+        puzzleSelection = null;
+
+        puzzleCoupsPossibles = [];
+
+    }
+
+    afficherPositionPuzzle();
+
+}
+
+function jouerCoupPuzzle(coup){
+
+    const apres = appliquerCoup(puzzleEtatActuel, coup);
+
+    const adversaire = coup.piece[0] === "w" ? "b" : "w";
+
+    const estMat = estEnEchec(apres, adversaire) && genererCoupsLegaux(apres).length === 0;
+
+    puzzleEtatActuel = apres;
+
+    puzzleSelection = null;
+
+    puzzleCoupsPossibles = [];
+
+    afficherPositionPuzzle();
+
+    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
+    const messageEl = document.getElementById("puzzle-message");
+
+    if(estMat){
+
+        puzzleResolu = true;
+
+        if(messageEl){
+
+            messageEl.textContent = estAnglais
+                ? "✅ Checkmate! Well played."
+                : "✅ Échec et mat ! Bien joué.";
+
+            messageEl.className = "puzzle-message succes";
+
+        }
+
+    }
+    else{
+
+        if(messageEl){
+
+            messageEl.textContent = estAnglais
+                ? "Not mate yet — try again."
+                : "Pas encore mat — réessayez.";
+
+            messageEl.className = "puzzle-message erreur";
+
+        }
+
+        setTimeout(()=>{
+
+            chargerPuzzle(puzzleIndex);
+
+        }, 900);
+
+    }
+
+}
+
+function initialiserPuzzles(){
+
+    const plateau = document.getElementById("puzzle-plateau");
+
+    if(!plateau) return;
+
+    construirePlateauPuzzleDOM();
+
+    chargerPuzzle(0);
+
+    const boutonPrecedent = document.getElementById("puzzle-precedent");
+
+    const boutonSuivant = document.getElementById("puzzle-suivant");
+
+    const boutonReset = document.getElementById("puzzle-reset");
+
+    if(boutonPrecedent){
+
+        boutonPrecedent.addEventListener("click", ()=> chargerPuzzle(puzzleIndex - 1));
+
+    }
+
+    if(boutonSuivant){
+
+        boutonSuivant.addEventListener("click", ()=> chargerPuzzle(puzzleIndex + 1));
+
+    }
+
+    if(boutonReset){
+
+        boutonReset.addEventListener("click", ()=> chargerPuzzle(puzzleIndex));
+
+    }
+
+}
+
+log("✅ Module 9 undecies chargé");
+/* =====================================================
    MODULE 10
    INITIALISATION GÉNÉRALE
 ===================================================== */
@@ -3001,6 +3469,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     ========================= */
 
     initialiserAnalyse();
+
+    /* =========================
+       Puzzles tactiques
+    ========================= */
+
+    initialiserPuzzles();
 
     /* =========================
        Statistiques de lecture

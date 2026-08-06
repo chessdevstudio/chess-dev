@@ -201,6 +201,8 @@
 
                     <li><a href="#analyse" class="nav-link" data-i18n="nav-analyse">Analyse</a></li>
 
+                    <li><a href="#puzzles" class="nav-link" data-i18n="nav-puzzles">Puzzles</a></li>
+
                     <li><a href="#bibliographie" class="nav-link" data-i18n="nav-ressources">Ressources</a></li>
 
                 </ul>
@@ -1814,7 +1816,7 @@
 
             <div class="echiquier-corps">
 
-                <div id="analyse-plateau" class="echiquier-plateau"></div>
+                <div id="analyse-plateau" class="echiquier-plateau jouable"></div>
 
                 <div class="echiquier-panneau">
 
@@ -1825,6 +1827,17 @@
                     </p>
 
                     <p class="echiquier-notation" id="analyse-coup-actuel"></p>
+
+                    <div id="analyse-promotion" class="promotion-selecteur" hidden>
+
+                        <p data-i18n="promotion-label">Promotion :</p>
+
+                        <button data-piece="Q">♛</button>
+                        <button data-piece="R">♜</button>
+                        <button data-piece="B">♝</button>
+                        <button data-piece="N">♞</button>
+
+                    </div>
 
                     <div class="echiquier-controles">
 
@@ -1845,6 +1858,84 @@
                         </button>
 
                         <div id="analyse-stockfish-resultat" class="analyse-stockfish-resultat"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <p class="analyse-astuce" data-i18n="analyse-astuce">
+
+            💡 Vous pouvez aussi jouer directement sur l'échiquier : cliquez une pièce puis une case de destination.
+
+        </p>
+
+    </section>
+    <!-- =====================================================
+         MODULE 11 quinquies
+         PUZZLES TACTIQUES
+    ====================================================== -->
+
+    <section
+        id="puzzles"
+        class="fade-section search-item">
+
+        <header>
+
+            <h2 data-i18n="puzzle-title">
+
+                ♟️ Puzzles tactiques
+
+            </h2>
+
+            <p data-i18n="puzzle-intro">
+
+                Trouvez le mat en un coup ! Cliquez une pièce blanche puis
+                jouez le coup qui met le roi noir échec et mat.
+
+            </p>
+
+        </header>
+
+        <div class="puzzle-widget">
+
+            <div class="puzzle-entete">
+
+                <span id="puzzle-theme" class="puzzle-theme"></span>
+
+                <span id="puzzle-compteur" class="puzzle-compteur">1 / 8</span>
+
+            </div>
+
+            <div class="echiquier-corps">
+
+                <div id="puzzle-plateau" class="echiquier-plateau jouable"></div>
+
+                <div class="echiquier-panneau">
+
+                    <p id="puzzle-message" class="puzzle-message"></p>
+
+                    <div id="puzzle-promotion" class="promotion-selecteur" hidden>
+
+                        <p data-i18n="promotion-label">Promotion :</p>
+
+                        <button data-piece="Q">♛</button>
+                        <button data-piece="R">♜</button>
+                        <button data-piece="B">♝</button>
+                        <button data-piece="N">♞</button>
+
+                    </div>
+
+                    <div class="puzzle-controles">
+
+                        <button id="puzzle-precedent" class="echiquier-btn" data-i18n="echiquier-precedent">◀ Précédent</button>
+
+                        <button id="puzzle-reset" class="echiquier-btn" data-i18n="puzzle-reset">↺ Recommencer</button>
+
+                        <button id="puzzle-suivant" class="echiquier-btn" data-i18n="puzzle-suivant">Suivant ▶</button>
 
                     </div>
 
