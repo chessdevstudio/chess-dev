@@ -1739,7 +1739,10 @@ const traductionsEN = {
     "promotion-label": "Promote to:",
     "nav-puzzles": "Puzzles",
     "puzzle-title": "♟️ Tactical puzzles",
-    "puzzle-intro": "Find mate in one move! Click a white piece, then play the move that checkmates the black king.",
+    "puzzle-intro": "Choose a category, click a white piece, then play the requested move to solve the puzzle.",
+    "puzzle-cat-mat1": "Mate in 1",
+    "puzzle-cat-mat2": "Mate in 2",
+    "puzzle-cat-tactique": "Tactic (Stockfish)",
     "puzzle-reset": "↺ Restart",
     "puzzle-suivant": "Next ▶"
 };
@@ -1839,11 +1842,13 @@ function appliquerLangue(langue){
 
     const themeEl = document.getElementById("puzzle-theme");
 
-    if(themeEl && typeof PUZZLES !== "undefined" && typeof puzzleIndex !== "undefined"){
+    if(themeEl && typeof ENSEMBLES_PUZZLES !== "undefined" && typeof puzzleIndex !== "undefined"){
+
+        const ensembleActuel = ENSEMBLES_PUZZLES[puzzleCategorie];
 
         themeEl.textContent = langue === "en"
-            ? PUZZLES[puzzleIndex].theme_en
-            : PUZZLES[puzzleIndex].theme;
+            ? ensembleActuel[puzzleIndex].theme_en
+            : ensembleActuel[puzzleIndex].theme;
 
     }
 
@@ -2420,6 +2425,73 @@ function coupUCIVersObjet(etat, coupUCI){
         c.from === from && c.to === to &&
         (promotionLettre ? c.promotion === promotionLettre : !c.promotion)
     ) || null;
+
+}
+
+/* =====================================================
+   RECHERCHE DE MAT FORCÉ (pour les puzzles "mat en N")
+===================================================== */
+
+function existeMatForceDansN(etat, n){
+
+    if(n < 1) return false;
+
+    const couleur = etat.turn;
+    const adversaire = couleur === "w" ? "b" : "w";
+    const legaux = genererCoupsLegaux(etat);
+
+    for(const coup of legaux){
+
+        const apres = appliquerCoup(etat, coup);
+        const coupsAdversaire = genererCoupsLegaux(apres);
+
+        if(coupsAdversaire.length === 0){
+
+            if(estEnEchec(apres, adversaire)) return true;
+
+            continue;
+
+        }
+
+        if(n === 1) continue;
+
+        let toutesMenentAuMat = true;
+
+        for(const repliqueAdverse of coupsAdversaire){
+
+            const apresReplique = appliquerCoup(apres, repliqueAdverse);
+
+            if(!existeMatForceDansN(apresReplique, n - 1)){
+
+                toutesMenentAuMat = false;
+
+                break;
+
+            }
+
+        }
+
+        if(toutesMenentAuMat) return true;
+
+    }
+
+    return false;
+
+}
+
+function coupMeneAuMatForce(etat, coup, n){
+
+    const apres = appliquerCoup(etat, coup);
+    const adversaire = coup.piece[0] === "w" ? "b" : "w";
+    const coupsAdversaire = genererCoupsLegaux(apres);
+
+    if(coupsAdversaire.length === 0) return estEnEchec(apres, adversaire);
+
+    if(n === 1) return false;
+
+    return coupsAdversaire.every(
+        repliqueAdverse => existeMatForceDansN(appliquerCoup(apres, repliqueAdverse), n - 1)
+    );
 
 }
 
@@ -3101,21 +3173,48 @@ function initialiserAnalyse(){
 log("✅ Module 9 decies chargé");
 /* =====================================================
    MODULE 9 undecies
-   PUZZLES TACTIQUES (mat en 1)
+   PUZZLES TACTIQUES (mat en 1, mat en 2, tactique Stockfish)
 ===================================================== */
 
-const PUZZLES = [
+const PUZZLES_MAT1 = [
 
-    { fen:"6k1/5ppp/8/8/8/8/8/4R2K w - - 0 1", theme:"Mat du couloir", theme_en:"Back-rank mate" },
-    { fen:"4k3/8/4K3/8/8/8/8/6R1 w - - 0 1", theme:"Mat de la tour, roi acculé", theme_en:"Rook mate, cornered king" },
-    { fen:"7k/5Q2/6K1/8/8/8/8/8 w - - 0 1", theme:"Mat de la dame collée", theme_en:"Queen mate, king pinned to edge" },
-    { fen:"3r2k1/5ppp/8/8/8/8/5PPP/3R2K1 w - - 0 1", theme:"Mat du couloir (tours)", theme_en:"Back-rank mate (rooks)" },
-    { fen:"6k1/8/6K1/8/8/8/8/7Q w - - 0 1", theme:"Mat de la dame, roi acculé", theme_en:"Queen mate, cornered king" },
-    { fen:"7k/R7/1R6/8/8/8/8/6K1 w - - 0 1", theme:"Mat de l'escalier", theme_en:"Ladder mate" },
-    { fen:"6k1/8/6K1/8/8/8/8/2Q5 w - - 0 1", theme:"Mat de la dame soutenue par le roi", theme_en:"King-supported queen mate" },
-    { fen:"k7/2K5/8/8/8/8/8/1Q6 w - - 0 1", theme:"Mat de la dame, roi au coin", theme_en:"Queen mate, king in the corner" }
+    { fen:"6k1/5ppp/8/8/8/8/8/4R2K w - - 0 1", theme:"Mat en 1 — Mat du couloir", theme_en:"Mate in 1 — Back-rank mate" },
+    { fen:"4k3/8/4K3/8/8/8/8/6R1 w - - 0 1", theme:"Mat en 1 — Tour, roi acculé", theme_en:"Mate in 1 — Rook mate, cornered king" },
+    { fen:"7k/5Q2/6K1/8/8/8/8/8 w - - 0 1", theme:"Mat en 1 — Dame collée", theme_en:"Mate in 1 — Queen mate, king pinned to edge" },
+    { fen:"3r2k1/5ppp/8/8/8/8/5PPP/3R2K1 w - - 0 1", theme:"Mat en 1 — Couloir (tours)", theme_en:"Mate in 1 — Back-rank mate (rooks)" },
+    { fen:"6k1/8/6K1/8/8/8/8/7Q w - - 0 1", theme:"Mat en 1 — Dame, roi acculé", theme_en:"Mate in 1 — Queen mate, cornered king" },
+    { fen:"7k/R7/1R6/8/8/8/8/6K1 w - - 0 1", theme:"Mat en 1 — Escalier", theme_en:"Mate in 1 — Ladder mate" },
+    { fen:"6k1/8/6K1/8/8/8/8/2Q5 w - - 0 1", theme:"Mat en 1 — Dame soutenue par le roi", theme_en:"Mate in 1 — King-supported queen mate" },
+    { fen:"k7/2K5/8/8/8/8/8/1Q6 w - - 0 1", theme:"Mat en 1 — Dame, roi au coin", theme_en:"Mate in 1 — Queen mate, king in the corner" }
 
 ];
+
+const PUZZLES_MAT2 = [
+
+    { fen:"k7/8/8/K7/8/8/Q7/8 w - - 0 1", theme:"Mat en 2 — Technique dame + roi", theme_en:"Mate in 2 — King & queen technique" },
+    { fen:"k7/4Q3/8/K7/8/8/8/8 w - - 0 1", theme:"Mat en 2 — Dame proche du roi noir", theme_en:"Mate in 2 — Queen near the black king" },
+    { fen:"k7/8/8/K2R4/8/8/8/8 w - - 0 1", theme:"Mat en 2 — Technique tour + roi", theme_en:"Mate in 2 — King & rook technique" },
+    { fen:"7k/1Q6/8/4K3/8/8/8/8 w - - 0 1", theme:"Mat en 2 — Roi noir dans le coin h8", theme_en:"Mate in 2 — Black king in the h8 corner" },
+    { fen:"7k/8/4K3/8/8/8/Q7/8 w - - 0 1", theme:"Mat en 2 — Dame à distance", theme_en:"Mate in 2 — Queen from afar" },
+    { fen:"k7/3R4/8/1K6/8/8/8/8 w - - 0 1", theme:"Mat en 2 — Tour déjà avancée", theme_en:"Mate in 2 — Rook already advanced" }
+
+];
+
+const PUZZLES_TACTIQUE = [
+
+    { fen:"4k3/8/8/7q/6N1/8/8/6K1 w - - 0 1", theme:"Tactique — Fourchette de cavalier", theme_en:"Tactic — Knight fork" },
+    { fen:"6k1/8/8/q7/8/8/8/R5K1 w - - 0 1", theme:"Tactique — Pièce non défendue", theme_en:"Tactic — Undefended piece" },
+    { fen:"6k1/5p2/8/3b4/8/1B6/6PP/6K1 w - - 0 1", theme:"Tactique — Gagner une pièce", theme_en:"Tactic — Win a piece" }
+
+];
+
+const ENSEMBLES_PUZZLES = {
+    mat1: PUZZLES_MAT1,
+    mat2: PUZZLES_MAT2,
+    tactique: PUZZLES_TACTIQUE
+};
+
+let puzzleCategorie = "mat1";
 
 let puzzleIndex = 0;
 
@@ -3126,6 +3225,10 @@ let puzzleSelection = null;
 let puzzleCoupsPossibles = [];
 
 let puzzleResolu = false;
+
+let puzzleEtape = 1; // pour mat2 : 1 = premier coup, 2 = coup final
+
+let puzzleEnVerification = false;
 
 function construirePlateauPuzzleDOM(){
 
@@ -3201,15 +3304,21 @@ function afficherPositionPuzzle(){
 
 function chargerPuzzle(index){
 
-    puzzleIndex = ((index % PUZZLES.length) + PUZZLES.length) % PUZZLES.length;
+    const ensemble = ENSEMBLES_PUZZLES[puzzleCategorie];
 
-    puzzleEtatActuel = parserFEN(PUZZLES[puzzleIndex].fen);
+    puzzleIndex = ((index % ensemble.length) + ensemble.length) % ensemble.length;
+
+    puzzleEtatActuel = parserFEN(ensemble[puzzleIndex].fen);
 
     puzzleSelection = null;
 
     puzzleCoupsPossibles = [];
 
     puzzleResolu = false;
+
+    puzzleEtape = 1;
+
+    puzzleEnVerification = false;
 
     afficherPositionPuzzle();
 
@@ -3226,14 +3335,14 @@ function chargerPuzzle(index){
     if(themeEl){
 
         themeEl.textContent = estAnglais
-            ? PUZZLES[puzzleIndex].theme_en
-            : PUZZLES[puzzleIndex].theme;
+            ? ensemble[puzzleIndex].theme_en
+            : ensemble[puzzleIndex].theme;
 
     }
 
     if(compteurEl){
 
-        compteurEl.textContent = (puzzleIndex + 1) + " / " + PUZZLES.length;
+        compteurEl.textContent = (puzzleIndex + 1) + " / " + ensemble.length;
 
     }
 
@@ -3253,9 +3362,67 @@ function chargerPuzzle(index){
 
 }
 
+function changerCategoriePuzzle(categorie){
+
+    puzzleCategorie = categorie;
+
+    document.querySelectorAll(".puzzle-onglet").forEach(onglet=>{
+
+        onglet.classList.toggle("active", onglet.dataset.categorie === categorie);
+
+    });
+
+    chargerPuzzle(0);
+
+}
+
+function marquerReussitePuzzle(){
+
+    puzzleResolu = true;
+
+    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
+    const messageEl = document.getElementById("puzzle-message");
+
+    if(messageEl){
+
+        messageEl.textContent = estAnglais
+            ? "✅ Well played!"
+            : "✅ Bien joué !";
+
+        messageEl.className = "puzzle-message succes";
+
+    }
+
+}
+
+function marquerEchecPuzzleEtRecharger(messagePersonnalise){
+
+    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
+    const messageEl = document.getElementById("puzzle-message");
+
+    if(messageEl){
+
+        messageEl.textContent = messagePersonnalise || (estAnglais
+            ? "Not quite — try again."
+            : "Pas tout à fait — réessayez.");
+
+        messageEl.className = "puzzle-message erreur";
+
+    }
+
+    setTimeout(()=>{
+
+        chargerPuzzle(puzzleIndex);
+
+    }, 900);
+
+}
+
 function gererClicPuzzle(carre){
 
-    if(puzzleResolu) return;
+    if(puzzleResolu || puzzleEnVerification) return;
 
     if(puzzleSelection){
 
@@ -3309,10 +3476,86 @@ function gererClicPuzzle(carre){
 
 function jouerCoupPuzzle(coup){
 
+    if(puzzleCategorie === "tactique"){
+
+        jouerCoupPuzzleTactique(coup);
+
+        return;
+
+    }
+
+    const nCible = puzzleCategorie === "mat2" ? 2 : 1;
+
+    // Étape 1 d'un mat en 2 : le coup doit garantir un mat forcé, pas forcément immédiat
+    if(puzzleCategorie === "mat2" && puzzleEtape === 1){
+
+        const valide = coupMeneAuMatForce(puzzleEtatActuel, coup, 2);
+
+        puzzleSelection = null;
+
+        puzzleCoupsPossibles = [];
+
+        if(!valide){
+
+            afficherPositionPuzzle();
+
+            marquerEchecPuzzleEtRecharger();
+
+            return;
+
+        }
+
+        const apres = appliquerCoup(puzzleEtatActuel, coup);
+
+        const adversaire = coup.piece[0] === "w" ? "b" : "w";
+        const coupsAdversaire = genererCoupsLegaux(apres);
+
+        puzzleEtatActuel = apres;
+
+        afficherPositionPuzzle();
+
+        if(coupsAdversaire.length === 0 && estEnEchec(apres, adversaire)){
+
+            // mat trouvé dès le premier coup : réussite immédiate
+            marquerReussitePuzzle();
+
+            return;
+
+        }
+
+        puzzleEtape = 2;
+
+        const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+        const messageEl = document.getElementById("puzzle-message");
+
+        if(messageEl){
+
+            messageEl.textContent = estAnglais
+                ? "Black replies… find the mate!"
+                : "Les noirs répondent… trouvez le mat !";
+
+            messageEl.className = "puzzle-message";
+
+        }
+
+        setTimeout(()=>{
+
+            const repliqueChoisie = coupsAdversaire[Math.floor(Math.random() * coupsAdversaire.length)];
+
+            puzzleEtatActuel = appliquerCoup(puzzleEtatActuel, repliqueChoisie);
+
+            afficherPositionPuzzle();
+
+        }, 700);
+
+        return;
+
+    }
+
+    // Coup final (mat en 1, ou 2e coup d'un mat en 2) : doit être un mat immédiat
     const apres = appliquerCoup(puzzleEtatActuel, coup);
 
     const adversaire = coup.piece[0] === "w" ? "b" : "w";
-
     const estMat = estEnEchec(apres, adversaire) && genererCoupsLegaux(apres).length === 0;
 
     puzzleEtatActuel = apres;
@@ -3323,44 +3566,105 @@ function jouerCoupPuzzle(coup){
 
     afficherPositionPuzzle();
 
-    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
-
-    const messageEl = document.getElementById("puzzle-message");
-
     if(estMat){
 
-        puzzleResolu = true;
-
-        if(messageEl){
-
-            messageEl.textContent = estAnglais
-                ? "✅ Checkmate! Well played."
-                : "✅ Échec et mat ! Bien joué.";
-
-            messageEl.className = "puzzle-message succes";
-
-        }
+        marquerReussitePuzzle();
 
     }
     else{
 
-        if(messageEl){
-
-            messageEl.textContent = estAnglais
-                ? "Not mate yet — try again."
-                : "Pas encore mat — réessayez.";
-
-            messageEl.className = "puzzle-message erreur";
-
-        }
-
-        setTimeout(()=>{
-
-            chargerPuzzle(puzzleIndex);
-
-        }, 900);
+        marquerEchecPuzzleEtRecharger();
 
     }
+
+}
+
+function jouerCoupPuzzleTactique(coup){
+
+    const etatAvant = puzzleEtatActuel;
+
+    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
+    const uciJoue = coup.from + coup.to + (coup.promotion ? coup.promotion.toLowerCase() : "");
+
+    puzzleSelection = null;
+
+    puzzleCoupsPossibles = [];
+
+    puzzleEnVerification = true;
+
+    const messageEl = document.getElementById("puzzle-message");
+
+    if(messageEl){
+
+        messageEl.textContent = estAnglais ? "⏳ Checking with Stockfish…" : "⏳ Vérification avec Stockfish…";
+
+        messageEl.className = "puzzle-message";
+
+    }
+
+    initialiserStockfishWorker()
+        .then(worker=>{
+
+            const surMessage = (evenement)=>{
+
+                const ligne = evenement.data;
+
+                if(typeof ligne !== "string") return;
+
+                if(ligne.startsWith("bestmove")){
+
+                    worker.removeEventListener("message", surMessage);
+
+                    puzzleEnVerification = false;
+
+                    const meilleurUCI = ligne.split(" ")[1] || "";
+
+                    puzzleEtatActuel = appliquerCoup(etatAvant, coup);
+
+                    afficherPositionPuzzle();
+
+                    if(meilleurUCI === uciJoue){
+
+                        marquerReussitePuzzle();
+
+                    }
+                    else{
+
+                        marquerEchecPuzzleEtRecharger(
+                            estAnglais
+                                ? "Not the best move — try again."
+                                : "Ce n'est pas le meilleur coup — réessayez."
+                        );
+
+                    }
+
+                }
+
+            };
+
+            worker.addEventListener("message", surMessage);
+
+            worker.postMessage("position fen " + exporterFEN(etatAvant));
+
+            worker.postMessage("go depth 15");
+
+        })
+        .catch(()=>{
+
+            puzzleEnVerification = false;
+
+            if(messageEl){
+
+                messageEl.innerHTML = estAnglais
+                    ? "⚠️ Stockfish engine not found. This puzzle type needs it (see the Analysis section)."
+                    : "⚠️ Moteur Stockfish introuvable. Ce type de puzzle en a besoin (voir la section Analyse).";
+
+                messageEl.className = "puzzle-message erreur";
+
+            }
+
+        });
 
 }
 
@@ -3380,6 +3684,8 @@ function initialiserPuzzles(){
 
     const boutonReset = document.getElementById("puzzle-reset");
 
+    const onglets = document.querySelectorAll(".puzzle-onglet");
+
     if(boutonPrecedent){
 
         boutonPrecedent.addEventListener("click", ()=> chargerPuzzle(puzzleIndex - 1));
@@ -3398,7 +3704,16 @@ function initialiserPuzzles(){
 
     }
 
+    onglets.forEach(onglet=>{
+
+        onglet.addEventListener("click", ()=> changerCategoriePuzzle(onglet.dataset.categorie));
+
+    });
+
 }
+
+log("✅ Module 9 undecies chargé");
+/* =====================================================
 
 log("✅ Module 9 undecies chargé");
 /* =====================================================
