@@ -4402,3 +4402,262 @@ html, body{
     }
 
 }
+
+/* =====================================================
+   MODULE 20
+   INTERFACE MOBILE — identité visuelle échecs
+   (barre de nav basse, typographie, micro-interactions)
+===================================================== */
+
+@media (max-width:768px){
+
+    /* --- Typographie : serif de caractère pour les titres,
+           évoque les vieux ouvrages d'échecs --- */
+
+    h1, h2, h3{
+
+        font-family:"Fraunces", Georgia, serif;
+
+        font-optical-sizing:auto;
+
+    }
+
+    h2{
+
+        font-weight:600;
+
+    }
+
+    #accueil h1{
+
+        font-size:2.6em;
+
+        font-weight:700;
+
+        letter-spacing:-0.01em;
+
+        position:relative;
+
+        display:inline-block;
+
+        padding-bottom:14px;
+
+    }
+
+    #accueil h1::after{
+
+        content:"";
+
+        position:absolute;
+
+        left:50%;
+
+        bottom:0;
+
+        transform:translateX(-50%);
+
+        width:56px;
+
+        height:3px;
+
+        background:var(--gold);
+
+        border-radius:2px;
+
+    }
+
+    #accueil{
+
+        text-align:center;
+
+        position:relative;
+
+        padding-top:8px;
+
+    }
+
+    /* Motif damier discret, en filigrane derrière le hero */
+
+    #accueil::before{
+
+        content:"";
+
+        position:absolute;
+
+        top:-10px;
+
+        right:6px;
+
+        width:64px;
+
+        height:64px;
+
+        opacity:0.08;
+
+        pointer-events:none;
+
+        background-image:
+            linear-gradient(45deg, var(--text) 25%, transparent 25%),
+            linear-gradient(-45deg, var(--text) 25%, transparent 25%),
+            linear-gradient(45deg, transparent 75%, var(--text) 75%),
+            linear-gradient(-45deg, transparent 75%, var(--text) 75%);
+
+        background-size:16px 16px;
+
+        background-position:0 0, 0 8px, 8px -8px, -8px 0px;
+
+    }
+
+    /* --- Micro-interactions tactiles --- */
+
+    .echiquier-btn:active,
+    .analyse-btn:active,
+    .quiz-reponse-btn:active,
+    .echiquier-onglet:active,
+    .card:active,
+    #theme-toggle:active,
+    #lang-toggle:active{
+
+        transform:scale(0.96);
+
+    }
+
+    .stat-card,
+    .opening-card,
+    .champion-card{
+
+        transition:transform 0.15s ease;
+
+    }
+
+    .stat-card:active,
+    .opening-card:active,
+    .champion-card:active{
+
+        transform:scale(0.98);
+
+    }
+
+    /* --- Espace pour ne pas passer sous la barre basse --- */
+
+    body{
+
+        padding-bottom:calc(64px + env(safe-area-inset-bottom));
+
+    }
+
+}
+
+/* --- Barre de navigation basse (mobile uniquement) --- */
+
+.mobile-tabbar{
+
+    display:none;
+
+}
+
+@media (max-width:768px){
+
+    .mobile-tabbar{
+
+        display:flex;
+
+        position:fixed;
+
+        left:0;
+
+        right:0;
+
+        bottom:0;
+
+        z-index:900;
+
+        background:var(--surface);
+
+        border-top:1px solid var(--border);
+
+        padding:6px 4px calc(6px + env(safe-area-inset-bottom));
+
+        box-shadow:0 -4px 16px rgba(0,0,0,0.08);
+
+    }
+
+    .mobile-tab{
+
+        flex:1;
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:center;
+
+        justify-content:center;
+
+        gap:2px;
+
+        padding:6px 2px;
+
+        border:none;
+
+        background:none;
+
+        color:var(--text-light);
+
+        text-decoration:none;
+
+        font-family:inherit;
+
+        cursor:pointer;
+
+        border-radius:10px;
+
+        transition:color 0.2s ease, background 0.2s ease;
+
+    }
+
+    .mobile-tab-icone{
+
+        font-size:1.3em;
+
+        line-height:1;
+
+    }
+
+    .mobile-tab-label{
+
+        font-size:0.62em;
+
+        font-weight:600;
+
+        letter-spacing:0.02em;
+
+    }
+
+    .mobile-tab:active{
+
+        transform:scale(0.94);
+
+    }
+
+    .mobile-tab.active{
+
+        color:var(--gold);
+
+    }
+
+    .mobile-tab.active .mobile-tab-icone{
+
+        transform:translateY(-1px);
+
+    }
+
+    /* Le bouton retour-en-haut remonte au-dessus de la tabbar */
+
+    .back-to-top{
+
+        bottom:calc(76px + env(safe-area-inset-bottom)) !important;
+
+    }
+
+}

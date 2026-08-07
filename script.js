@@ -1743,6 +1743,12 @@ const traductionsEN = {
     "puzzle-cat-mat1": "Mate in 1",
     "puzzle-cat-mat2": "Mate in 2",
     "puzzle-cat-tactique": "Tactic (Stockfish)",
+
+    "tab-accueil": "Home",
+    "tab-ouvertures": "Openings",
+    "tab-analyse": "Analysis",
+    "tab-puzzles": "Puzzles",
+    "tab-menu": "Menu",
     "puzzle-reset": "↺ Restart",
     "puzzle-suivant": "Next ▶"
 };
@@ -3714,9 +3720,6 @@ function initialiserPuzzles(){
 
 log("✅ Module 9 undecies chargé");
 /* =====================================================
-
-log("✅ Module 9 undecies chargé");
-/* =====================================================
    MODULE 9 duodecies
    PWA — ENREGISTREMENT DU SERVICE WORKER
 ===================================================== */
@@ -3739,6 +3742,69 @@ function initialiserPWA(){
 }
 
 log("✅ Module 9 duodecies chargé");
+/* =====================================================
+   MODULE 9 terdecies
+   BARRE DE NAVIGATION MOBILE
+===================================================== */
+
+function initialiserBarreMobile(){
+
+    const barre = document.getElementById("mobile-tabbar");
+
+    if(!barre) return;
+
+    const onglets = barre.querySelectorAll(".mobile-tab[data-cible]");
+
+    const boutonMenu = document.getElementById("mobile-tab-menu");
+
+    if(boutonMenu){
+
+        boutonMenu.addEventListener("click", ()=>{
+
+            const toggleNav = document.getElementById("nav-toggle");
+
+            if(toggleNav) toggleNav.click();
+
+        });
+
+    }
+
+    if(!onglets.length) return;
+
+    const sections = Array.from(onglets)
+        .map(onglet => document.getElementById(onglet.dataset.cible))
+        .filter(Boolean);
+
+    if(!sections.length) return;
+
+    const observateur = new IntersectionObserver(
+        (entrees)=>{
+
+            entrees.forEach(entree=>{
+
+                if(!entree.isIntersecting) return;
+
+                const cibleId = entree.target.id;
+
+                onglets.forEach(onglet=>{
+
+                    onglet.classList.toggle(
+                        "active", onglet.dataset.cible === cibleId
+                    );
+
+                });
+
+            });
+
+        },
+        { rootMargin: "-40% 0px -55% 0px" }
+    );
+
+    sections.forEach(section => observateur.observe(section));
+
+}
+
+log("✅ Module 9 terdecies chargé");
 /* =====================================================
    MODULE 10
    INITIALISATION GÉNÉRALE
@@ -3819,6 +3885,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     ========================= */
 
     initialiserPWA();
+
+    /* =========================
+       Barre de navigation mobile
+    ========================= */
+
+    initialiserBarreMobile();
 
     /* =========================
        Statistiques de lecture

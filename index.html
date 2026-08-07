@@ -24,6 +24,12 @@
 
     <title>Chess.dev Studio | L'univers des échecs</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap"
+        rel="stylesheet">
+
     <meta
         name="description"
         content="Découvrez l'histoire des échecs, les plus grands champions, les ouvertures célèbres, l'intelligence artificielle, les règles du jeu et toute la culture échiquéenne sur Chess.dev Studio.">
@@ -2203,6 +2209,49 @@
         ↑
 
     </button>
+
+    <!-- ==========================================
+         Barre de navigation mobile
+    =========================================== -->
+
+    <nav id="mobile-tabbar" class="mobile-tabbar" aria-label="Navigation rapide">
+
+        <a href="#top" class="mobile-tab" data-cible="top">
+
+            <span class="mobile-tab-icone">♟</span>
+            <span class="mobile-tab-label" data-i18n="tab-accueil">Accueil</span>
+
+        </a>
+
+        <a href="#ouvertures" class="mobile-tab" data-cible="ouvertures">
+
+            <span class="mobile-tab-icone">♞</span>
+            <span class="mobile-tab-label" data-i18n="tab-ouvertures">Ouvertures</span>
+
+        </a>
+
+        <a href="#analyse" class="mobile-tab" data-cible="analyse">
+
+            <span class="mobile-tab-icone">🔬</span>
+            <span class="mobile-tab-label" data-i18n="tab-analyse">Analyse</span>
+
+        </a>
+
+        <a href="#puzzles" class="mobile-tab" data-cible="puzzles">
+
+            <span class="mobile-tab-icone">♛</span>
+            <span class="mobile-tab-label" data-i18n="tab-puzzles">Puzzles</span>
+
+        </a>
+
+        <button type="button" id="mobile-tab-menu" class="mobile-tab" aria-label="Ouvrir le menu complet">
+
+            <span class="mobile-tab-icone">☰</span>
+            <span class="mobile-tab-label" data-i18n="tab-menu">Menu</span>
+
+        </button>
+
+    </nav>
 
     <!-- =====================================================
          MODULE 14
