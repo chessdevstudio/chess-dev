@@ -164,8 +164,13 @@
         "@type": "WebSite",
         "name": "Chess.dev Studio",
         "url": "https://chessdevstudio.github.io/chess-dev/",
-        "inLanguage": "fr",
-        "description": "Le site francophone dédié à l'histoire, aux règles, aux ouvertures et aux champions des échecs."
+        "inLanguage": ["fr", "en"],
+        "description": "Le site francophone dédié à l'histoire, aux règles, aux ouvertures et aux champions des échecs, avec analyse de parties et puzzles tactiques.",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://chessdevstudio.github.io/chess-dev/#{search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
     }
     </script>
 
@@ -236,6 +241,8 @@
                     <li><a href="#analyse" class="nav-link" data-i18n="nav-analyse">Analyse</a></li>
 
                     <li><a href="#puzzles" class="nav-link" data-i18n="nav-puzzles">Puzzles</a></li>
+
+                    <li><a href="#horloge" class="nav-link" data-i18n="nav-horloge">Horloge</a></li>
 
                     <li><a href="#bibliographie" class="nav-link" data-i18n="nav-ressources">Ressources</a></li>
 
@@ -1755,7 +1762,7 @@
 
         </header>
 
-        <div id="quiz-conteneur" class="quiz-conteneur"></div>
+        <div id="quiz-conteneur" class="quiz-conteneur" aria-live="polite"></div>
 
     </section>
     <!-- =====================================================
@@ -1844,7 +1851,7 @@
 
         </div>
 
-        <p id="analyse-erreur" class="analyse-erreur" hidden></p>
+        <p id="analyse-erreur" class="analyse-erreur" hidden aria-live="polite"></p>
 
         <div class="echiquier-widget">
 
@@ -1883,6 +1890,18 @@
 
                     </div>
 
+                    <div class="echiquier-controles">
+
+                        <button id="analyse-retourner" class="echiquier-btn" data-i18n="analyse-retourner">⇅ Retourner</button>
+
+                        <button id="analyse-export-fen" class="echiquier-btn" data-i18n="analyse-export-fen">📋 Copier FEN</button>
+
+                        <button id="analyse-export-pgn" class="echiquier-btn" data-i18n="analyse-export-pgn">⬇ Exporter PGN</button>
+
+                    </div>
+
+                    <p id="analyse-copie-confirmation" class="analyse-copie-confirmation" hidden aria-live="polite"></p>
+
                     <div class="analyse-stockfish">
 
                         <button id="analyse-stockfish-bouton" class="echiquier-btn" data-i18n="analyse-stockfish-bouton">
@@ -1891,7 +1910,7 @@
 
                         </button>
 
-                        <div id="analyse-stockfish-resultat" class="analyse-stockfish-resultat"></div>
+                        <div id="analyse-stockfish-resultat" class="analyse-stockfish-resultat" aria-live="polite"></div>
 
                     </div>
 
@@ -1960,7 +1979,7 @@
 
                 <div class="echiquier-panneau">
 
-                    <p id="puzzle-message" class="puzzle-message"></p>
+                    <p id="puzzle-message" class="puzzle-message" aria-live="polite"></p>
 
                     <div id="puzzle-promotion" class="promotion-selecteur" hidden>
 
@@ -1984,6 +2003,96 @@
                     </div>
 
                 </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- =====================================================
+         MODULE 11 sexies
+         HORLOGE D'ÉCHECS
+    ====================================================== -->
+
+    <section
+        id="horloge"
+        class="fade-section search-item">
+
+        <header>
+
+            <h2 data-i18n="horloge-title">
+
+                ⏱️ Horloge d'échecs
+
+            </h2>
+
+            <p data-i18n="horloge-intro">
+
+                Pour jouer à deux sur un vrai échiquier : réglez le temps de
+                départ, puis appuyez sur votre pendule après chaque coup
+                pour lancer le temps de l'adversaire.
+
+            </p>
+
+        </header>
+
+        <div class="horloge-widget">
+
+            <div class="horloge-reglages">
+
+                <label for="horloge-minutes" data-i18n="horloge-minutes-label">Minutes par joueur</label>
+
+                <select id="horloge-minutes">
+                    <option value="1">1</option>
+                    <option value="3">3</option>
+                    <option value="5" selected>5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="60">60</option>
+                </select>
+
+                <label for="horloge-increment" data-i18n="horloge-increment-label">Incrément (secondes)</label>
+
+                <select id="horloge-increment">
+                    <option value="0" selected>0</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                </select>
+
+                <button id="horloge-appliquer" class="analyse-btn" data-i18n="horloge-appliquer">Appliquer</button>
+
+            </div>
+
+            <div class="horloge-pendules">
+
+                <button id="horloge-joueur1" class="horloge-pendule" disabled>
+
+                    <span class="horloge-nom" data-i18n="horloge-joueur1">Joueur 1</span>
+                    <span id="horloge-temps1" class="horloge-temps">05:00</span>
+
+                </button>
+
+                <button id="horloge-joueur2" class="horloge-pendule" disabled>
+
+                    <span class="horloge-nom" data-i18n="horloge-joueur2">Joueur 2</span>
+                    <span id="horloge-temps2" class="horloge-temps">05:00</span>
+
+                </button>
+
+            </div>
+
+            <p id="horloge-message" class="puzzle-message" aria-live="polite"></p>
+
+            <div class="horloge-controles">
+
+                <button id="horloge-demarrer" class="echiquier-btn" data-i18n="horloge-demarrer">▶ Démarrer</button>
+
+                <button id="horloge-pause" class="echiquier-btn" data-i18n="horloge-pause">⏸ Pause</button>
+
+                <button id="horloge-reset" class="echiquier-btn" data-i18n="horloge-reset">↺ Réinitialiser</button>
 
             </div>
 

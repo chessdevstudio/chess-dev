@@ -1749,6 +1749,22 @@ const traductionsEN = {
     "tab-analyse": "Analysis",
     "tab-puzzles": "Puzzles",
     "tab-menu": "Menu",
+
+    "analyse-retourner": "⇅ Flip",
+    "analyse-export-fen": "📋 Copy FEN",
+    "analyse-export-pgn": "⬇ Export PGN",
+
+    "nav-horloge": "Clock",
+    "horloge-title": "⏱️ Chess clock",
+    "horloge-intro": "To play face-to-face on a real board: set the starting time, then tap your own clock after each move to start your opponent's time.",
+    "horloge-minutes-label": "Minutes per player",
+    "horloge-increment-label": "Increment (seconds)",
+    "horloge-appliquer": "Apply",
+    "horloge-joueur1": "Player 1",
+    "horloge-joueur2": "Player 2",
+    "horloge-demarrer": "▶ Start",
+    "horloge-pause": "⏸ Pause",
+    "horloge-reset": "↺ Reset",
     "puzzle-reset": "↺ Restart",
     "puzzle-suivant": "Next ▶"
 };
@@ -2568,7 +2584,25 @@ function construirePlateauAnalyseDOM(){
 
             caseDiv.dataset.square = carre;
 
+            caseDiv.tabIndex = 0;
+
+            caseDiv.setAttribute("role", "button");
+
+            caseDiv.setAttribute("aria-label", carre);
+
             caseDiv.addEventListener("click", ()=> gererClicAnalyse(carre));
+
+            caseDiv.addEventListener("keydown", (e)=>{
+
+                if(e.key === "Enter" || e.key === " "){
+
+                    e.preventDefault();
+
+                    gererClicAnalyse(carre);
+
+                }
+
+            });
 
             plateau.appendChild(caseDiv);
 
@@ -3174,6 +3208,145 @@ function initialiserAnalyse(){
 
     }
 
+    const boutonRetourner = document.getElementById("analyse-retourner");
+
+    const boutonExportFen = document.getElementById("analyse-export-fen");
+
+    const boutonExportPgn = document.getElementById("analyse-export-pgn");
+
+    if(boutonRetourner){
+
+        boutonRetourner.addEventListener("click", basculerRetournementAnalyse);
+
+    }
+
+    if(boutonExportFen){
+
+        boutonExportFen.addEventListener("click", copierFenAnalyse);
+
+    }
+
+    if(boutonExportPgn){
+
+        boutonExportPgn.addEventListener("click", exporterPgnAnalyse);
+
+    }
+
+}
+
+let analyseRetournee = false;
+
+function basculerRetournementAnalyse(){
+
+    analyseRetournee = !analyseRetournee;
+
+    const plateau = document.getElementById("analyse-plateau");
+
+    if(plateau) plateau.classList.toggle("retourne", analyseRetournee);
+
+}
+
+function copierFenAnalyse(){
+
+    const positions = AnalyseEtat.positions;
+
+    if(!positions.length) return;
+
+    const fen = positions[AnalyseEtat.index].fen;
+
+    const confirmation = document.getElementById("analyse-copie-confirmation");
+
+    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
+    const afficherConfirmation = (texte)=>{
+
+        if(!confirmation) return;
+
+        confirmation.textContent = texte;
+
+        confirmation.hidden = false;
+
+        setTimeout(()=>{ confirmation.hidden = true; }, 2500);
+
+    };
+
+    if(navigator.clipboard && navigator.clipboard.writeText){
+
+        navigator.clipboard.writeText(fen)
+            .then(()=> afficherConfirmation(estAnglais ? "✅ FEN copied!" : "✅ FEN copiée !"))
+            .catch(()=> afficherConfirmation(
+                (estAnglais ? "⚠️ Could not copy automatically — " : "⚠️ Copie automatique impossible — ") + fen
+            ));
+
+    }
+    else{
+
+        afficherConfirmation(
+            (estAnglais ? "⚠️ Clipboard unavailable — " : "⚠️ Presse-papiers indisponible — ") + fen
+        );
+
+    }
+
+}
+
+function exporterPgnAnalyse(){
+
+    const positions = AnalyseEtat.positions;
+
+    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
+    const confirmation = document.getElementById("analyse-copie-confirmation");
+
+    if(positions.length <= 1){
+
+        if(confirmation){
+
+            confirmation.textContent = estAnglais
+                ? "⚠️ No moves to export yet."
+                : "⚠️ Aucun coup à exporter pour le moment.";
+
+            confirmation.hidden = false;
+
+            setTimeout(()=>{ confirmation.hidden = true; }, 2500);
+
+        }
+
+        return;
+
+    }
+
+    let pgn = "";
+
+    for(let i = 1; i < positions.length; i++){
+
+        const numeroCoup = Math.ceil(i / 2);
+
+        if(i % 2 === 1) pgn += numeroCoup + ". ";
+
+        pgn += positions[i].san + " ";
+
+    }
+
+    pgn = "[Event \"Chess.dev Studio\"]\n\n" + pgn.trim() + " *";
+
+    const blob = new Blob([pgn], { type:"text/plain" });
+
+    const url = URL.createObjectURL(blob);
+
+    const lien = document.createElement("a");
+
+    lien.href = url;
+
+    lien.download = "partie.pgn";
+
+    document.body.appendChild(lien);
+
+    lien.click();
+
+    document.body.removeChild(lien);
+
+    URL.revokeObjectURL(url);
+
 }
 
 log("✅ Module 9 decies chargé");
@@ -3260,7 +3433,25 @@ function construirePlateauPuzzleDOM(){
 
             caseDiv.dataset.square = carre;
 
+            caseDiv.tabIndex = 0;
+
+            caseDiv.setAttribute("role", "button");
+
+            caseDiv.setAttribute("aria-label", carre);
+
             caseDiv.addEventListener("click", ()=> gererClicPuzzle(carre));
+
+            caseDiv.addEventListener("keydown", (e)=>{
+
+                if(e.key === "Enter" || e.key === " "){
+
+                    e.preventDefault();
+
+                    gererClicPuzzle(carre);
+
+                }
+
+            });
 
             plateau.appendChild(caseDiv);
 
@@ -3806,6 +3997,271 @@ function initialiserBarreMobile(){
 
 log("✅ Module 9 terdecies chargé");
 /* =====================================================
+   MODULE 9 quaterdecies
+   HORLOGE D'ÉCHECS
+===================================================== */
+
+let horlogeMinutes = 5;
+
+let horlogeIncrement = 0;
+
+let horlogeTemps1 = 300;
+
+let horlogeTemps2 = 300;
+
+let horlogeActif = null; // 1, 2, ou null
+
+let horlogeEnCours = false;
+
+let horlogeTermine = false;
+
+let horlogeIntervalId = null;
+
+function formaterTempsHorloge(secondes){
+
+    const s = Math.max(0, Math.round(secondes));
+
+    const m = Math.floor(s / 60);
+
+    const reste = s % 60;
+
+    return String(m).padStart(2, "0") + ":" + String(reste).padStart(2, "0");
+
+}
+
+function mettreAJourAffichageHorloge(){
+
+    const el1 = document.getElementById("horloge-temps1");
+
+    const el2 = document.getElementById("horloge-temps2");
+
+    const pendule1 = document.getElementById("horloge-joueur1");
+
+    const pendule2 = document.getElementById("horloge-joueur2");
+
+    if(el1) el1.textContent = formaterTempsHorloge(horlogeTemps1);
+
+    if(el2) el2.textContent = formaterTempsHorloge(horlogeTemps2);
+
+    if(pendule1){
+
+        pendule1.classList.toggle("actif", horlogeActif === 1 && horlogeEnCours);
+
+        pendule1.classList.toggle("expire", horlogeTemps1 <= 0);
+
+    }
+
+    if(pendule2){
+
+        pendule2.classList.toggle("actif", horlogeActif === 2 && horlogeEnCours);
+
+        pendule2.classList.toggle("expire", horlogeTemps2 <= 0);
+
+    }
+
+}
+
+function appliquerReglagesHorloge(){
+
+    arreterIntervalHorloge();
+
+    const selectMinutes = document.getElementById("horloge-minutes");
+
+    const selectIncrement = document.getElementById("horloge-increment");
+
+    horlogeMinutes = selectMinutes ? Number(selectMinutes.value) : 5;
+
+    horlogeIncrement = selectIncrement ? Number(selectIncrement.value) : 0;
+
+    horlogeTemps1 = horlogeMinutes * 60;
+
+    horlogeTemps2 = horlogeMinutes * 60;
+
+    horlogeActif = null;
+
+    horlogeEnCours = false;
+
+    horlogeTermine = false;
+
+    const pendule1 = document.getElementById("horloge-joueur1");
+
+    const pendule2 = document.getElementById("horloge-joueur2");
+
+    if(pendule1) pendule1.disabled = true;
+
+    if(pendule2) pendule2.disabled = true;
+
+    const messageEl = document.getElementById("horloge-message");
+
+    if(messageEl) messageEl.textContent = "";
+
+    mettreAJourAffichageHorloge();
+
+}
+
+function arreterIntervalHorloge(){
+
+    if(horlogeIntervalId !== null){
+
+        clearInterval(horlogeIntervalId);
+
+        horlogeIntervalId = null;
+
+    }
+
+}
+
+function tickHorloge(){
+
+    if(horlogeActif === 1){
+
+        horlogeTemps1--;
+
+        if(horlogeTemps1 <= 0){
+
+            horlogeTemps1 = 0;
+
+            finDeTempsHorloge(1);
+
+        }
+
+    }
+    else if(horlogeActif === 2){
+
+        horlogeTemps2--;
+
+        if(horlogeTemps2 <= 0){
+
+            horlogeTemps2 = 0;
+
+            finDeTempsHorloge(2);
+
+        }
+
+    }
+
+    mettreAJourAffichageHorloge();
+
+}
+
+function finDeTempsHorloge(joueur){
+
+    arreterIntervalHorloge();
+
+    horlogeEnCours = false;
+
+    horlogeTermine = true;
+
+    const pendule1 = document.getElementById("horloge-joueur1");
+
+    const pendule2 = document.getElementById("horloge-joueur2");
+
+    if(pendule1) pendule1.disabled = true;
+
+    if(pendule2) pendule2.disabled = true;
+
+    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
+    const messageEl = document.getElementById("horloge-message");
+
+    if(messageEl){
+
+        messageEl.textContent = estAnglais
+            ? `⏱️ Time's up for Player ${joueur}!`
+            : `⏱️ Temps écoulé pour le Joueur ${joueur} !`;
+
+        messageEl.className = "puzzle-message erreur";
+
+    }
+
+}
+
+function demarrerHorloge(){
+
+    if(horlogeTermine) return;
+
+    if(horlogeActif === null) horlogeActif = 1;
+
+    horlogeEnCours = true;
+
+    const pendule1 = document.getElementById("horloge-joueur1");
+
+    const pendule2 = document.getElementById("horloge-joueur2");
+
+    if(pendule1) pendule1.disabled = false;
+
+    if(pendule2) pendule2.disabled = false;
+
+    arreterIntervalHorloge();
+
+    horlogeIntervalId = setInterval(tickHorloge, 1000);
+
+    mettreAJourAffichageHorloge();
+
+}
+
+function pauseHorloge(){
+
+    arreterIntervalHorloge();
+
+    horlogeEnCours = false;
+
+    mettreAJourAffichageHorloge();
+
+}
+
+function clicPenduleHorloge(joueur){
+
+    if(!horlogeEnCours || horlogeTermine) return;
+
+    if(horlogeActif !== joueur) return;
+
+    if(joueur === 1) horlogeTemps1 += horlogeIncrement;
+
+    if(joueur === 2) horlogeTemps2 += horlogeIncrement;
+
+    horlogeActif = joueur === 1 ? 2 : 1;
+
+    mettreAJourAffichageHorloge();
+
+}
+
+function initialiserHorloge(){
+
+    const widget = document.querySelector(".horloge-widget");
+
+    if(!widget) return;
+
+    appliquerReglagesHorloge();
+
+    const boutonAppliquer = document.getElementById("horloge-appliquer");
+
+    const boutonDemarrer = document.getElementById("horloge-demarrer");
+
+    const boutonPause = document.getElementById("horloge-pause");
+
+    const boutonReset = document.getElementById("horloge-reset");
+
+    const pendule1 = document.getElementById("horloge-joueur1");
+
+    const pendule2 = document.getElementById("horloge-joueur2");
+
+    if(boutonAppliquer) boutonAppliquer.addEventListener("click", appliquerReglagesHorloge);
+
+    if(boutonDemarrer) boutonDemarrer.addEventListener("click", demarrerHorloge);
+
+    if(boutonPause) boutonPause.addEventListener("click", pauseHorloge);
+
+    if(boutonReset) boutonReset.addEventListener("click", appliquerReglagesHorloge);
+
+    if(pendule1) pendule1.addEventListener("click", ()=> clicPenduleHorloge(1));
+
+    if(pendule2) pendule2.addEventListener("click", ()=> clicPenduleHorloge(2));
+
+}
+
+log("✅ Module 9 quaterdecies chargé");
+/* =====================================================
    MODULE 10
    INITIALISATION GÉNÉRALE
 ===================================================== */
@@ -3891,6 +4347,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     ========================= */
 
     initialiserBarreMobile();
+
+    /* =========================
+       Horloge d'échecs
+    ========================= */
+
+    initialiserHorloge();
 
     /* =========================
        Statistiques de lecture

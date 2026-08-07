@@ -3567,6 +3567,16 @@ input:focus-visible{
 
 }
 
+.echiquier-case:focus-visible{
+
+    outline:3px solid var(--blue);
+
+    outline-offset:-3px;
+
+    z-index:1;
+
+}
+
 @media (prefers-reduced-motion: reduce){
 
     *,
@@ -4404,41 +4414,146 @@ html, body{
 }
 
 /* =====================================================
+   MODULE 20 bis
+   IDENTITÉ VISUELLE ÉCHECS — commune bureau + mobile
+   (typographie, hero, micro-interactions)
+===================================================== */
+
+/* --- Typographie : serif de caractère pour les titres,
+       évoque les vieux ouvrages d'échecs --- */
+
+h1, h2, h3{
+
+    font-family:"Fraunces", Georgia, serif;
+
+    font-optical-sizing:auto;
+
+}
+
+h2{
+
+    font-weight:600;
+
+}
+
+#accueil{
+
+    text-align:center;
+
+    position:relative;
+
+    padding-top:8px;
+
+}
+
+#accueil h1{
+
+    font-weight:700;
+
+    letter-spacing:-0.01em;
+
+    position:relative;
+
+    display:inline-block;
+
+    padding-bottom:20px;
+
+}
+
+#accueil h1::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:0;
+
+    transform:translateX(-50%);
+
+    width:72px;
+
+    height:4px;
+
+    background:var(--gold);
+
+    border-radius:2px;
+
+}
+
+/* Motif damier discret, en filigrane derrière le hero */
+
+#accueil::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-10px;
+
+    right:0;
+
+    width:120px;
+
+    height:120px;
+
+    opacity:0.06;
+
+    pointer-events:none;
+
+    background-image:
+        linear-gradient(45deg, var(--text) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--text) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--text) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--text) 75%);
+
+    background-size:24px 24px;
+
+    background-position:0 0, 0 12px, 12px -12px, -12px 0px;
+
+}
+
+/* --- Micro-interactions tactiles (utiles aussi en clic souris) --- */
+
+.echiquier-btn:active,
+.analyse-btn:active,
+.quiz-reponse-btn:active,
+.echiquier-onglet:active,
+#theme-toggle:active,
+#lang-toggle:active{
+
+    transform:scale(0.96);
+
+}
+
+.stat-card,
+.opening-card,
+.champion-card{
+
+    transition:transform 0.15s ease;
+
+}
+
+.stat-card:active,
+.opening-card:active,
+.champion-card:active{
+
+    transform:scale(0.98);
+
+}
+
+/* =====================================================
    MODULE 20
    INTERFACE MOBILE — identité visuelle échecs
-   (barre de nav basse, typographie, micro-interactions)
+   (barre de nav basse, ajustements de taille)
 ===================================================== */
 
 @media (max-width:768px){
 
-    /* --- Typographie : serif de caractère pour les titres,
-           évoque les vieux ouvrages d'échecs --- */
-
-    h1, h2, h3{
-
-        font-family:"Fraunces", Georgia, serif;
-
-        font-optical-sizing:auto;
-
-    }
-
-    h2{
-
-        font-weight:600;
-
-    }
-
     #accueil h1{
 
         font-size:2.6em;
-
-        font-weight:700;
-
-        letter-spacing:-0.01em;
-
-        position:relative;
-
-        display:inline-block;
 
         padding-bottom:14px;
 
@@ -4446,43 +4561,13 @@ html, body{
 
     #accueil h1::after{
 
-        content:"";
-
-        position:absolute;
-
-        left:50%;
-
-        bottom:0;
-
-        transform:translateX(-50%);
-
         width:56px;
 
         height:3px;
 
-        background:var(--gold);
-
-        border-radius:2px;
-
     }
-
-    #accueil{
-
-        text-align:center;
-
-        position:relative;
-
-        padding-top:8px;
-
-    }
-
-    /* Motif damier discret, en filigrane derrière le hero */
 
     #accueil::before{
-
-        content:"";
-
-        position:absolute;
 
         top:-10px;
 
@@ -4494,49 +4579,15 @@ html, body{
 
         opacity:0.08;
 
-        pointer-events:none;
-
-        background-image:
-            linear-gradient(45deg, var(--text) 25%, transparent 25%),
-            linear-gradient(-45deg, var(--text) 25%, transparent 25%),
-            linear-gradient(45deg, transparent 75%, var(--text) 75%),
-            linear-gradient(-45deg, transparent 75%, var(--text) 75%);
-
         background-size:16px 16px;
 
         background-position:0 0, 0 8px, 8px -8px, -8px 0px;
 
     }
 
-    /* --- Micro-interactions tactiles --- */
-
-    .echiquier-btn:active,
-    .analyse-btn:active,
-    .quiz-reponse-btn:active,
-    .echiquier-onglet:active,
-    .card:active,
-    #theme-toggle:active,
-    #lang-toggle:active{
-
-        transform:scale(0.96);
-
-    }
-
-    .stat-card,
-    .opening-card,
-    .champion-card{
-
-        transition:transform 0.15s ease;
-
-    }
-
-    .stat-card:active,
-    .opening-card:active,
-    .champion-card:active{
-
-        transform:scale(0.98);
-
-    }
+    /* Motif damier discret, en filigrane derrière le hero — voir la
+       déclaration principale ci-dessus (MODULE 20 bis), ceci ne fait
+       que réajuster la taille pour mobile */
 
     /* --- Espace pour ne pas passer sous la barre basse --- */
 
@@ -4657,6 +4708,329 @@ html, body{
     .back-to-top{
 
         bottom:calc(76px + env(safe-area-inset-bottom)) !important;
+
+    }
+
+}
+
+/* =====================================================
+   MODULE 21
+   ANALYSE — retournement, export
+===================================================== */
+
+.echiquier-plateau.retourne{
+
+    transform:rotate(180deg);
+
+}
+
+.echiquier-plateau.retourne .echiquier-case{
+
+    transform:rotate(180deg);
+
+}
+
+.analyse-copie-confirmation{
+
+    margin-top:8px;
+
+    padding:10px 14px;
+
+    background:rgba(34,197,94,0.12);
+
+    border:1px solid #22c55e;
+
+    border-radius:10px;
+
+    color:#16a34a;
+
+    font-size:0.85em;
+
+    word-break:break-all;
+
+}
+
+/* =====================================================
+   MODULE 22
+   IMPRESSION
+===================================================== */
+
+@media print{
+
+    #nav-toggle,
+    #searchInput,
+    .search-container,
+    aside#info-panel,
+    .mobile-tabbar,
+    .back-to-top,
+    #theme-toggle,
+    #lang-toggle,
+    header nav,
+    .echiquier-widget,
+    .puzzle-widget,
+    .analyse-entrees,
+    .analyse-stockfish,
+    .quiz-conteneur,
+    footer,
+    .fade-section:not(.visible){
+
+        display:none !important;
+
+    }
+
+    body{
+
+        background:#fff !important;
+
+        color:#000 !important;
+
+        font-size:12pt;
+
+        padding-bottom:0 !important;
+
+    }
+
+    a{
+
+        color:#000 !important;
+
+        text-decoration:underline;
+
+    }
+
+    a[href^="http"]::after{
+
+        content:" (" attr(href) ")";
+
+        font-size:0.8em;
+
+        color:#555;
+
+    }
+
+    h1, h2, h3{
+
+        color:#000 !important;
+
+        break-after:avoid;
+
+        font-family:Georgia, serif;
+
+    }
+
+    section{
+
+        break-inside:avoid-page;
+
+        opacity:1 !important;
+
+        transform:none !important;
+
+    }
+
+    table{
+
+        border:1px solid #000;
+
+    }
+
+    th, td{
+
+        border:1px solid #999;
+
+    }
+}
+
+/* =====================================================
+   MODULE 24
+   HORLOGE D'ÉCHECS
+===================================================== */
+
+.horloge-widget{
+
+    margin-top:20px;
+
+    padding:24px;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
+}
+
+.horloge-reglages{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+    margin-bottom:24px;
+
+    padding-bottom:20px;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.horloge-reglages label{
+
+    font-size:0.85em;
+
+    font-weight:600;
+
+    color:var(--text);
+
+}
+
+.horloge-reglages select{
+
+    padding:8px 12px;
+
+    background:var(--bg);
+
+    border:1px solid var(--border);
+
+    border-radius:8px;
+
+    color:var(--text);
+
+    font-family:inherit;
+
+    font-size:0.9em;
+
+}
+
+.horloge-pendules{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:16px;
+
+}
+
+.horloge-pendule{
+
+    padding:24px 12px;
+
+    background:var(--bg);
+
+    border:2px solid var(--border);
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-family:inherit;
+
+    transition:border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+
+}
+
+.horloge-pendule:disabled{
+
+    cursor:not-allowed;
+
+    opacity:0.6;
+
+}
+
+.horloge-pendule:active:not(:disabled){
+
+    transform:scale(0.97);
+
+}
+
+.horloge-pendule.actif{
+
+    border-color:var(--gold);
+
+    background:rgba(212,175,55,0.1);
+
+}
+
+.horloge-pendule.expire{
+
+    border-color:#ef4444;
+
+    background:rgba(239,68,68,0.1);
+
+}
+
+.horloge-nom{
+
+    font-size:0.85em;
+
+    font-weight:600;
+
+    color:var(--text-light);
+
+    text-transform:uppercase;
+
+    letter-spacing:0.03em;
+
+}
+
+.horloge-temps{
+
+    font-family:"Courier New", monospace;
+
+    font-size:2.2em;
+
+    font-weight:700;
+
+    color:var(--text);
+
+    font-variant-numeric:tabular-nums;
+
+}
+
+.horloge-pendule.actif .horloge-temps{
+
+    color:var(--gold);
+
+}
+
+.horloge-controles{
+
+    margin-top:20px;
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+}
+
+@media (max-width:480px){
+
+    .horloge-pendules{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .horloge-temps{
+
+        font-size:1.8em;
 
     }
 
