@@ -3615,7 +3615,25 @@ const PUZZLES_MAT1 = [
     { fen:"6k1/8/6K1/8/8/8/8/7Q w - - 0 1", theme:"Mat en 1 — Dame, roi acculé", theme_en:"Mate in 1 — Queen mate, cornered king" },
     { fen:"7k/R7/1R6/8/8/8/8/6K1 w - - 0 1", theme:"Mat en 1 — Escalier", theme_en:"Mate in 1 — Ladder mate" },
     { fen:"6k1/8/6K1/8/8/8/8/2Q5 w - - 0 1", theme:"Mat en 1 — Dame soutenue par le roi", theme_en:"Mate in 1 — King-supported queen mate" },
-    { fen:"k7/2K5/8/8/8/8/8/1Q6 w - - 0 1", theme:"Mat en 1 — Dame, roi au coin", theme_en:"Mate in 1 — Queen mate, king in the corner" }
+    { fen:"k7/2K5/8/8/8/8/8/1Q6 w - - 0 1", theme:"Mat en 1 — Dame, roi au coin", theme_en:"Mate in 1 — Queen mate, king in the corner" },
+
+    { fen:"k7/8/K7/8/8/8/8/Q7 w - - 0 1", theme:"Mat en 1 — Dame en diagonale (coin a8)", theme_en:"Mate in 1 — Diagonal queen mate (a8 corner)" },
+    { fen:"k7/8/K7/8/8/8/Q7/8 w - - 0 1", theme:"Mat en 1 — Dame rapprochée (coin a8)", theme_en:"Mate in 1 — Close queen mate (a8 corner)" },
+    { fen:"7k/Q7/5K2/8/8/8/8/8 w - - 0 1", theme:"Mat en 1 — Dame et roi (coin h8)", theme_en:"Mate in 1 — Queen & king mate (h8 corner)" },
+    { fen:"7k/1Q6/5K2/8/8/8/8/8 w - - 0 1", theme:"Mat en 1 — Variante coin h8", theme_en:"Mate in 1 — h8 corner variation" },
+    { fen:"8/8/8/8/Q7/K7/8/k7 w - - 0 1", theme:"Mat en 1 — Roi noir en a1", theme_en:"Mate in 1 — Black king on a1" },
+    { fen:"8/8/8/Q7/8/K7/8/k7 w - - 0 1", theme:"Mat en 1 — Variante coin a1", theme_en:"Mate in 1 — a1 corner variation" },
+    { fen:"8/8/8/8/8/8/8/Q4K1k w - - 0 1", theme:"Mat en 1 — Roi noir en h1", theme_en:"Mate in 1 — Black king on h1" },
+    { fen:"8/8/8/8/8/8/Q7/5K1k w - - 0 1", theme:"Mat en 1 — Variante coin h1", theme_en:"Mate in 1 — h1 corner variation" },
+
+    { fen:"k7/8/K7/8/8/8/8/2R5 w - - 0 1", theme:"Mat en 1 — Tour (coin a8)", theme_en:"Mate in 1 — Rook mate (a8 corner)" },
+    { fen:"k7/8/K7/8/8/8/2R5/8 w - - 0 1", theme:"Mat en 1 — Tour rapprochée (coin a8)", theme_en:"Mate in 1 — Close rook mate (a8 corner)" },
+    { fen:"7k/5K2/8/8/8/8/8/R7 w - - 0 1", theme:"Mat en 1 — Tour (coin h8)", theme_en:"Mate in 1 — Rook mate (h8 corner)" },
+    { fen:"7k/5K2/8/8/8/8/R7/8 w - - 0 1", theme:"Mat en 1 — Variante coin h8", theme_en:"Mate in 1 — h8 corner variation" },
+    { fen:"8/8/8/8/8/K7/2R5/k7 w - - 0 1", theme:"Mat en 1 — Roi noir en a1", theme_en:"Mate in 1 — Black king on a1" },
+    { fen:"8/8/8/8/8/K1R5/8/k7 w - - 0 1", theme:"Mat en 1 — Variante coin a1", theme_en:"Mate in 1 — a1 corner variation" },
+    { fen:"8/8/8/8/8/R7/8/5K1k w - - 0 1", theme:"Mat en 1 — Roi noir en h1", theme_en:"Mate in 1 — Black king on h1" },
+    { fen:"8/8/8/8/R7/8/8/5K1k w - - 0 1", theme:"Mat en 1 — Variante coin h1", theme_en:"Mate in 1 — h1 corner variation" }
 
 ];
 
@@ -3626,7 +3644,18 @@ const PUZZLES_MAT2 = [
     { fen:"k7/8/8/K2R4/8/8/8/8 w - - 0 1", theme:"Mat en 2 — Technique tour + roi", theme_en:"Mate in 2 — King & rook technique" },
     { fen:"7k/1Q6/8/4K3/8/8/8/8 w - - 0 1", theme:"Mat en 2 — Roi noir dans le coin h8", theme_en:"Mate in 2 — Black king in the h8 corner" },
     { fen:"7k/8/4K3/8/8/8/Q7/8 w - - 0 1", theme:"Mat en 2 — Dame à distance", theme_en:"Mate in 2 — Queen from afar" },
-    { fen:"k7/3R4/8/1K6/8/8/8/8 w - - 0 1", theme:"Mat en 2 — Tour déjà avancée", theme_en:"Mate in 2 — Rook already advanced" }
+    { fen:"k7/3R4/8/1K6/8/8/8/8 w - - 0 1", theme:"Mat en 2 — Tour déjà avancée", theme_en:"Mate in 2 — Rook already advanced" },
+
+    { fen:"k7/8/8/K7/8/8/1Q6/8 w - - 0 1", theme:"Mat en 2 — Coin a8, dame en b2", theme_en:"Mate in 2 — a8 corner, queen on b2" },
+    { fen:"k7/8/8/K1Q5/8/8/8/8 w - - 0 1", theme:"Mat en 2 — Coin a8, dame en c5", theme_en:"Mate in 2 — a8 corner, queen on c5" },
+    { fen:"7k/Q7/8/4K3/8/8/8/8 w - - 0 1", theme:"Mat en 2 — Coin h8, dame en a7", theme_en:"Mate in 2 — h8 corner, queen on a7" },
+    { fen:"8/8/8/1Q6/K7/8/8/k7 w - - 0 1", theme:"Mat en 2 — Coin a1, dame en b5", theme_en:"Mate in 2 — a1 corner, queen on b5" },
+    { fen:"8/8/8/8/8/8/1Q6/4K2k w - - 0 1", theme:"Mat en 2 — Coin h1, dame en b2", theme_en:"Mate in 2 — h1 corner, queen on b2" },
+    { fen:"k7/8/8/K7/8/8/8/3R4 w - - 0 1", theme:"Mat en 2 — Coin a8, tour en d1", theme_en:"Mate in 2 — a8 corner, rook on d1" },
+    { fen:"k7/4R3/8/K7/8/8/8/8 w - - 0 1", theme:"Mat en 2 — Coin a8, tour en e7", theme_en:"Mate in 2 — a8 corner, rook on e7" },
+    { fen:"7k/8/4K3/8/8/8/8/1R6 w - - 0 1", theme:"Mat en 2 — Coin h8, tour en b1", theme_en:"Mate in 2 — h8 corner, rook on b1" },
+    { fen:"8/3R4/8/8/K7/8/8/k7 w - - 0 1", theme:"Mat en 2 — Coin a1, tour en d7", theme_en:"Mate in 2 — a1 corner, rook on d7" },
+    { fen:"8/8/1R6/8/8/8/8/4K2k w - - 0 1", theme:"Mat en 2 — Coin h1, tour en b6", theme_en:"Mate in 2 — h1 corner, rook on b6" }
 
 ];
 
@@ -3634,7 +3663,14 @@ const PUZZLES_TACTIQUE = [
 
     { fen:"4k3/8/8/7q/6N1/8/8/6K1 w - - 0 1", theme:"Tactique — Fourchette de cavalier", theme_en:"Tactic — Knight fork" },
     { fen:"6k1/8/8/q7/8/8/8/R5K1 w - - 0 1", theme:"Tactique — Pièce non défendue", theme_en:"Tactic — Undefended piece" },
-    { fen:"6k1/5p2/8/3b4/8/1B6/6PP/6K1 w - - 0 1", theme:"Tactique — Gagner une pièce", theme_en:"Tactic — Win a piece" }
+    { fen:"6k1/5p2/8/3b4/8/1B6/6PP/6K1 w - - 0 1", theme:"Tactique — Gagner une pièce", theme_en:"Tactic — Win a piece" },
+
+    { fen:"4r1k1/5ppp/8/8/8/1B6/5PPP/6K1 w - - 0 1", theme:"Tactique — Clouage et gain de la tour", theme_en:"Tactic — Pin and win the rook" },
+    { fen:"6k1/4rppp/8/2B5/8/8/5PPP/6K1 w - - 0 1", theme:"Tactique — Fourchette de fou", theme_en:"Tactic — Bishop fork" },
+    { fen:"3r2k1/5ppp/8/8/8/5N2/5PPP/6K1 w - - 0 1", theme:"Tactique — Fourchette de cavalier (tour)", theme_en:"Tactic — Knight fork (rook)" },
+    { fen:"6k1/3n1ppp/8/8/B7/8/5PPP/6K1 w - - 0 1", theme:"Tactique — Cavalier non défendu", theme_en:"Tactic — Undefended knight" },
+    { fen:"r5k1/5ppp/8/8/8/8/1R3PPP/6K1 w - - 0 1", theme:"Tactique — Colonne ouverte", theme_en:"Tactic — Open file" },
+    { fen:"6k1/2q2ppp/8/8/4N3/8/5PPP/6K1 w - - 0 1", theme:"Tactique — Fourchette de cavalier (dame)", theme_en:"Tactic — Knight fork (queen)" }
 
 ];
 
