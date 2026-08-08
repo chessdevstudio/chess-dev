@@ -267,13 +267,20 @@ function chargerTheme(){
 
     const theme = localStorage.getItem(THEME_KEY);
 
-    if(theme === "dark"){
+    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
+    const preferenceSysteme = window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    const doitEtreSombre = theme === "dark" || (theme === null && preferenceSysteme);
+
+    if(doitEtreSombre){
 
         App.body.classList.add("dark-mode");
 
         if(App.themeButton){
 
-            App.themeButton.textContent = "☀️ Mode clair";
+            App.themeButton.textContent = estAnglais ? "☀️ Light mode" : "☀️ Mode clair";
 
         }
 
@@ -283,7 +290,7 @@ function chargerTheme(){
 
         if(App.themeButton){
 
-            App.themeButton.textContent = "🌙 Mode sombre";
+            App.themeButton.textContent = estAnglais ? "🌙 Dark mode" : "🌙 Mode sombre";
 
         }
 
@@ -301,6 +308,8 @@ function changerTheme(){
 
     const sombre = App.body.classList.contains("dark-mode");
 
+    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
     localStorage.setItem(
 
         THEME_KEY,
@@ -311,11 +320,9 @@ function changerTheme(){
 
     if(App.themeButton){
 
-        App.themeButton.textContent =
-
-            sombre
-                ? "☀️ Mode clair"
-                : "🌙 Mode sombre";
+        App.themeButton.textContent = sombre
+            ? (estAnglais ? "☀️ Light mode" : "☀️ Mode clair")
+            : (estAnglais ? "🌙 Dark mode" : "🌙 Mode sombre");
 
     }
 
@@ -1765,6 +1772,13 @@ const traductionsEN = {
     "horloge-demarrer": "▶ Start",
     "horloge-pause": "⏸ Pause",
     "horloge-reset": "↺ Reset",
+
+    "revoir-tutoriel": "🎓 Replay the tutorial",
+
+    "historique-title": "💾 My saved games",
+    "historique-nom-placeholder": "Game name (optional)",
+    "historique-sauvegarder": "💾 Save this game",
+    "historique-vide": "No saved games yet.",
     "puzzle-reset": "↺ Restart",
     "puzzle-suivant": "Next ▶"
 };
@@ -1838,6 +1852,16 @@ function appliquerLangue(langue){
 
     }
 
+    if(App.themeButton){
+
+        const sombre = App.body.classList.contains("dark-mode");
+
+        App.themeButton.textContent = sombre
+            ? (langue === "en" ? "☀️ Light mode" : "☀️ Mode clair")
+            : (langue === "en" ? "🌙 Dark mode" : "🌙 Mode sombre");
+
+    }
+
     if(document.getElementById("quiz-conteneur")){
 
         afficherQuestionQuiz();
@@ -1859,6 +1883,12 @@ function appliquerLangue(langue){
     if(document.getElementById("analyse-plateau") && AnalyseEtat.positions.length){
 
         mettreAJourAnalyse();
+
+    }
+
+    if(document.getElementById("historique-liste")){
+
+        rafraichirListeHistorique();
 
     }
 
@@ -3351,6 +3381,227 @@ function exporterPgnAnalyse(){
 
 log("✅ Module 9 decies chargé");
 /* =====================================================
+   MODULE 9 decies bis
+   HISTORIQUE DE PARTIES (localStorage)
+===================================================== */
+
+const HISTORIQUE_CLE = "chessdev-parties-sauvegardees";
+
+function obtenirPartiesSauvegardees(){
+
+    try{
+
+        const brut = localStorage.getItem(HISTORIQUE_CLE);
+
+        const liste = brut ? JSON.parse(brut) : [];
+
+        return Array.isArray(liste) ? liste : [];
+
+    }
+    catch(erreur){
+
+        return [];
+
+    }
+
+}
+
+function enregistrerPartiesSauvegardees(liste){
+
+    try{
+
+        localStorage.setItem(HISTORIQUE_CLE, JSON.stringify(liste));
+
+        return true;
+
+    }
+    catch(erreur){
+
+        return false;
+
+    }
+
+}
+
+function formaterDateHistorique(dateIso){
+
+    try{
+
+        const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
+        return new Date(dateIso).toLocaleString(estAnglais ? "en-US" : "fr-FR", {
+            day:"2-digit", month:"2-digit", year:"numeric",
+            hour:"2-digit", minute:"2-digit"
+        });
+
+    }
+    catch(erreur){
+
+        return dateIso;
+
+    }
+
+}
+
+function sauvegarderPartieActuelle(){
+
+    const positions = AnalyseEtat.positions;
+
+    const messageEl = document.getElementById("analyse-copie-confirmation");
+
+    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
+    if(!positions || positions.length <= 1){
+
+        if(messageEl){
+
+            messageEl.textContent = estAnglais
+                ? "⚠️ No moves to save yet."
+                : "⚠️ Aucun coup à sauvegarder pour le moment.";
+
+            messageEl.hidden = false;
+
+            setTimeout(()=>{ messageEl.hidden = true; }, 2500);
+
+        }
+
+        return;
+
+    }
+
+    const champNom = document.getElementById("historique-nom-input");
+
+    const nomSaisi = champNom ? champNom.value.trim() : "";
+
+    const coupsSAN = positions.slice(1).map(p => p.san);
+
+    const partie = {
+
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
+
+        date: new Date().toISOString(),
+
+        nom: nomSaisi || (estAnglais ? "Untitled game" : "Partie sans nom"),
+
+        coups: coupsSAN,
+
+        fenFinal: positions[positions.length - 1].fen
+
+    };
+
+    const liste = obtenirPartiesSauvegardees();
+
+    liste.unshift(partie);
+
+    enregistrerPartiesSauvegardees(liste);
+
+    if(champNom) champNom.value = "";
+
+    rafraichirListeHistorique();
+
+}
+
+function chargerPartieHistorique(id){
+
+    const liste = obtenirPartiesSauvegardees();
+
+    const partie = liste.find(p => p.id === id);
+
+    if(!partie) return;
+
+    const pgnReconstruit = partie.coups
+        .map((san, i)=> (i % 2 === 0 ? Math.floor(i / 2) + 1 + ". " : "") + san)
+        .join(" ");
+
+    chargerPGNDansAnalyse(pgnReconstruit);
+
+    const sectionAnalyse = document.getElementById("analyse");
+
+    if(sectionAnalyse) sectionAnalyse.scrollIntoView({ behavior:"smooth", block:"start" });
+
+}
+
+function supprimerPartieHistorique(id){
+
+    const liste = obtenirPartiesSauvegardees().filter(p => p.id !== id);
+
+    enregistrerPartiesSauvegardees(liste);
+
+    rafraichirListeHistorique();
+
+}
+
+function rafraichirListeHistorique(){
+
+    const listeEl = document.getElementById("historique-liste");
+
+    const videEl = document.getElementById("historique-vide");
+
+    if(!listeEl) return;
+
+    const liste = obtenirPartiesSauvegardees();
+
+    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
+    if(videEl) videEl.hidden = liste.length > 0;
+
+    listeEl.innerHTML = liste.map(partie => `
+        <li class="historique-item">
+            <div class="historique-item-info">
+                <span class="historique-item-nom">${echapperHTML(partie.nom)}</span>
+                <span class="historique-item-details">${formaterDateHistorique(partie.date)} — ${partie.coups.length} ${estAnglais ? "moves" : "coups"}</span>
+            </div>
+            <div class="historique-item-actions">
+                <button class="historique-charger" data-id="${partie.id}">${estAnglais ? "▶ Load" : "▶ Charger"}</button>
+                <button class="historique-supprimer" data-id="${partie.id}">🗑 ${estAnglais ? "Delete" : "Supprimer"}</button>
+            </div>
+        </li>
+    `).join("");
+
+    listeEl.querySelectorAll(".historique-charger").forEach(bouton=>{
+
+        bouton.addEventListener("click", ()=> chargerPartieHistorique(bouton.dataset.id));
+
+    });
+
+    listeEl.querySelectorAll(".historique-supprimer").forEach(bouton=>{
+
+        bouton.addEventListener("click", ()=> supprimerPartieHistorique(bouton.dataset.id));
+
+    });
+
+}
+
+function echapperHTML(texte){
+
+    const div = document.createElement("div");
+
+    div.textContent = texte;
+
+    return div.innerHTML;
+
+}
+
+function initialiserHistorique(){
+
+    const widget = document.querySelector(".historique-widget");
+
+    if(!widget) return;
+
+    const boutonSauvegarder = document.getElementById("historique-sauvegarder");
+
+    if(boutonSauvegarder){
+
+        boutonSauvegarder.addEventListener("click", sauvegarderPartieActuelle);
+
+    }
+
+    rafraichirListeHistorique();
+
+}
+
+log("✅ Module 9 decies bis chargé");
+/* =====================================================
    MODULE 9 undecies
    PUZZLES TACTIQUES (mat en 1, mat en 2, tactique Stockfish)
 ===================================================== */
@@ -4262,6 +4513,226 @@ function initialiserHorloge(){
 
 log("✅ Module 9 quaterdecies chargé");
 /* =====================================================
+   MODULE 9 quindecies
+   TUTORIEL INTERACTIF
+===================================================== */
+
+const ETAPES_TUTORIEL = [
+    {
+        icone:"♟️",
+        titre_fr:"Bienvenue sur Chess.dev Studio",
+        texte_fr:"Un site complet sur les échecs : histoire, règles, ouvertures, champions, IA, et plusieurs outils interactifs. Petit tour rapide en 6 étapes.",
+        titre_en:"Welcome to Chess.dev Studio",
+        texte_en:"A complete chess site: history, rules, openings, champions, AI, and several interactive tools. Quick 6-step tour."
+    },
+    {
+        icone:"🔍",
+        titre_fr:"Recherche instantanée",
+        texte_fr:"La barre de recherche en haut filtre le site en direct — tapez un mot-clé pour retrouver une section précise instantanément.",
+        titre_en:"Instant search",
+        texte_en:"The search bar at the top filters the site live — type a keyword to instantly find a specific section."
+    },
+    {
+        icone:"🎮",
+        titre_fr:"Échiquiers interactifs",
+        texte_fr:"Dans « Ouvertures » et « Analyse », vous pouvez cliquer directement sur les pièces pour jouer des coups — le moteur vérifie leur légalité.",
+        titre_en:"Interactive chessboards",
+        texte_en:"In \"Openings\" and \"Analysis\", you can click directly on pieces to make moves — the engine checks their legality."
+    },
+    {
+        icone:"🔬",
+        titre_fr:"Analyse de parties",
+        texte_fr:"Collez une position FEN ou une partie PGN pour l'étudier, et obtenez une évaluation du moteur Stockfish directement dans votre navigateur.",
+        titre_en:"Game analysis",
+        texte_en:"Paste a FEN position or a PGN game to study it, and get a Stockfish engine evaluation right in your browser."
+    },
+    {
+        icone:"🧩",
+        titre_fr:"Puzzles & horloge",
+        texte_fr:"Entraînez-vous avec des puzzles (mat en 1, mat en 2, tactique), testez vos connaissances au quiz, ou jouez à deux avec l'horloge d'échecs.",
+        titre_en:"Puzzles & clock",
+        texte_en:"Practice with puzzles (mate in 1, mate in 2, tactics), test your knowledge with the quiz, or play locally with the chess clock."
+    },
+    {
+        icone:"⚙️",
+        titre_fr:"Personnalisez votre expérience",
+        texte_fr:"Le mode sombre et la langue (FR/EN) se règlent dans le panneau latéral. Bonne visite !",
+        titre_en:"Customize your experience",
+        texte_en:"Dark mode and language (FR/EN) can be set in the side panel. Enjoy your visit!"
+    }
+];
+
+let tutorielEtapeActuelle = 0;
+
+function afficherEtapeTutoriel(){
+
+    const estAnglais = (typeof langueActuelle !== "undefined") && langueActuelle === "en";
+
+    const etape = ETAPES_TUTORIEL[tutorielEtapeActuelle];
+
+    const iconeEl = document.getElementById("tutoriel-icone");
+
+    const titreEl = document.getElementById("tutoriel-titre");
+
+    const texteEl = document.getElementById("tutoriel-texte");
+
+    const pointsEl = document.getElementById("tutoriel-points");
+
+    const boutonPrecedent = document.getElementById("tutoriel-precedent");
+
+    const boutonSuivant = document.getElementById("tutoriel-suivant");
+
+    if(iconeEl) iconeEl.textContent = etape.icone;
+
+    if(titreEl) titreEl.textContent = estAnglais ? etape.titre_en : etape.titre_fr;
+
+    if(texteEl) texteEl.textContent = estAnglais ? etape.texte_en : etape.texte_fr;
+
+    if(pointsEl){
+
+        pointsEl.innerHTML = ETAPES_TUTORIEL
+            .map((_, i)=> `<span class="tutoriel-point${i === tutorielEtapeActuelle ? " actif" : ""}"></span>`)
+            .join("");
+
+    }
+
+    if(boutonPrecedent) boutonPrecedent.disabled = tutorielEtapeActuelle === 0;
+
+    if(boutonSuivant){
+
+        const dernierEtape = tutorielEtapeActuelle === ETAPES_TUTORIEL.length - 1;
+
+        boutonSuivant.textContent = dernierEtape
+            ? (estAnglais ? "Get started" : "Commencer")
+            : (estAnglais ? "Next ▶" : "Suivant ▶");
+
+    }
+
+}
+
+function ouvrirTutoriel(){
+
+    const modal = document.getElementById("tutoriel-modal");
+
+    if(!modal) return;
+
+    tutorielEtapeActuelle = 0;
+
+    afficherEtapeTutoriel();
+
+    modal.style.display = "";
+
+    modal.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+
+}
+
+function fermerTutoriel(){
+
+    const modal = document.getElementById("tutoriel-modal");
+
+    if(!modal) return;
+
+    modal.classList.remove("active");
+
+    document.body.style.overflow = "";
+
+    try{
+
+        localStorage.setItem("chessdev-tutoriel-vu", "1");
+
+    }
+    catch(erreur){
+
+        // localStorage indisponible : le tutoriel réapparaîtra, sans gravité
+
+    }
+
+}
+
+function initialiserTutoriel(){
+
+    const modal = document.getElementById("tutoriel-modal");
+
+    if(!modal) return;
+
+    const boutonFermer = document.getElementById("tutoriel-fermer");
+
+    const boutonPrecedent = document.getElementById("tutoriel-precedent");
+
+    const boutonSuivant = document.getElementById("tutoriel-suivant");
+
+    const boutonRevoir = document.getElementById("revoir-tutoriel");
+
+    if(boutonFermer) boutonFermer.addEventListener("click", fermerTutoriel);
+
+    if(boutonPrecedent){
+
+        boutonPrecedent.addEventListener("click", ()=>{
+
+            if(tutorielEtapeActuelle > 0){
+
+                tutorielEtapeActuelle--;
+
+                afficherEtapeTutoriel();
+
+            }
+
+        });
+
+    }
+
+    if(boutonSuivant){
+
+        boutonSuivant.addEventListener("click", ()=>{
+
+            if(tutorielEtapeActuelle < ETAPES_TUTORIEL.length - 1){
+
+                tutorielEtapeActuelle++;
+
+                afficherEtapeTutoriel();
+
+            }
+            else{
+
+                fermerTutoriel();
+
+            }
+
+        });
+
+    }
+
+    if(boutonRevoir){
+
+        boutonRevoir.addEventListener("click", ouvrirTutoriel);
+
+    }
+
+    let dejaVu = false;
+
+    try{
+
+        dejaVu = localStorage.getItem("chessdev-tutoriel-vu") === "1";
+
+    }
+    catch(erreur){
+
+        dejaVu = false;
+
+    }
+
+    if(!dejaVu){
+
+        setTimeout(ouvrirTutoriel, 900);
+
+    }
+
+}
+
+log("✅ Module 9 quindecies chargé");
+/* =====================================================
    MODULE 10
    INITIALISATION GÉNÉRALE
 ===================================================== */
@@ -4331,6 +4802,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     initialiserAnalyse();
 
     /* =========================
+       Historique de parties
+    ========================= */
+
+    initialiserHistorique();
+
+    /* =========================
        Puzzles tactiques
     ========================= */
 
@@ -4353,6 +4830,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     ========================= */
 
     initialiserHorloge();
+
+    /* =========================
+       Tutoriel interactif
+    ========================= */
+
+    initialiserTutoriel();
 
     /* =========================
        Statistiques de lecture

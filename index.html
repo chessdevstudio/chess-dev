@@ -123,6 +123,10 @@
         content="#2563eb">
 
     <meta
+        name="color-scheme"
+        content="light dark">
+
+    <meta
         name="mobile-web-app-capable"
         content="yes">
 
@@ -1926,6 +1930,36 @@
 
         </p>
 
+        <div class="historique-widget">
+
+            <h3 data-i18n="historique-title">💾 Mes parties sauvegardées</h3>
+
+            <div class="historique-sauvegarde">
+
+                <input
+                    type="text"
+                    id="historique-nom-input"
+                    data-i18n-placeholder="historique-nom-placeholder"
+                    placeholder="Nom de la partie (optionnel)">
+
+                <button id="historique-sauvegarder" class="analyse-btn" data-i18n="historique-sauvegarder">
+
+                    💾 Sauvegarder la partie affichée
+
+                </button>
+
+            </div>
+
+            <ul id="historique-liste" class="historique-liste"></ul>
+
+            <p id="historique-vide" class="historique-vide" data-i18n="historique-vide">
+
+                Aucune partie sauvegardée pour le moment.
+
+            </p>
+
+        </div>
+
     </section>
     <!-- =====================================================
          MODULE 11 quinquies
@@ -2303,6 +2337,12 @@
 
         </p>
 
+        <button id="revoir-tutoriel" class="footer-lien-tutoriel" data-i18n="revoir-tutoriel">
+
+            🎓 Revoir le tutoriel
+
+        </button>
+
     </footer>
 
 </main>
@@ -2361,6 +2401,36 @@
         </button>
 
     </nav>
+
+    <!-- ==========================================
+         Tutoriel interactif (première visite)
+    =========================================== -->
+
+    <div id="tutoriel-modal" class="modal">
+
+        <div class="modal-content tutoriel-content">
+
+            <button id="tutoriel-fermer" class="tutoriel-fermer" aria-label="Fermer le tutoriel">✕</button>
+
+            <div class="tutoriel-etape-icone" id="tutoriel-icone">♟️</div>
+
+            <h2 id="tutoriel-titre"></h2>
+
+            <p id="tutoriel-texte"></p>
+
+            <div class="tutoriel-points" id="tutoriel-points"></div>
+
+            <div class="tutoriel-controles">
+
+                <button id="tutoriel-precedent" class="echiquier-btn">◀</button>
+
+                <button id="tutoriel-suivant" class="echiquier-btn echiquier-btn-reset"></button>
+
+            </div>
+
+        </div>
+
+    </div>
 
     <!-- =====================================================
          MODULE 14
